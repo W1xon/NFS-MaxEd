@@ -1,0 +1,91 @@
+﻿<Page x:Class="NFSMaxEd.Views.StartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      Title="StartPage" Height="720" Width="1280">
+
+    <Grid Background="{StaticResource BackgroundDark}">
+        
+        
+        <Border Height="60" VerticalAlignment="Top" Background="Transparent" 
+                 Cursor="SizeAll"/>
+        
+        
+        <TextBlock Text="NFS MaxEd" 
+                   FontSize="28"    
+                   FontWeight="Bold" 
+                   Foreground="White" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   Margin="0,15,0,0"/>
+
+        
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="20"/> 
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="30"/> 
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            
+            <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource CardStyle}" 
+                    Width="280" Height="350">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="pack://application:,,,/Assets/races.png" 
+                           Width="220" Height="220" Stretch="Uniform" Margin="0,0,0,15"/>
+                    <Button x:Name="RacesButton" Click="OnRacesClick" 
+                            Content="Races" Width="220" Height="50" 
+                            Style="{StaticResource ButtonStyle}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource CardStyle}" 
+                    Width="280" Height="350">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="pack://application:,,,/Assets/milestones.png" 
+                           Width="220" Height="220" Stretch="Uniform" Margin="0,0,0,15"/>
+                    <Button 
+                            Content="Milestones" Width="220" Height="50" 
+                            Style="{StaticResource ButtonStyle}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="0" Grid.Column="4" Style="{StaticResource CardStyle}" 
+                    Width="280" Height="350">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="pack://application:,,,/Assets/blacklist.png" 
+                           Width="220" Height="220" Stretch="Uniform" Margin="0,0,0,15"/>
+                    <Button x:Name="BlacklistButton" Click="OnBlacklistClick" 
+                            Content="Blacklist" Width="220" Height="50" 
+                            Style="{StaticResource ButtonStyle}"/>
+                </StackPanel>
+            </Border>
+
+        </Grid>
+
+        
+        <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Bottom" 
+                    Margin="0,0,30,30">
+            
+            <Button x:Name="AboutAuthorButton"
+                    Content="About Author"
+                    Width="160"
+                    Height="45"
+                    Style="{StaticResource ButtonStyle}"
+                    Click="OnAboutAuthorClick"/>
+        </StackPanel>
+
+    </Grid>
+</Page>

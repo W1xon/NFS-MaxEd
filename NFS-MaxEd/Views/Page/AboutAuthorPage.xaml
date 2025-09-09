@@ -1,0 +1,504 @@
+﻿<Page x:Class="NFSMaxEd.Views.AboutAuthorPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Width="1280" Height="720"
+      Background="Transparent">
+
+    <Page.Resources>
+        
+        
+        
+        <Style x:Key="BackButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Background" Value="#1A1A1A"/>
+            <Setter Property="Foreground" Value="#B0B0B0"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#2A2A2A"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <Grid>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#2A2A2A"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#6A4C93"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#3A3A3A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        
+        <Style x:Key="TitleStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#6A4C93" BlurRadius="20" ShadowDepth="0" Opacity="0.6"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        
+        <Style x:Key="BodyTextStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#E0E0E0"/>
+            <Setter Property="LineHeight" Value="24"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+
+        
+        <Style x:Key="SubTitleStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="#00D4FF"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+        </Style>
+
+        
+        <Style x:Key="SocialButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Background" Value="#2A2A2A"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="25"
+                                BorderThickness="2"
+                                BorderBrush="Transparent">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#000000" BlurRadius="10" ShadowDepth="2" Opacity="0.3"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#6A4C93"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#00D4FF"/>
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        
+        <Style x:Key="StatsPanelStyle" TargetType="Border">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#2A2A2A" Offset="0"/>
+                        <GradientStop Color="#1F1F1F" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="Margin" Value="8,8,8,8"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="140"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#3A3A3A"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#000000" BlurRadius="10" ShadowDepth="2" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+            
+        </Style>
+
+        <Style x:Key="StatsNumberStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+        </Style>
+
+        <Style x:Key="StatsLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="#B0B0B0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+        
+        
+        <Style x:Key="DonateButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="56"/>
+            <Setter Property="MinWidth" Value="200"/>
+            <Setter Property="Margin" Value="12"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            
+                            <Border x:Name="pulseEffect" 
+                                    CornerRadius="28"
+                                    Background="#FF6B00"
+                                    Opacity="0.3">
+                                <Border.Effect>
+                                    <BlurEffect Radius="20"/>
+                                </Border.Effect>
+                            </Border>
+                            
+                            
+                            <Border x:Name="border" 
+                                    CornerRadius="28">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#FF8C42" Offset="0"/>
+                                        <GradientStop Color="#FF5500" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Border.Effect>
+                                    <DropShadowEffect Color="#FF6B00" BlurRadius="15" ShadowDepth="0" Opacity="0.8"/>
+                                </Border.Effect>
+                                
+                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"/>
+                              
+                            </Border>
+                        </Grid>
+                        
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1.05" ScaleY="1.05"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        
+        <Storyboard x:Key="FadeInAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                           From="0" To="1" Duration="0:0:1"/>
+        </Storyboard>
+    </Page.Resources>
+
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard Storyboard="{StaticResource FadeInAnimation}"/>
+        </EventTrigger>
+    </Page.Triggers>
+
+    
+    <Grid Background="#1A1A1A">
+        
+        <Canvas>
+            <Ellipse Width="400" Height="400" Canvas.Left="-100" Canvas.Top="-100" 
+                     Fill="#6A4C93" Opacity="0.05"/>
+            <Ellipse Width="300" Height="300" Canvas.Right="-80" Canvas.Bottom="-80" 
+                     Fill="#00D4FF" Opacity="0.04"/>
+        </Canvas>
+
+        
+        <Border Height="60" VerticalAlignment="Top" Background="#0A0A0A" 
+                BorderBrush="#2A2A2A" BorderThickness="0,0,0,1">
+            <Grid>
+                <Button Content="← Back to Start" 
+                        Style="{StaticResource BackButtonStyle}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="20,0,0,0"
+                        Click="BackButton_Click"/>
+                
+                <TextBlock Text="ABOUT" 
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          FontFamily="Segoe UI"
+                          FontWeight="Light"
+                          FontSize="14"
+                          Foreground="#606060"/>
+            </Grid>
+        </Border>
+
+        
+        <Grid Margin="0,60,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="240"/>
+            </Grid.ColumnDefinitions>
+
+            
+             <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="10,20,10,20">
+
+                
+                <Border Style="{StaticResource StatsPanelStyle}">
+                    <StackPanel>
+                        <TextBlock Text="🐛" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                        <TextBlock x:Name="BugsTextBlock" Text="247" Style="{StaticResource StatsNumberStyle}" Foreground="#FF6B6B"/>
+                        <TextBlock Text="Bugs Squashed" Style="{StaticResource StatsLabelStyle}"/>
+                    </StackPanel>
+                </Border>
+
+                
+                <Border Style="{StaticResource StatsPanelStyle}">
+                    <StackPanel>
+                        <TextBlock Text="☕" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                        <TextBlock x:Name="CoffeeTextBlock" Text="1,337" Style="{StaticResource StatsNumberStyle}" Foreground="#8B4513"/>
+                        <TextBlock Text="Coffee Consumed" Style="{StaticResource StatsLabelStyle}"/>
+                    </StackPanel>
+                </Border>
+
+                
+                <Border Style="{StaticResource StatsPanelStyle}">
+                    <StackPanel>
+                        <TextBlock Text="🍪" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                        <TextBlock x:Name="CookiesTextBlock" Text="892" Style="{StaticResource StatsNumberStyle}" Foreground="#DEB887"/>
+                        <TextBlock Text="Cookies Devoured" Style="{StaticResource StatsLabelStyle}"/>
+                    </StackPanel>
+                </Border>
+
+                
+                <Border Style="{StaticResource StatsPanelStyle}">
+                    <StackPanel>
+                        <TextBlock Text="💻" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                        <TextBlock x:Name="LinesTextBlock" Text="10.4K" Style="{StaticResource StatsNumberStyle}" Foreground="#00D4FF"/>
+                        <TextBlock Text="Lines of Code" Style="{StaticResource StatsLabelStyle}"/>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+            
+            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Hidden" 
+                          HorizontalScrollBarVisibility="Hidden"
+                          PanningMode="VerticalOnly">
+                <StackPanel MaxWidth="600" HorizontalAlignment="Center" Margin="40,20,40,40">
+                    
+                    
+                    <TextBlock Text="About the MaxEd Developer" 
+                              Style="{StaticResource TitleStyle}"
+                              Margin="0,20,0,40"/>
+
+                    
+                    <Border Width="120" Height="120" 
+                            CornerRadius="60"
+                            Margin="0,0,0,30"
+                            HorizontalAlignment="Center">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#6A4C93" Offset="0"/>
+                                <GradientStop Color="#00D4FF" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Effect>
+                            <DropShadowEffect Color="#6A4C93" BlurRadius="20" ShadowDepth="0" Opacity="0.6"/>
+                        </Border.Effect>
+                        
+                        <TextBlock Text="👨‍💻" FontSize="50" 
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                    </Border>
+
+                    
+                    <TextBlock Style="{StaticResource BodyTextStyle}"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,40">
+                        <Run Text="I'm "/>
+                        <Run Text="Wixon" FontWeight="Bold" Foreground="#00D4FF"/>
+                        <Run Text=", a programmer who just wanted to help a friend a little, and ended up creating a tool that made life easier."/>
+                        <LineBreak/><LineBreak/>
+                        <Run Text="That's how "/>
+                        <Run Text="MaxEd" FontWeight="Bold" Foreground="#6A4C93"/>
+                        <Run Text=" was born — your loyal companion in the world of NFS modding and crazy ideas."/>
+                        <LineBreak/><LineBreak/>
+                        <Run Text="Big thanks to "/>
+                        <Run Text="X" FontWeight="Bold" Foreground="#00D4FF"/>
+                        <Run Text=" — the main modder and idea generator. If MaxEd ever starts making coffee and peeling potatoes, just know — it was his idea!"/>
+                    </TextBlock>
+
+                    
+                    <Border Background="#0F0F0F" 
+                            CornerRadius="15" 
+                            BorderBrush="#FF6B00"
+                            BorderThickness="2"
+                            Padding="20"
+                            Margin="0,0,0,40">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#FF6B00" BlurRadius="30" ShadowDepth="0" Opacity="0.3"/>
+                        </Border.Effect>
+                        
+                        <StackPanel>
+                            <TextBlock Text="🎁 Support Our Work" 
+                                      Style="{StaticResource SubTitleStyle}"
+                                      FontSize="22"
+                                      Foreground="#FFB366"/>
+                            
+                            <TextBlock Text="If MaxEd helped you, consider supporting the project!"
+                                      Style="{StaticResource BodyTextStyle}"
+                                      FontSize="14"
+                                      Margin="0,0,0,20"/>
+
+                            <Button Content="Support Project" 
+                                    Style="{StaticResource DonateButtonStyle}" 
+                                    HorizontalAlignment="Center"
+                                    Click="DonateButton_Click">
+                                <Button.RenderTransform>
+                                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                </Button.RenderTransform>
+                                <Button.RenderTransformOrigin>
+                                    <Point X="0.5" Y="0.5"/>
+                                </Button.RenderTransformOrigin>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    
+                    <StackPanel Margin="0,0,0,30">
+                        <TextBlock Text="Contact Us" Style="{StaticResource SubTitleStyle}"/>
+
+                        
+                        <TextBlock Text="Wixon (Developer)" 
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
+                                   Foreground="#00D4FF"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,10"/>
+                        
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                            <Button Style="{StaticResource SocialButtonStyle}" ToolTip="Telegram Wixon" 
+                                    Tag="https://t.me/CoderW0rker" Click="SocialButton_Click">
+                                <TextBlock Text="📱" FontSize="20"/>
+                            </Button>
+                            <Button Style="{StaticResource SocialButtonStyle}" ToolTip="Wixon's YouTube Channel" 
+                                    Tag="https://www.youtube.com/@w_ixon" Click="SocialButton_Click">
+                                <TextBlock Text="📺" FontSize="20"/>
+                            </Button>
+                            <Button Style="{StaticResource SocialButtonStyle}" ToolTip="GitHub Wixon" 
+                                    Tag="https://github.com/W1xon" Click="SocialButton_Click">
+                                <TextBlock Text="💻" FontSize="20"/>
+                            </Button>
+                        </StackPanel>
+
+                        
+                        <TextBlock Text="X (Lead Modder)" 
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
+                                   Foreground="#6A4C93"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,10"/>
+                        
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Style="{StaticResource SocialButtonStyle}" ToolTip="Telegram X" 
+                                    Tag="https://t.me/beamka_live" Click="SocialButton_Click">
+                                <TextBlock Text="📱" FontSize="20"/>
+                            </Button>
+                            <Button Style="{StaticResource SocialButtonStyle}" ToolTip="X's YouTube Channel" 
+                                    Tag="https://www.youtube.com/@Beamkago_life" Click="SocialButton_Click">
+                                <TextBlock Text="📺" FontSize="20"/>
+                            </Button>
+                            <Button Style="{StaticResource SocialButtonStyle}" ToolTip="X's Community" 
+                                    Tag="https://discord.gg/ВАШ_Community_Link" Click="SocialButton_Click">
+                                <TextBlock Text="🏆" FontSize="20"/>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+            
+<ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+    <StackPanel Margin="10,20,10,20">
+        
+        <Border Style="{StaticResource StatsPanelStyle}">
+            <StackPanel>
+                <TextBlock Text="💡" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                <TextBlock x:Name="IdeasTextBlock" Text="42" Style="{StaticResource StatsNumberStyle}" Foreground="#6A4C93"/>
+                <TextBlock Text="Crazy Ideas from X" Style="{StaticResource StatsLabelStyle}"/>
+            </StackPanel>
+        </Border>
+
+        
+        <Border Style="{StaticResource StatsPanelStyle}">
+            <StackPanel>
+                <TextBlock Text="🌙" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                <TextBlock x:Name="NightsTextBlock" Text="18" Style="{StaticResource StatsNumberStyle}" Foreground="#FFD700"/>
+                <TextBlock Text="Sleepless Nights" Style="{StaticResource StatsLabelStyle}"/>
+            </StackPanel>
+        </Border>
+
+        
+        <Border Style="{StaticResource StatsPanelStyle}">
+            <StackPanel>
+                <TextBlock Text="🚀" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                <TextBlock x:Name="VersionTextBlock" Text="v0.5" Style="{StaticResource StatsNumberStyle}" Foreground="#00FF88"/>
+                <TextBlock Text="Current Version" Style="{StaticResource StatsLabelStyle}"/>
+            </StackPanel>
+        </Border>
+
+        
+        <Border Style="{StaticResource StatsPanelStyle}">
+            <StackPanel>
+                <TextBlock Text="⭐" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                <TextBlock x:Name="UsersTextBlock" Text="2" Style="{StaticResource StatsNumberStyle}" Foreground="#FFC107"/>
+                <TextBlock Text="Happy Users" Style="{StaticResource StatsLabelStyle}"/>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</ScrollViewer>
+
+        </Grid>
+    </Grid>
+</Page>

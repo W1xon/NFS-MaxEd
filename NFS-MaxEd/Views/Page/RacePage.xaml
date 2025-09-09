@@ -1,0 +1,799 @@
+﻿<Page x:Class="NFSMaxEd.Views.RacePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:NFSMaxEd.Views"
+      mc:Ignorable="d"
+      Background="#1a1a1a"
+      Title="RacePage"  Height="720" Width="1280">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+<Border Background="{StaticResource BackgroundMedium}" 
+        BorderBrush="{StaticResource BorderColor}"
+        BorderThickness="0,0,0,1"
+        MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+    <Grid Margin="30,20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+        
+        <StackPanel Grid.Column="0" 
+                    Orientation="Horizontal" 
+                    VerticalAlignment="Center">
+            <TextBlock Text="NFS-MaxEd" 
+                       FontSize="28" 
+                       FontWeight="Light"
+                       Style="{StaticResource HeaderStyle}"
+                       VerticalAlignment="Center"/>
+        </StackPanel>
+        
+        
+        <Grid Grid.Column="2" HorizontalAlignment="Right">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            
+            <StackPanel Grid.Row="1" 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,20,10,10">
+    
+                <Button Content="💾 Save Configuration" 
+                        MinWidth="180"
+                        Style="{StaticResource ButtonStyle}" 
+                        Padding="20,12"
+                        Background="{StaticResource BackgroundDark}"
+                        Foreground="{StaticResource TextPrimary}"
+                        BorderBrush="{StaticResource BorderColor}"
+                        Click="OnGenerateClick"
+                        Margin="0,0,10,0"/>
+    
+                <Button Content="📍 Open Map"
+                        MinWidth="120"
+                        Style="{StaticResource ButtonStyle}" 
+                        Padding="20,12"
+                        Background="{StaticResource BackgroundDark}"
+                        Foreground="{StaticResource TextPrimary}"
+                        BorderBrush="{StaticResource BorderColor}"
+                        Click="OpenMap_Click"
+                        Margin="0,0,10,0"/>
+    
+                
+                <Button Content="🏠 Start Page"
+                        MinWidth="140"
+                        Style="{StaticResource ButtonStyle}" 
+                        Padding="20,12"
+                        Background="{StaticResource BackgroundDark}"
+                        Foreground="{StaticResource TextPrimary}"
+                        BorderBrush="{StaticResource BorderColor}"
+                        Click="GoToStartPage_Click"/>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Border>
+        
+        <ScrollViewer Grid.Row="1" 
+                      VerticalScrollBarVisibility="Hidden"
+                      HorizontalScrollBarVisibility="Hidden">
+            <Grid Margin="30,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                
+                <Border Grid.Row="0" Style="{StaticResource CardStyle}" DataContext="{Binding Config}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="350"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        
+                        <StackPanel Grid.Column="0" Margin="0,0,30,0">
+                            <TextBlock Text="Race Type" Style="{StaticResource LabelStyle}"/>
+                            <ComboBox 
+                                HorizontalAlignment="Left"
+                                ItemsSource="{Binding NodeTypes}" 
+                                SelectedItem="{Binding NodeType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Width="300"/>
+                        </StackPanel>
+
+                        
+                        <StackPanel Grid.Column="1" >
+                            <TextBlock Text="Race Options" Style="{StaticResource LabelStyle}" Margin="0,0,0,10"/>
+                            <WrapPanel>
+                                <CheckBox IsChecked="{Binding AvailableOnline, Mode=TwoWay }" Content="Available Online"/>
+                                <CheckBox IsChecked="{Binding AvailableQR, Mode=TwoWay }" Content="Available QR"/>
+                                <CheckBox IsChecked="{Binding EnableCops, Mode=TwoWay }" Content="Cops in Race"/>
+                            </WrapPanel>
+                        </StackPanel>
+                        
+                    </Grid>
+                </Border>
+
+                
+                    <Border Grid.Row="1" Style="{StaticResource CardStyle}" DataContext="{Binding Config}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            
+            
+            <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                <TextBlock Text="Heat Settings" FontSize="16" Style="{StaticResource HeaderStyle}" Margin="0,0,0,15"/>
+                <TextBlock Text="Force Heat Level" Style="{StaticResource LabelStyle}"/>
+                <TextBox IsEnabled="{Binding EnableCops}"/>
+                <TextBlock Text="Max Heat Level" Style="{StaticResource LabelStyle}"/>
+                <TextBox IsEnabled="{Binding EnableCops}"/>
+                <TextBlock Text="Event ID" Style="{StaticResource LabelStyle}"/>
+                <TextBox Text="{Binding EventId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Gameplay Vault" Style="{StaticResource LabelStyle}"/>
+                <TextBox Text="{Binding GameplayVault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            
+            <StackPanel Grid.Column="1" Margin="0,0,20,0">
+                <TextBlock Text="Location Settings" FontSize="16" Style="{StaticResource HeaderStyle}" Margin="0,0,0,15"/>
+                <TextBlock Text="Race Bin" Style="{StaticResource LabelStyle}"/>
+                <ComboBox ItemsSource="{Binding RaceBins}" SelectedItem="{Binding RaceBin, Mode=TwoWay}"/>
+                <TextBlock Text="Region" Style="{StaticResource LabelStyle}"/>
+                <ComboBox ItemsSource="{Binding Regions}" SelectedItem="{Binding Region, Mode=TwoWay}"/>
+                <TextBlock Text="Intro NIS" Style="{StaticResource LabelStyle}"/>
+                <ComboBox ItemsSource="{Binding IntroNisList}" SelectedItem="{Binding IntroNis, Mode=TwoWay}"/>
+                <TextBlock Text="Finish Camera" Style="{StaticResource LabelStyle}"/>
+                <ComboBox ItemsSource="{Binding FinishCameraList}" SelectedItem="{Binding FinishCamera, Mode=TwoWay}"/>
+            </StackPanel>
+
+            
+            <StackPanel Grid.Column="2" Margin="0,0,20,0">
+                <TextBlock Text="Race Parameters" FontSize="16" Style="{StaticResource HeaderStyle}" Margin="0,0,0,15"/>
+                <TextBlock Text="Cash Value" Style="{StaticResource LabelStyle}"/>
+                <TextBox Text="{Binding CashValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Traffic Level" Style="{StaticResource LabelStyle}"/>
+                <TextBox Text="{Binding TrafficLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Race Length" Style="{StaticResource LabelStyle}"/>
+                <TextBox Text="{Binding RaceLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+           
+
+
+
+<StackPanel Grid.Column="0" Grid.Row="1" Margin="0,20,20,0"
+            Visibility="{Binding IsCircuitOrKnockout, Converter={StaticResource BooleanToVisibilityConverter}}">
+    <TextBlock Text="Circuit/Knockout Settings" FontSize="16" Style="{StaticResource HeaderStyle}" Margin="0,0,0,15"/>
+    <TextBlock Text="Number of Laps" Style="{StaticResource LabelStyle}"/>
+    <TextBox Text="{Binding NumLaps, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+</StackPanel>
+
+
+<StackPanel Grid.Column="0" Grid.Row="1" Margin="0,20,20,0"
+            Visibility="{Binding IsTollbooth, Converter={StaticResource BooleanToVisibilityConverter}}">
+    <TextBlock Text="Tollbooth Settings" FontSize="16" Style="{StaticResource HeaderStyle}" Margin="0,0,0,15"/>
+    <TextBlock Text="Time Limit (sec)" Style="{StaticResource LabelStyle}"/>
+    <TextBox Text="{Binding TimeLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+</StackPanel>
+
+
+<StackPanel Grid.Column="0" Grid.Row="1" Margin="0,20,20,0"
+            Visibility="{Binding IsSpeedtrap, Converter={StaticResource BooleanToVisibilityConverter}}">
+    <TextBlock Text="Speedtrap Settings" FontSize="16" Style="{StaticResource HeaderStyle}" Margin="0,0,0,15"/>
+    <TextBlock Text="Speedtrap List" Style="{StaticResource LabelStyle}"/>
+    <ComboBox ItemsSource="{Binding SpeedTrapList}" SelectedItem="{Binding SelectedSpeedTrap, Mode=TwoWay}"/>
+</StackPanel>
+
+
+<StackPanel Grid.Column="0" Grid.Row="1" Margin="0,20,20,0"
+            Visibility="{Binding IsDrag, Converter={StaticResource BooleanToVisibilityConverter}}">
+    <TextBlock Text="Drag Settings" FontSize="16" Style="{StaticResource HeaderStyle}" Margin="0,0,0,15"/>
+    <TextBlock Text="Random Spawn Triggers" Style="{StaticResource LabelStyle}"/>
+    <ComboBox ItemsSource="{Binding RandomSpawnTriggersList}" SelectedItem="{Binding SelectedRandomSpawnTrigger, Mode=TwoWay}"/>
+</StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+</Border>
+
+
+                
+                <Border Grid.Row="2" Style="{StaticResource CardStyle}" DataContext="{Binding Config}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Track Objects" FontSize="16" Style="{StaticResource HeaderStyle}" Margin="0,0,0,15"/>
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            
+            <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                <TextBlock Text="Barriers" Style="{StaticResource LabelStyle}" Margin="0,0,0,8"/>
+                
+                <Border Background="{StaticResource BackgroundMedium}"
+                        BorderBrush="{StaticResource BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Height="280">
+                    <Grid Margin="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        
+                        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding Barriers}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,0,0,5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="30"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox Grid.Column="0"
+                                                     Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     Background="{StaticResource BackgroundDark}"
+                                                     Foreground="{StaticResource TextPrimary}"
+                                                     BorderBrush="{StaticResource BorderColor}"
+                                                     Margin="0,0,5,0"/>
+                                            <Button Grid.Column="1" Content="×"
+                                                    Style="{StaticResource DeleteButtonStyle}"
+                                                    Command="{Binding DataContext.RemoveBarrierCommand,  RelativeSource={RelativeSource AncestorType=Border}}"
+                                                    CommandParameter="{Binding .}"/>
+
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                        
+                        <Button Grid.Row="1" Content="+ Add"
+                                Style="{StaticResource ButtonStyle}" 
+                                Command="{Binding AddBarrierCommand}"
+                                Background="{StaticResource BackgroundDark}"
+                                Foreground="{StaticResource TextPrimary}"
+                                BorderBrush="{StaticResource BorderColor}"
+                                Margin="0,8,0,0"/>
+                    </Grid>
+                </Border>
+            </StackPanel>
+
+            
+            <StackPanel Grid.Column="1" Margin="0,0,10,0">
+                <TextBlock Text="Opponents" Style="{StaticResource LabelStyle}" Margin="0,0,0,8"/>
+                
+                <Border Background="{StaticResource BackgroundMedium}"
+                        BorderBrush="{StaticResource BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Height="280">
+                    <Grid Margin="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        
+                        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl x:Name="OpponentList" ItemsSource="{Binding OpponentPaths}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,0,0,5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="30"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox Grid.Column="0"
+                                                     Text="{Binding Path, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     Background="{StaticResource BackgroundDark}"
+                                                     Foreground="{StaticResource TextPrimary}"
+                                                     BorderBrush="{StaticResource BorderColor}"
+                                                     Margin="0,0,5,0"/>
+                                            <Button Grid.Column="1" Content="×"
+                                                    Style="{StaticResource DeleteButtonStyle}"
+                                                    Command="{Binding DataContext.RemoveOpponentCommand,  RelativeSource={RelativeSource AncestorType=Border}}"
+                                                    CommandParameter="{Binding .}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                        
+                        <Button Grid.Row="1" Content="+ Add"
+                                Style="{StaticResource ButtonStyle}" 
+                                Command="{Binding AddOpponentCommand}"
+                                Background="{StaticResource BackgroundDark}"
+                                Foreground="{StaticResource TextPrimary}"
+                                BorderBrush="{StaticResource BorderColor}"
+                                Margin="0,8,0,0"/>
+                    </Grid>
+                </Border>
+            </StackPanel>
+
+            
+            <Grid Grid.Column="2" Grid.ColumnSpan="2" Margin="10,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Checkpoints" Style="{StaticResource LabelStyle}" Margin="0,0,0,8"/>
+                    
+                    <Border Background="{StaticResource BackgroundMedium}"
+                            BorderBrush="{StaticResource BorderColor}"
+                            BorderThickness="1"
+                            CornerRadius="4"
+                            Height="280">
+                        <Grid Margin="8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                                <ItemsControl ItemsSource="{Binding Checkpoints}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="{StaticResource BackgroundDark}"
+                                                    BorderBrush="{StaticResource BorderColor}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="3"
+                                                    Padding="6"
+                                                    Margin="0,0,0,6">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    
+                                                    <Grid Grid.Row="0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="30"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBox Grid.Column="0"
+                                                                 Text="{Binding Path, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                 Background="Transparent"
+                                                                 Foreground="{StaticResource TextPrimary}"
+                                                                 BorderBrush="{StaticResource BorderColor}"
+                                                                 BorderThickness="1"
+                                                                 Margin="0,0,3,0"
+                                                                 FontSize="11"/>
+                                                        <Button Grid.Column="1" Content="×"
+                                                                Style="{StaticResource DeleteButtonStyle}"
+                                                                Command="{Binding DataContext.RemoveCheckpointCommand ,  RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                                CommandParameter="{Binding}"/>
+
+                                                    </Grid>
+
+                                                    <Grid Grid.Row="1" Margin="0,3,0,0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>   
+                                                            <ColumnDefinition Width="*"/>     
+                                                            <ColumnDefinition Width="*"/>     
+                                                            <ColumnDefinition Width="*"/>     
+                                                        </Grid.ColumnDefinitions>
+
+                                                        
+                                                        <TextBlock Grid.Column="0" Text="Position:" VerticalAlignment="Center" Margin="10" 
+                                                                   Foreground="{StaticResource TextSecondary}" FontSize="10" />
+
+                                                        
+                                                        <TextBlock Grid.Column="1" Text="X" VerticalAlignment="Center"  Margin="0,10,10,10" 
+                                                                   Foreground="{StaticResource TextPrimary}" FontSize="10" />
+                                                        <TextBox Grid.Column="1" Text="{Binding PositionX, Mode=TwoWay}" 
+                                                                 Background="Transparent" Margin="10"  BorderBrush="{StaticResource BorderColor}" 
+                                                                 Foreground="{StaticResource TextPrimary}" FontSize="10" />
+
+                                                        
+                                                        <TextBlock Grid.Column="2" Text="Y" VerticalAlignment="Center"  Margin="0,10,10,10" 
+                                                                   Foreground="{StaticResource TextPrimary}" FontSize="10" />
+                                                        <TextBox Grid.Column="2" Text="{Binding PositionY, Mode=TwoWay}" 
+                                                                 Background="Transparent" Margin="10" BorderBrush="{StaticResource BorderColor}" 
+                                                                 Foreground="{StaticResource TextPrimary}" FontSize="10" />
+
+                                                        
+                                                        <TextBlock Grid.Column="3" Text="Z" VerticalAlignment="Center"  Margin="0,10,10,10" 
+                                                                   Foreground="{StaticResource TextPrimary}" FontSize="10" />
+                                                        <TextBox Grid.Column="3" Text="{Binding PositionZ, Mode=TwoWay}" 
+                                                                 Background="Transparent" Margin="10"  BorderBrush="{StaticResource BorderColor}" 
+                                                                 Foreground="{StaticResource TextPrimary}" FontSize="10"/>
+                                                    </Grid>
+
+
+
+                                                    
+                                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,3,0,0">
+                                                        <TextBlock Text="Rotation:" VerticalAlignment="Center" Margin="0,0,3,0" 
+                                                                   Foreground="{StaticResource TextSecondary}" FontSize="10"/>
+                                                        <TextBox Width="60" Text="{Binding Rotation, Mode=TwoWay}" 
+                                                                 Background="Transparent" BorderBrush="{StaticResource BorderColor}"
+                                                                 Foreground="{StaticResource TextPrimary}" FontSize="10"/>
+                                                    </StackPanel>
+                                                  </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                            
+                            <Button Grid.Row="1" Content="+ Add"
+                                    Style="{StaticResource ButtonStyle}" 
+                                    Command="{Binding AddCheckpointCommand}"
+                                    Background="{StaticResource BackgroundDark}"
+                                    Foreground="{StaticResource TextPrimary}"
+                                    BorderBrush="{StaticResource BorderColor}"
+                                    Margin="0,8,0,0"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                
+                <StackPanel Grid.Column="2"
+                            Visibility="{Binding IsShortcutAvailable, 
+                            RelativeSource={RelativeSource AncestorType=Window}, 
+                            Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock Text="Shortcuts" Style="{StaticResource LabelStyle}" Margin="0,0,0,8"/>
+                    
+                    <Border Background="{StaticResource BackgroundMedium}"
+                            BorderBrush="{StaticResource BorderColor}"
+                            BorderThickness="1"
+                            CornerRadius="4"
+                            Height="280">
+                        <Grid Margin="8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                                <ItemsControl ItemsSource="{Binding Shortcuts}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="{StaticResource BackgroundDark}"
+                                                    BorderBrush="{StaticResource BorderColor}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="3"
+                                                    Padding="6"
+                                                    Margin="0,0,0,6">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    
+                                                    <Grid Grid.Row="0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="30"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBox Grid.Column="0"
+                                                                 Text="{Binding Path, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                 Background="Transparent"
+                                                                 Foreground="{StaticResource TextPrimary}"
+                                                                 BorderBrush="{StaticResource BorderColor}"
+                                                                 BorderThickness="1"
+                                                                 Margin="0,0,3,0"
+                                                                 FontSize="11"/>
+                                                        <Button Grid.Column="1" Content="×"
+                                                                Style="{StaticResource DeleteButtonStyle}" 
+                                                                Command="{Binding DataContext.RemoveShortcutCommand,  RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                                CommandParameter="{Binding}">
+                                                            
+                                                        </Button>
+                                                    </Grid>
+
+                                                    
+                                                    <Grid Grid.Row="1" Margin="0,3,0,0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>   
+                                                            <ColumnDefinition Width="*"/>     
+                                                            <ColumnDefinition Width="*"/>     
+                                                            <ColumnDefinition Width="*"/>     
+                                                        </Grid.ColumnDefinitions>
+
+                                                        
+                                                        <TextBlock Grid.Column="0" Text="Position:" VerticalAlignment="Center" Margin="10" 
+                                                                   Foreground="{StaticResource TextSecondary}" FontSize="10" />
+
+                                                        
+                                                        <TextBlock Grid.Column="1" Text="X" VerticalAlignment="Center"  Margin="0,10,10,10" 
+                                                                   Foreground="{StaticResource TextPrimary}" FontSize="10" />
+                                                        <TextBox Grid.Column="1" Text="{Binding PositionX, Mode=TwoWay}" 
+                                                                 Background="Transparent" Margin="10"  BorderBrush="{StaticResource BorderColor}" 
+                                                                 Foreground="{StaticResource TextPrimary}" FontSize="10" />
+
+                                                        
+                                                        <TextBlock Grid.Column="2" Text="Y" VerticalAlignment="Center"  Margin="0,10,10,10" 
+                                                                   Foreground="{StaticResource TextPrimary}" FontSize="10" />
+                                                        <TextBox Grid.Column="2" Text="{Binding PositionY, Mode=TwoWay}" 
+                                                                 Background="Transparent" Margin="10" BorderBrush="{StaticResource BorderColor}" 
+                                                                 Foreground="{StaticResource TextPrimary}" FontSize="10" />
+
+                                                        
+                                                        <TextBlock Grid.Column="3" Text="Z" VerticalAlignment="Center"  Margin="0,10,10,10" 
+                                                                   Foreground="{StaticResource TextPrimary}" FontSize="10" />
+                                                        <TextBox Grid.Column="3" Text="{Binding PositionZ, Mode=TwoWay}" 
+                                                                 Background="Transparent" Margin="10"  BorderBrush="{StaticResource BorderColor}" 
+                                                                 Foreground="{StaticResource TextPrimary}" FontSize="10"/>
+                                                    </Grid>
+
+
+
+                                                    
+                                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,3,0,0">
+                                                        <TextBlock Text="Rotation:" VerticalAlignment="Center" Margin="0,0,3,0" 
+                                                                   Foreground="{StaticResource TextSecondary}" FontSize="10"/>
+                                                        <TextBox Width="60" Text="{Binding Rotation, Mode=TwoWay}" 
+                                                                 Background="Transparent" BorderBrush="{StaticResource BorderColor}"
+                                                                 Foreground="{StaticResource TextPrimary}" FontSize="10"/>
+                                                    </StackPanel>
+
+                                                    
+                                                    <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,3,0,0">
+                                                        <TextBlock Text="Min:" VerticalAlignment="Center" Margin="0,0,3,0" 
+                                                                   Foreground="{StaticResource TextSecondary}" FontSize="10"/>
+                                                        <TextBox Width="50" Text="{Binding MinChance, Mode=TwoWay}" 
+                                                                 Background="Transparent" BorderBrush="{StaticResource BorderColor}"
+                                                                 Foreground="{StaticResource TextPrimary}" FontSize="10"/>
+                                                    </StackPanel>
+
+                                                    
+                                                    <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,3,0,0">
+                                                        <TextBlock Text="Max:" VerticalAlignment="Center" Margin="0,0,3,0" 
+                                                                   Foreground="{StaticResource TextSecondary}" FontSize="10"/>
+                                                        <TextBox Width="50" Text="{Binding MaxChance, Mode=TwoWay}" 
+                                                                 Background="Transparent" BorderBrush="{StaticResource BorderColor}"
+                                                                 Foreground="{StaticResource TextPrimary}" FontSize="10"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                            
+                            <Button Grid.Row="1" Content="+ Add"
+                                    Style="{StaticResource ButtonStyle}" 
+                                    Command="{Binding AddShortcutCommand}"
+                                    Background="{StaticResource BackgroundDark}"
+                                    Foreground="{StaticResource TextPrimary}"
+                                    BorderBrush="{StaticResource BorderColor}"
+                                    Margin="0,8,0,0"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1" ColumnSpan="4" Margin="0,8,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Start Grid" Style="{StaticResource LabelStyle}" Margin="0,0,0,8"/>
+                    
+                    <Border Background="{StaticResource BackgroundMedium}"
+                            BorderBrush="{StaticResource BorderColor}"
+                            BorderThickness="1"
+                            CornerRadius="4">
+                        <Border Background="{StaticResource BackgroundDark}"
+                                BorderBrush="{StaticResource BorderColor}"
+                                BorderThickness="1"
+                                CornerRadius="3"
+                                Padding="6"
+                                Margin="8">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+            
+                                
+                                <TextBox Grid.Row="0"
+                                         
+                                         IsEnabled="False"
+                                         Text="{Binding StartGrid.Path, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Background="Transparent"
+                                         Foreground="{StaticResource TextPrimary}"
+                                         BorderBrush="{StaticResource BorderColor}"
+                                         BorderThickness="1"
+                                         FontSize="11"/>
+            
+                                
+                                <Grid Grid.Row="1" Margin="0,3,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+            
+                                    
+                                    <TextBlock Grid.Column="0" Text="Position:" VerticalAlignment="Center" Margin="10" 
+                                               Foreground="{StaticResource TextSecondary}" FontSize="10" />
+            
+                                    
+                                    <TextBlock Grid.Column="1" Text="X" VerticalAlignment="Center" Margin="0,10,10,10" 
+                                               Foreground="{StaticResource TextPrimary}" FontSize="10" />
+                                    <TextBox Grid.Column="1" Text="{Binding StartGrid.PositionX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                             Background="Transparent" Margin="10" BorderBrush="{StaticResource BorderColor}" 
+                                             Foreground="{StaticResource TextPrimary}" FontSize="10" />
+            
+                                    
+                                    <TextBlock Grid.Column="2" Text="Y" VerticalAlignment="Center" Margin="0,10,10,10" 
+                                               Foreground="{StaticResource TextPrimary}" FontSize="10" />
+                                    <TextBox Grid.Column="2" Text="{Binding StartGrid.PositionY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                             Background="Transparent" Margin="10" BorderBrush="{StaticResource BorderColor}" 
+                                             Foreground="{StaticResource TextPrimary}" FontSize="10" />
+            
+                                    
+                                    <TextBlock Grid.Column="3" Text="Z" VerticalAlignment="Center" Margin="0,10,10,10" 
+                                               Foreground="{StaticResource TextPrimary}" FontSize="10" />
+                                    <TextBox Grid.Column="3" Text="{Binding StartGrid.PositionZ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                             Background="Transparent" Margin="10" BorderBrush="{StaticResource BorderColor}" 
+                                             Foreground="{StaticResource TextPrimary}" FontSize="10"/>
+                                </Grid>
+            
+                                
+                                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,3,0,0">
+                                    <TextBlock Text="Rotation:" VerticalAlignment="Center" Margin="0,0,3,0" 
+                                               Foreground="{StaticResource TextSecondary}" FontSize="10"/>
+                                    <TextBox Width="60" Text="{Binding StartGrid.Rotation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                             Background="Transparent" BorderBrush="{StaticResource BorderColor}"
+                                             Foreground="{StaticResource TextPrimary}" FontSize="10"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Border>
+                </StackPanel>
+            
+                
+                <StackPanel Grid.Column="2">
+        <TextBlock Text="Finish Line" Style="{StaticResource LabelStyle}" Margin="0,0,0,8"/>
+        
+        <Border Background="{StaticResource BackgroundMedium}"
+                BorderBrush="{StaticResource BorderColor}"
+                BorderThickness="1"
+                CornerRadius="4">
+            <Border Background="{StaticResource BackgroundDark}"
+                    BorderBrush="{StaticResource BorderColor}"
+                    BorderThickness="1"
+                    CornerRadius="3"
+                    Padding="6"
+                    Margin="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    
+                    <TextBox Grid.Row="0"
+                             IsEnabled="False"
+                             Text="{Binding FinishLine.Path, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Background="Transparent"
+                             Foreground="{StaticResource TextPrimary}"
+                             BorderBrush="{StaticResource BorderColor}"
+                             BorderThickness="1"
+                             FontSize="11"/>
+
+                    
+                    <Grid Grid.Row="1" Margin="0,3,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        
+                        <TextBlock Grid.Column="0" Text="Position:" VerticalAlignment="Center" Margin="10" 
+                                   Foreground="{StaticResource TextSecondary}" FontSize="10" />
+
+                        
+                        <TextBlock Grid.Column="1" Text="X" VerticalAlignment="Center" Margin="0,10,10,10" 
+                                   Foreground="{StaticResource TextPrimary}" FontSize="10" />
+                        <TextBox Grid.Column="1" Text="{Binding FinishLine.PositionX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 Background="Transparent" Margin="10" BorderBrush="{StaticResource BorderColor}" 
+                                 Foreground="{StaticResource TextPrimary}" FontSize="10" />
+
+                        
+                        <TextBlock Grid.Column="2" Text="Y" VerticalAlignment="Center" Margin="0,10,10,10" 
+                                   Foreground="{StaticResource TextPrimary}" FontSize="10" />
+                        <TextBox Grid.Column="2" Text="{Binding FinishLine.PositionY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 Background="Transparent" Margin="10" BorderBrush="{StaticResource BorderColor}" 
+                                 Foreground="{StaticResource TextPrimary}" FontSize="10" />
+
+                        
+                        <TextBlock Grid.Column="3" Text="Z" VerticalAlignment="Center" Margin="0,10,10,10" 
+                                   Foreground="{StaticResource TextPrimary}" FontSize="10" />
+                        <TextBox Grid.Column="3" Text="{Binding FinishLine.PositionZ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 Background="Transparent" Margin="10" BorderBrush="{StaticResource BorderColor}" 
+                                 Foreground="{StaticResource TextPrimary}" FontSize="10"/>
+                    </Grid>
+
+                    
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,3,0,0">
+                        <TextBlock Text="Rotation:" VerticalAlignment="Center" Margin="0,0,3,0" 
+                                   Foreground="{StaticResource TextSecondary}" FontSize="10"/>
+                        <TextBox Width="60" Text="{Binding FinishLine.Rotation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 Background="Transparent" BorderBrush="{StaticResource BorderColor}"
+                                 Foreground="{StaticResource TextPrimary}" FontSize="10"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+    </StackPanel>
+                
+                <StackPanel Grid.Column="4">
+                    <TextBlock Text="Reset Player Trigger" FontSize="16" Style="{StaticResource HeaderStyle}" Margin="0,0,0,15"/>
+                    <TextBox Height="180" 
+                             IsEnabled="False"
+                             VerticalScrollBarVisibility="Auto"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"/>
+                </StackPanel>
+                        
+                
+            </Grid>
+        </Grid>
+    </Grid>
+</Border>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>
