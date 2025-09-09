@@ -6,7 +6,7 @@
 
 ## 📝 Overview
 
-MaxEd is a highly sophisticated, world-changing tool designed to revolutionize the way you *sort-of* tinker with NFS mods. Intended for programmers who “just want to help a friend” but ended up creating an actual editor.  
+MaxEd is  a world-changing tool designed to revolutionize the way you *sort-of* tinker with NFS mods.
 
 - Create.  
 - Edit.  
