@@ -55,6 +55,7 @@
                     <Image Source="pack://application:,,,/Assets/milestones.png" 
                            Width="220" Height="220" Stretch="Uniform" Margin="0,0,0,15"/>
                     <Button 
+                            Click="OnMilestonesClick"
                             Content="Milestones" Width="220" Height="50" 
                             Style="{StaticResource ButtonStyle}"/>
                 </StackPanel>

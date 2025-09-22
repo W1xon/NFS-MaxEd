@@ -16,6 +16,11 @@ public partial class StartPage : Page
         NavigationService.Navigate(new RacePage());
     }
 
+    private void OnMilestonesClick(object sender, System.Windows.RoutedEventArgs e)
+    {
+        NavigationService.Navigate(new MilestonesPage());
+    }
+
     private void OnBlacklistClick(object sender, System.Windows.RoutedEventArgs e)
     {
         NavigationService.Navigate(new BlackListPage());
