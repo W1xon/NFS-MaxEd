@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using NFSMaxEd.Services;
+
 namespace NFSMaxEd.Views;
 
 public partial class MilestonesPage : Page
@@ -10,8 +12,8 @@ public partial class MilestonesPage : Page
     }
     private void OnGenerateClick(object sender, RoutedEventArgs e)
     {
+        FileService.SaveDemoScript();
     }
-
     private void GoToStartPage_Click(object sender, RoutedEventArgs e)
     {
         NavigationService?.Navigate(new StartPage());

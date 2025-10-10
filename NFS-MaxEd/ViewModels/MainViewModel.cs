@@ -11,6 +11,7 @@ public class MainViewModel : INotifyPropertyChanged
     private readonly RaceConfig _config = new();
     public RaceConfig Config => _config;
     public BlacklistConfig Blacklist { get; } = new();
+    public MilestoneConfig MilestoneConfig { get; } = new();
     
     private static MainViewModel _instance;
     public static MainViewModel Instance
