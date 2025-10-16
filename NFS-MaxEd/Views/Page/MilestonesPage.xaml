@@ -1,200 +1,224 @@
-﻿<Page x:Class="NFSMaxEd.Views.MilestonesPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      mc:Ignorable="d"
-      Background="#1a1a1a"
-      Title="MilestonesPage" Height="720" Width="1280">
-    
+﻿<Page
+    Background="#1a1a1a"
+    Height="720"
+    Title="MilestonesPage"
+    Width="1280"
+    mc:Ignorable="d"
+    x:Class="NFSMaxEd.Views.MilestonesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
-        <!-- Top Panel with rounded corners -->
-        <Border Grid.Row="0" Margin="30,0,30,20"
-                Background="{StaticResource BackgroundMedium}"
-                CornerRadius="15"
-                Padding="20"
-                SnapsToDevicePixels="True">
+
+        <!--  Top Panel with rounded corners  -->
+        <Border
+            Background="{StaticResource BackgroundMedium}"
+            CornerRadius="15"
+            Grid.Row="0"
+            Margin="30,0,30,20"
+            Padding="20"
+            SnapsToDevicePixels="True">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                
-                <!-- Header and Page Title -->
-                <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
-                    <TextBlock Text="NFS-MaxEd"
-                               FontSize="28"
-                               FontWeight="Light"
-                               Style="{StaticResource HeaderStyle}"
-                               Foreground="White"/>
-                    <TextBlock Text="Milestones Configuration"
-                               FontSize="24"
-                               FontWeight="Bold"
-                               Foreground="White"
-                               Margin="0,5,0,0"/>
+
+                <!--  Header and Page Title  -->
+                <StackPanel
+                    Grid.Column="0"
+                    Orientation="Vertical"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        FontSize="28"
+                        FontWeight="Light"
+                        Foreground="White"
+                        Style="{StaticResource HeaderStyle}"
+                        Text="NFS-MaxEd" />
+                    <TextBlock
+                        FontSize="24"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Margin="0,5,0,0"
+                        Text="Milestones Configuration" />
                 </StackPanel>
-                
-                <!-- Buttons -->
-                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button Content="💾 Save Configuration"
-                            MinWidth="180"
-                            Style="{StaticResource ButtonStyle}" 
-                            Padding="20,12"
-                            Background="{StaticResource BackgroundDark}"
-                            Foreground="{StaticResource TextPrimary}"
-                            BorderBrush="{StaticResource BorderColor}"
-                            Click="OnGenerateClick"
-                            Margin="0,0,10,0"/>
-                    <Button Content="🏠 Start Page"
-                            MinWidth="140"
-                            Style="{StaticResource ButtonStyle}" 
-                            Padding="20,12"
-                            Background="{StaticResource BackgroundDark}"
-                            Foreground="{StaticResource TextPrimary}"
-                            BorderBrush="{StaticResource BorderColor}"
-                            Click="GoToStartPage_Click"/>
+
+                <!--  Buttons  -->
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
+                    <Button
+                        Background="{StaticResource BackgroundDark}"
+                        BorderBrush="{StaticResource BorderColor}"
+                        Click="OnGenerateClick"
+                        Content="💾 Save Configuration"
+                        Foreground="{StaticResource TextPrimary}"
+                        Margin="0,0,10,0"
+                        MinWidth="180"
+                        Padding="20,12"
+                        Style="{StaticResource ButtonStyle}" />
+                    <Button
+                        Background="{StaticResource BackgroundDark}"
+                        BorderBrush="{StaticResource BorderColor}"
+                        Click="GoToStartPage_Click"
+                        Content="🏠 Start Page"
+                        Foreground="{StaticResource TextPrimary}"
+                        MinWidth="140"
+                        Padding="20,12"
+                        Style="{StaticResource ButtonStyle}" />
                 </StackPanel>
             </Grid>
         </Border>
-        
-        <!-- Main Content -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
-                      DataContext="{Binding MilestoneConfig}">
+
+        <!--  Main Content  -->
+        <ScrollViewer
+            DataContext="{Binding MilestoneConfig}"
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
             <Grid Margin="30,0,30,30">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                
-                <!-- Basic Information Section -->
-                <Border Grid.Row="1" 
-                        Background="{StaticResource BackgroundMedium}" 
-                        CornerRadius="8" 
-                        Padding="20" 
-                        Margin="0,0,0,20">
+
+                <!--  Basic Information Section  -->
+                <Border
+                    Background="{StaticResource BackgroundMedium}"
+                    CornerRadius="8"
+                    Grid.Row="1"
+                    Margin="0,0,0,20"
+                    Padding="20">
                     <StackPanel>
-                        <TextBlock Text="Basic Information" 
-                                   Style="{StaticResource LabelStyle}" 
-                                   FontSize="18" 
-                                   FontWeight="Bold" 
-                                   Margin="0,0,0,15"/>
-                        
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Margin="0,0,0,15"
+                            Style="{StaticResource LabelStyle}"
+                            Text="Basic Information" />
+
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            
-                            <!-- Milestone Type -->
+
+                            <!--  Milestone Type  -->
                             <StackPanel Grid.Column="0">
-                                <TextBlock Text="Milestone Type" 
-                                           Style="{StaticResource LabelStyle}" 
-                                           Margin="0,0,0,5"/>
-                                <ComboBox 
-                                    ItemsSource="{Binding MilestoneTypes}" 
-                                    SelectedItem="{Binding MilestoneType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Height="35"/>
+                                <TextBlock
+                                    Margin="0,0,0,5"
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="Milestone Type" />
+                                <ComboBox
+                                    Height="35"
+                                    ItemsSource="{Binding MilestoneTypes}"
+                                    SelectedItem="{Binding MilestoneType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
-                            
-                            <!-- Spawn Point -->
+
+                            <!--  Spawn Point  -->
                             <StackPanel Grid.Column="2">
-                                <TextBlock Text="Spawn Point" 
-                                           Style="{StaticResource LabelStyle}" 
-                                           Margin="0,0,0,5"/>
-                                <ComboBox 
-                                    ItemsSource="{Binding SpawnPoints}" 
-                                    SelectedItem="{Binding SelectedSpawnPoint, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Height="35">
-                                </ComboBox>
+                                <TextBlock
+                                    Margin="0,0,0,5"
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="Spawn Point" />
+                                <ComboBox
+                                    Height="35"
+                                    ItemsSource="{Binding SpawnPoints}"
+                                    SelectedItem="{Binding SelectedSpawnPoint, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
-                            <!-- Bin Index -->
+                            <!--  Bin Index  -->
                             <StackPanel Grid.Column="4">
-                                <TextBlock Text="Bin Index" 
-                                           Style="{StaticResource LabelStyle}" 
-                                           Margin="0,0,0,5"/>
-                                <ComboBox 
-                                    ItemsSource="{Binding BinIndices}" 
-                                    SelectedItem="{Binding SelectedBinIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Height="35">
-                                </ComboBox>
+                                <TextBlock
+                                    Margin="0,0,0,5"
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="Bin Index" />
+                                <ComboBox
+                                    Height="35"
+                                    ItemsSource="{Binding BinIndices}"
+                                    SelectedItem="{Binding SelectedBinIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </Grid>
                     </StackPanel>
                 </Border>
-                
-                <!-- Numeric Values Section -->
-                <Border Grid.Row="2" 
-                        Background="{StaticResource BackgroundMedium}" 
-                        CornerRadius="8" 
-                        Padding="20" 
-                        Margin="0,0,0,20">
+
+                <!--  Numeric Values Section  -->
+                <Border
+                    Background="{StaticResource BackgroundMedium}"
+                    CornerRadius="8"
+                    Grid.Row="2"
+                    Margin="0,0,0,20"
+                    Padding="20">
                     <StackPanel>
-                        <TextBlock Text="Numeric Parameters" 
-                                   Style="{StaticResource LabelStyle}" 
-                                   FontSize="18" 
-                                   FontWeight="Bold" 
-                                   Margin="0,0,0,15"/>
-                        
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Margin="0,0,0,15"
+                            Style="{StaticResource LabelStyle}"
+                            Text="Numeric Parameters" />
+
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="15"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="15" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="15"/>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="15" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            
-                            <!-- Bounty -->
+
+                            <!--  Bounty  -->
                             <StackPanel Grid.Column="0" Grid.Row="0">
-                                <TextBlock Text="Bounty" 
-                                           Style="{StaticResource LabelStyle}" 
-                                           Margin="0,0,0,5"/>
-                                <TextBox Text="{Binding Bounty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                         Height="35"/>
+                                <TextBlock
+                                    Margin="0,0,0,5"
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="Bounty" />
+                                <TextBox Height="35" Text="{Binding Bounty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
-                            
-                            <!-- Goal Add Prev Best -->
+
+                            <!--  Goal Add Prev Best  -->
                             <StackPanel Grid.Column="2" Grid.Row="0">
-                                <TextBlock Text="Goal Add Prev Best" 
-                                           Style="{StaticResource LabelStyle}" 
-                                           Margin="0,0,0,5"/>
-                                <TextBox Text="{Binding GoalAddPrevBest, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                         Height="35"/>
+                                <TextBlock
+                                    Margin="0,0,0,5"
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="Goal Add Prev Best" />
+                                <TextBox Height="35" Text="{Binding GoalAddPrevBest, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
-                            
-                            <!-- Goal Easy -->
+
+                            <!--  Goal Easy  -->
                             <StackPanel Grid.Column="0" Grid.Row="2">
-                                <TextBlock Text="Goal Easy" 
-                                           Style="{StaticResource LabelStyle}" 
-                                           Margin="0,0,0,5"/>
-                                <TextBox Text="{Binding GoalEasy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                         Height="35"/>
+                                <TextBlock
+                                    Margin="0,0,0,5"
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="Goal Easy" />
+                                <TextBox Height="35" Text="{Binding GoalEasy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
-                            
-                            <!-- Goal Hard -->
+
+                            <!--  Goal Hard  -->
                             <StackPanel Grid.Column="2" Grid.Row="2">
-                                <TextBlock Text="Goal Hard" 
-                                           Style="{StaticResource LabelStyle}" 
-                                           Margin="0,0,0,5"/>
-                                <TextBox Text="{Binding GoalHard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                         Height="35"/>
+                                <TextBlock
+                                    Margin="0,0,0,5"
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="Goal Hard" />
+                                <TextBox Height="35" Text="{Binding GoalHard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </Grid>
                     </StackPanel>

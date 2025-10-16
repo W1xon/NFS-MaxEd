@@ -57,7 +57,7 @@ namespace NFSMaxEd.Views
                     {
                         FileName = url,
                         UseShellExecute = true
-                    });
+                        });
                 }
                 catch
                 {
@@ -71,7 +71,7 @@ namespace NFSMaxEd.Views
             {
                 Process.Start(new ProcessStartInfo
                 {
-                    FileName = "https://www.donationalerts.com/r/w1xon",
+                    FileName = "https://dalink.to/w1xon",
                     UseShellExecute = true
                 });
             }

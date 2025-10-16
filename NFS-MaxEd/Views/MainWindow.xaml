@@ -1,101 +1,149 @@
-﻿<Window x:Class="NFSMaxEd.Views.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="NFS Race Creator" Height="720" Width="1280"
-        Background="#1a1a1a"
-        WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
-        AllowsTransparency="True">
+﻿<Window
+    AllowsTransparency="True"
+    Background="#1a1a1a"
+    Height="720"
+    Title="NFS Race Creator"
+    Width="1280"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    x:Class="NFSMaxEd.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Grid>
-        
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border
+            Background="Transparent"
+            Cursor="SizeAll"
+            MouseLeftButtonDown="DragWindow">
 
-        
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,5,0">
-            
-            
-            <Button Width="35" Height="25" Content="🗕"
-                    Background="{StaticResource BackgroundMedium}" Foreground="{StaticResource TextPrimary}"
-                    BorderBrush="{StaticResource BorderColor}" BorderThickness="1"
-                    FontSize="12" Cursor="Hand" Click="Minimize_Click" ToolTip="Minimize" Margin="0,0,2,0">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}"
+            <!--  Системные кнопки вверху справа  -->
+            <StackPanel
+                HorizontalAlignment="Right"
+                Margin="0,5,5,0"
+                Orientation="Horizontal"
+                VerticalAlignment="Top">
+
+                <!--  Свёрнуть  -->
+                <Button
+                    Background="{StaticResource BackgroundMedium}"
+                    BorderBrush="{StaticResource BorderColor}"
+                    BorderThickness="1"
+                    Click="Minimize_Click"
+                    Content="🗕"
+                    Cursor="Hand"
+                    FontSize="12"
+                    Foreground="{StaticResource TextPrimary}"
+                    Height="25"
+                    Margin="0,0,2,0"
+                    ToolTip="Minimize"
+                    Width="35">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border
+                                            Background="{TemplateBinding Background}"
                                             BorderBrush="{TemplateBinding BorderBrush}"
                                             BorderThickness="{TemplateBinding BorderThickness}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="{StaticResource BackgroundLight}"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Style>
-            </Button>
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource BackgroundLight}" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
 
-            
-            <Button Width="35" Height="25" Content="🗖"
-                    Background="{StaticResource BackgroundMedium}" Foreground="{StaticResource TextPrimary}"
-                    BorderBrush="{StaticResource BorderColor}" BorderThickness="1"
-                    FontSize="12" Cursor="Hand" Click="Maximize_Click" ToolTip="Maximize" Margin="0,0,2,0">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}"
+                <!--  Развернуть  -->
+                <Button
+                    Background="{StaticResource BackgroundMedium}"
+                    BorderBrush="{StaticResource BorderColor}"
+                    BorderThickness="1"
+                    Click="Maximize_Click"
+                    Content="🗖"
+                    Cursor="Hand"
+                    FontSize="12"
+                    Foreground="{StaticResource TextPrimary}"
+                    Height="25"
+                    Margin="0,0,2,0"
+                    ToolTip="Maximize"
+                    Width="35">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border
+                                            Background="{TemplateBinding Background}"
                                             BorderBrush="{TemplateBinding BorderBrush}"
                                             BorderThickness="{TemplateBinding BorderThickness}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="{StaticResource BackgroundLight}"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Style>
-            </Button>
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource BackgroundLight}" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
 
-            
-            <Button Width="35" Height="25" Content="🗙"
-                    Background="{StaticResource BackgroundMedium}" Foreground="{StaticResource DeleteColor}"
-                    BorderBrush="{StaticResource BorderColor}" BorderThickness="1"
-                    FontSize="12" Cursor="Hand" Click="Close_Click" ToolTip="Close">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}"
+                <!--  Закрыть  -->
+                <Button
+                    Background="{StaticResource BackgroundMedium}"
+                    BorderBrush="{StaticResource BorderColor}"
+                    BorderThickness="1"
+                    Click="Close_Click"
+                    Content="🗙"
+                    Cursor="Hand"
+                    FontSize="12"
+                    Foreground="{StaticResource DeleteColor}"
+                    Height="25"
+                    ToolTip="Close"
+                    Width="35">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border
+                                            Background="{TemplateBinding Background}"
                                             BorderBrush="{TemplateBinding BorderBrush}"
                                             BorderThickness="{TemplateBinding BorderThickness}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#FF4444"/>
-                                            <Setter Property="Foreground" Value="White"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Style>
-            </Button>
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#FF4444" />
+                                                <Setter Property="Foreground" Value="White" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
 
-        </StackPanel>
+            </StackPanel>
+        </Border>
+        <!--  Frame для отображения страниц  -->
+        <Frame
+            Grid.Row="1"
+            NavigationUIVisibility="Hidden"
+            x:Name="MainFrame" />
     </Grid>
 </Window>

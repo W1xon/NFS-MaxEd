@@ -6,7 +6,7 @@ public class Barrier : ObservableObject
     public string Value
     {
         get => _value;
-        set => SetProperty(ref _value, value);
+        set => Set(ref _value, value);
     }
 
     public Barrier(string initialValue = "") => _value = initialValue;

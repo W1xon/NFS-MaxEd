@@ -1,13 +1,5 @@
 ﻿namespace NFSMaxEd.Models;
 
-public class Opponent : ObservableObject
+public class Opponent : BaseEntity
 {
-    private string _path;
-    public string Path
-    {
-        get => _path;
-        set => SetProperty(ref _path, value);
-    }
-
-    public Opponent(string initialPath = "") => _path = initialPath;
 }

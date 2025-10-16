@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace NFSMaxEd.Models;
 
-public class BlacklistConfig : INotifyPropertyChanged
+public class BlacklistConfig : ObservableObject
 {
     public BlacklistConfig()
     {
@@ -107,9 +107,4 @@ public class BlacklistConfig : INotifyPropertyChanged
 
     public ICommand AddWorldRaceCommand { get; set; }
     public ICommand RemoveWorldRaceCommand { get; set; }
-    
-    public event PropertyChangedEventHandler? PropertyChanged;
-    
-    private void OnPropertyChanged([CallerMemberName] string? name = null) =>
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 }

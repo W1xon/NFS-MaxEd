@@ -40,7 +40,7 @@ public class MilestoneConfig : ObservableObject
     public string MilestoneType
     {
         get => _milestoneType;
-        set => SetProperty(ref _milestoneType, value);
+        set => Set(ref _milestoneType, value);
     }
 
     public ObservableCollection<string> SpawnPoints { get; } = new();
@@ -49,7 +49,7 @@ public class MilestoneConfig : ObservableObject
     public string SelectedSpawnPoint
     {
         get => _selectedSpawnPoint;
-        set => SetProperty(ref _selectedSpawnPoint, value);
+        set => Set(ref _selectedSpawnPoint, value);
     }
     public ObservableCollection<string> BinIndices { get; } = new();
 
@@ -57,35 +57,35 @@ public class MilestoneConfig : ObservableObject
     public string SelectedBinIndex
     {
         get => _selectedBinIndex;
-        set => SetProperty(ref _selectedBinIndex, value);
+        set => Set(ref _selectedBinIndex, value);
     }
 
     private int _bounty;
     public int Bounty
     {
         get => _bounty;
-        set => SetProperty(ref _bounty, value);
+        set => Set(ref _bounty, value);
     }
 
     private int _goalAddPrevBest;
     public int GoalAddPrevBest
     {
         get => _goalAddPrevBest;
-        set => SetProperty(ref _goalAddPrevBest, value);
+        set => Set(ref _goalAddPrevBest, value);
     }
 
     private int _goalEasy;
     public int GoalEasy
     {
         get => _goalEasy;
-        set => SetProperty(ref _goalEasy, value);
+        set => Set(ref _goalEasy, value);
     }
 
     private int _goalHard;
     public int GoalHard
     {
         get => _goalHard;
-        set => SetProperty(ref _goalHard, value);
+        set => Set(ref _goalHard, value);
     }
 
 

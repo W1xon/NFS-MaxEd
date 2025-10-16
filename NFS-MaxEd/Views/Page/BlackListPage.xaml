@@ -1,303 +1,363 @@
-﻿<Page x:Class="NFSMaxEd.Views.BlackListPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      mc:Ignorable="d"
-      Background="#1a1a1a"
-      Title="BlackListPage" Height="720" Width="1280">
-    
-        <Grid Margin="30" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" 
-                        Orientation="Horizontal" 
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Margin="0,20,10,10">
-    
-                <Button Content="💾 Save Configuration" 
-                        MinWidth="180"
-                        Style="{StaticResource ButtonStyle}" 
-                        Padding="20,12"
+﻿<Page
+    Background="#1a1a1a"
+    Height="720"
+    Title="BlackListPage"
+    Width="1280"
+    mc:Ignorable="d"
+    x:Class="NFSMaxEd.Views.BlackListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!--  Top Panel with rounded corners  -->
+        <Border
+            Background="{StaticResource BackgroundMedium}"
+            CornerRadius="15"
+            Margin="0,0,0,20"
+            Padding="20"
+            SnapsToDevicePixels="True">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!--  Header and Page Title  -->
+                <StackPanel
+                    Grid.Column="0"
+                    Orientation="Vertical"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        FontSize="28"
+                        FontWeight="Light"
+                        Foreground="White"
+                        Style="{StaticResource HeaderStyle}"
+                        Text="NFS-MaxEd" />
+                    <TextBlock
+                        FontSize="24"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Margin="0,5,0,0"
+                        Text="BlackList Configuration" />
+                </StackPanel>
+
+                <!--  Buttons  -->
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
+                    <Button
                         Background="{StaticResource BackgroundDark}"
-                        Foreground="{StaticResource TextPrimary}"
                         BorderBrush="{StaticResource BorderColor}"
                         Click="OnGenerateClick"
-                        Margin="0,0,10,0"/>
-    
-                
-                <Button Content="🏠 Start Page"
-                        MinWidth="140"
-                        Style="{StaticResource ButtonStyle}" 
-                        Padding="20,12"
-                        Background="{StaticResource BackgroundDark}"
+                        Content="💾 Save Configuration"
                         Foreground="{StaticResource TextPrimary}"
+                        Margin="0,0,10,0"
+                        MinWidth="180"
+                        Padding="20,12"
+                        Style="{StaticResource ButtonStyle}" />
+
+                    <Button
+                        Background="{StaticResource BackgroundDark}"
                         BorderBrush="{StaticResource BorderColor}"
-                        Click="GoToStartPage_Click"/>
-            </StackPanel>
-            
-             <TextBlock Text="NFS-MaxEd" 
-                           FontSize="28" 
-                           FontWeight="Light"
-                           HorizontalAlignment="Left"
-                           Style="{StaticResource HeaderStyle}"
-                           VerticalAlignment="Center"
-                           Width="300"/>
-
-            
-            <Border Grid.Row="2" 
-                    Background="{StaticResource BackgroundMedium}" 
-                    CornerRadius="8" 
-                    Padding="20" 
-                    Margin="0,0,0,20">
-                <StackPanel>
-                    <TextBlock Text="Required Parameters" 
-                               Style="{StaticResource LabelStyle}" 
-                               FontSize="18" 
-                               FontWeight="Bold" 
-                               Margin="0,0,0,15"/>
-                    
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        
-                        
-                        <StackPanel Grid.Column="0">
-                            <TextBlock Text="Required Race Won" 
-                                       Style="{StaticResource LabelStyle}" 
-                                       Margin="0,0,0,5"/>
-                            <TextBox Text="{Binding Blacklist.RequiredRaceWon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                     Height="35"/>
-                        </StackPanel>
-                        
-                        
-                        <StackPanel Grid.Column="2">
-                            <TextBlock Text="Required Challenges" 
-                                       Style="{StaticResource LabelStyle}" 
-                                       Margin="0,0,0,5"/>
-                            <TextBox Text="{Binding Blacklist.RequiredChallenges, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                     Height="35"/>
-                        </StackPanel>
-                        
-                        <StackPanel Grid.Column="4">
-                            <TextBlock Text="Required Bounty" 
-                                       Style="{StaticResource LabelStyle}" 
-                                       Margin="0,0,0,5"/>
-                            <TextBox Text="{Binding Blacklist.RequiredBounty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                     Height="35"/>
-                        </StackPanel>
-                    </Grid>
-
-                    
-                    <StackPanel Margin="0,20,0,0">
-                        <TextBlock Text="Race Bin" 
-                                   Style="{StaticResource LabelStyle}" 
-                                   Margin="0,0,0,5"/>
-                        <ComboBox ItemsSource="{Binding Blacklist.RaceBins}"
-                                  SelectedItem="{Binding Blacklist.RaceBin, Mode=TwoWay}"
-                                  Height="35"
-                                  MaxWidth="300"
-                                  HorizontalAlignment="Left"/>
-                    </StackPanel>
+                        Click="GoToStartPage_Click"
+                        Content="🏠 Start Page"
+                        Foreground="{StaticResource TextPrimary}"
+                        MinWidth="140"
+                        Padding="20,12"
+                        Style="{StaticResource ButtonStyle}" />
                 </StackPanel>
+            </Grid>
+        </Border>
+
+
+        <!--  Required Parameters Section  -->
+        <Border
+            Background="{StaticResource BackgroundMedium}"
+            CornerRadius="8"
+            Grid.Row="2"
+            Margin="0,0,0,20"
+            Padding="20">
+            <StackPanel>
+                <TextBlock
+                    FontSize="18"
+                    FontWeight="Bold"
+                    Margin="0,0,0,15"
+                    Style="{StaticResource LabelStyle}"
+                    Text="Required Parameters" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Required Race Won  -->
+                    <StackPanel Grid.Column="0">
+                        <TextBlock
+                            Margin="0,0,0,5"
+                            Style="{StaticResource LabelStyle}"
+                            Text="Required Race Won" />
+                        <TextBox Height="35" Text="{Binding Blacklist.RequiredRaceWon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+
+                    <!--  Required Challenges  -->
+                    <StackPanel Grid.Column="2">
+                        <TextBlock
+                            Margin="0,0,0,5"
+                            Style="{StaticResource LabelStyle}"
+                            Text="Required Challenges" />
+                        <TextBox Height="35" Text="{Binding Blacklist.RequiredChallenges, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <!--  Required Bounty  -->
+                    <StackPanel Grid.Column="4">
+                        <TextBlock
+                            Margin="0,0,0,5"
+                            Style="{StaticResource LabelStyle}"
+                            Text="Required Bounty" />
+                        <TextBox Height="35" Text="{Binding Blacklist.RequiredBounty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </Grid>
+
+                <!--  Race Bin  -->
+                <StackPanel Margin="0,20,0,0">
+                    <TextBlock
+                        Margin="0,0,0,5"
+                        Style="{StaticResource LabelStyle}"
+                        Text="Race Bin" />
+                    <ComboBox
+                        Height="35"
+                        HorizontalAlignment="Left"
+                        ItemsSource="{Binding Blacklist.RaceBins}"
+                        MaxWidth="300"
+                        SelectedItem="{Binding Blacklist.RaceBin, Mode=TwoWay}" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!--  Lists Section  -->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--  Boss Races  -->
+            <Border
+                Background="{StaticResource BackgroundMedium}"
+                CornerRadius="8"
+                Grid.Column="0"
+                Padding="20">
+                <DockPanel>
+                    <TextBlock
+                        DockPanel.Dock="Top"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Margin="0,0,0,15"
+                        Style="{StaticResource LabelStyle}"
+                        Text="Boss Races" />
+
+                    <Button
+                        Command="{Binding Blacklist.AddBossRaceCommand}"
+                        Content="+ Add Boss Race"
+                        DockPanel.Dock="Bottom"
+                        Height="35"
+                        Margin="0,10,0,0"
+                        Style="{StaticResource ButtonStyle}" />
+
+                    <ScrollViewer
+                        CanContentScroll="True"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="Hidden">
+                        <ItemsControl ItemsSource="{Binding Blacklist.BossRaces}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Background="{StaticResource BackgroundDark}"
+                                        CornerRadius="4"
+                                        Margin="0,0,0,8"
+                                        Padding="8">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBox
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                Grid.Column="0"
+                                                HorizontalAlignment="Left"
+                                                Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                VerticalAlignment="Center" />
+
+                                            <Button
+                                                Command="{Binding DataContext.Blacklist.RemoveBossRaceCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                CommandParameter="{Binding .}"
+                                                Content="×"
+                                                Grid.Column="1"
+                                                Height="25"
+                                                Style="{StaticResource DeleteButtonStyle}"
+                                                Width="25" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </DockPanel>
             </Border>
 
-            
-            <Grid Grid.Row="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="20"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="20"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <!--  Children  -->
+            <Border
+                Background="{StaticResource BackgroundMedium}"
+                CornerRadius="8"
+                Grid.Column="2"
+                Padding="20">
+                <DockPanel>
+                    <TextBlock
+                        DockPanel.Dock="Top"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Margin="0,0,0,15"
+                        Style="{StaticResource LabelStyle}"
+                        Text="Children" />
 
-                
-                <Border Grid.Column="0" 
-                        Background="{StaticResource BackgroundMedium}" 
-                        CornerRadius="8" 
-                        Padding="20">
-                    <DockPanel>
-                        <TextBlock DockPanel.Dock="Top" 
-                                   Text="Boss Races" 
-                                   Style="{StaticResource LabelStyle}" 
-                                   FontSize="16" 
-                                   FontWeight="Bold" 
-                                   Margin="0,0,0,15"/>
-                        
-                        <Button DockPanel.Dock="Bottom" 
-                                Content="+ Add Boss Race"
-                                Style="{StaticResource ButtonStyle}"
-                                Command="{Binding Blacklist.AddBossRaceCommand}"
-                                Margin="0,10,0,0"
-                                Height="35"/>
-                        
-                        <ScrollViewer VerticalScrollBarVisibility="Hidden" 
-                                      HorizontalScrollBarVisibility="Disabled"
-                                      CanContentScroll="True">
-                            <ItemsControl ItemsSource="{Binding Blacklist.BossRaces}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border Background="{StaticResource BackgroundDark}" 
-                                                CornerRadius="4" 
-                                                Padding="8" 
-                                                Margin="0,0,0,8">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-                                                
-                                                <TextBox Grid.Column="0"
-                                                         Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                         BorderThickness="0"
-                                                         Background="Transparent"
-                                                         VerticalAlignment="Center"
-                                                         HorizontalAlignment="Left"/>
-                                                
-                                                <Button Grid.Column="1" 
-                                                        Content="×"
-                                                        Style="{StaticResource DeleteButtonStyle}"
-                                                        Command="{Binding DataContext.Blacklist.RemoveBossRaceCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                        CommandParameter="{Binding .}"
-                                                        Width="25" 
-                                                        Height="25"/>
-                                            </Grid>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </DockPanel>
-                </Border>
+                    <Button
+                        Command="{Binding Blacklist.AddChildCommand}"
+                        Content="+ Add Child"
+                        DockPanel.Dock="Bottom"
+                        Height="35"
+                        Margin="0,10,0,0"
+                        Style="{StaticResource ButtonStyle}" />
 
-                
-                <Border Grid.Column="2" 
-                        Background="{StaticResource BackgroundMedium}" 
-                        CornerRadius="8" 
-                        Padding="20">
-                    <DockPanel>
-                        <TextBlock DockPanel.Dock="Top" 
-                                   Text="Children" 
-                                   Style="{StaticResource LabelStyle}" 
-                                   FontSize="16" 
-                                   FontWeight="Bold" 
-                                   Margin="0,0,0,15"/>
-                        
-                        <Button DockPanel.Dock="Bottom" 
-                                Content="+ Add Child"
-                                Style="{StaticResource ButtonStyle}"
-                                Command="{Binding Blacklist.AddChildCommand}"
-                                Margin="0,10,0,0"
-                                Height="35"/>
-                        
-                        <ScrollViewer VerticalScrollBarVisibility="Hidden" 
-                                      HorizontalScrollBarVisibility="Disabled"
-                                      CanContentScroll="True">
-                            <ItemsControl ItemsSource="{Binding Blacklist.Children}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border Background="{StaticResource BackgroundDark}" 
-                                                CornerRadius="4" 
-                                                Padding="8" 
-                                                Margin="0,0,0,8">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-                                                
-                                                <TextBox Grid.Column="0"
-                                                         Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                         BorderThickness="0"
-                                                         Background="Transparent"
-                                                         VerticalAlignment="Center"
-                                                         HorizontalAlignment="Left"/>
-                                                
-                                                <Button Grid.Column="1" 
-                                                        Content="×"
-                                                        Style="{StaticResource DeleteButtonStyle}"
-                                                        Command="{Binding DataContext.Blacklist.RemoveChildCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                        CommandParameter="{Binding .}"
-                                                        Width="25" 
-                                                        Height="25"/>
-                                            </Grid>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </DockPanel>
-                </Border>
+                    <ScrollViewer
+                        CanContentScroll="True"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="Hidden">
+                        <ItemsControl ItemsSource="{Binding Blacklist.Children}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Background="{StaticResource BackgroundDark}"
+                                        CornerRadius="4"
+                                        Margin="0,0,0,8"
+                                        Padding="8">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
 
-                
-                <Border Grid.Column="4" 
-                        Background="{StaticResource BackgroundMedium}" 
-                        CornerRadius="8" 
-                        Padding="20">
-                    <DockPanel>
-                        <TextBlock DockPanel.Dock="Top" 
-                                   Text="World Races" 
-                                   Style="{StaticResource LabelStyle}" 
-                                   FontSize="16" 
-                                   FontWeight="Bold" 
-                                   Margin="0,0,0,15"/>
-                        
-                        <Button DockPanel.Dock="Bottom" 
-                                Content="+ Add World Race"
-                                Style="{StaticResource ButtonStyle}"
-                                Command="{Binding Blacklist.AddWorldRaceCommand}"
-                                Margin="0,10,0,0"
-                                Height="35"/>
-                        
-                        <ScrollViewer VerticalScrollBarVisibility="Hidden" 
-                                      HorizontalScrollBarVisibility="Disabled"
-                                      CanContentScroll="True">
-                            <ItemsControl ItemsSource="{Binding Blacklist.WorldRaces}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border Background="{StaticResource BackgroundDark}" 
-                                                CornerRadius="4" 
-                                                Padding="8" 
-                                                Margin="0,0,0,8">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-                                                
-                                                <TextBox Grid.Column="0"
-                                                         Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                         BorderThickness="0"
-                                                         Background="Transparent"
-                                                         VerticalAlignment="Center"
-                                                         HorizontalAlignment="Left"/>
-                                                
-                                                <Button Grid.Column="1" 
-                                                        Content="×"
-                                                        Style="{StaticResource DeleteButtonStyle}"
-                                                        Command="{Binding DataContext.Blacklist.RemoveWorldRaceCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                        CommandParameter="{Binding .}"
-                                                        Width="25" 
-                                                        Height="25"/>
-                                            </Grid>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </DockPanel>
-                </Border>
-            </Grid>
+                                            <TextBox
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                Grid.Column="0"
+                                                HorizontalAlignment="Left"
+                                                Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                VerticalAlignment="Center" />
+
+                                            <Button
+                                                Command="{Binding DataContext.Blacklist.RemoveChildCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                CommandParameter="{Binding .}"
+                                                Content="×"
+                                                Grid.Column="1"
+                                                Height="25"
+                                                Style="{StaticResource DeleteButtonStyle}"
+                                                Width="25" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+
+            <!--  World Races  -->
+            <Border
+                Background="{StaticResource BackgroundMedium}"
+                CornerRadius="8"
+                Grid.Column="4"
+                Padding="20">
+                <DockPanel>
+                    <TextBlock
+                        DockPanel.Dock="Top"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Margin="0,0,0,15"
+                        Style="{StaticResource LabelStyle}"
+                        Text="World Races" />
+
+                    <Button
+                        Command="{Binding Blacklist.AddWorldRaceCommand}"
+                        Content="+ Add World Race"
+                        DockPanel.Dock="Bottom"
+                        Height="35"
+                        Margin="0,10,0,0"
+                        Style="{StaticResource ButtonStyle}" />
+
+                    <ScrollViewer
+                        CanContentScroll="True"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="Hidden">
+                        <ItemsControl ItemsSource="{Binding Blacklist.WorldRaces}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Background="{StaticResource BackgroundDark}"
+                                        CornerRadius="4"
+                                        Margin="0,0,0,8"
+                                        Padding="8">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBox
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                Grid.Column="0"
+                                                HorizontalAlignment="Left"
+                                                Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                VerticalAlignment="Center" />
+
+                                            <Button
+                                                Command="{Binding DataContext.Blacklist.RemoveWorldRaceCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                CommandParameter="{Binding .}"
+                                                Content="×"
+                                                Grid.Column="1"
+                                                Height="25"
+                                                Style="{StaticResource DeleteButtonStyle}"
+                                                Width="25" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
         </Grid>
+    </Grid>
 </Page>

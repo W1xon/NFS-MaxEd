@@ -5,19 +5,20 @@ using System.Windows.Input;
 
 namespace NFSMaxEd.Models;
 
-public class RaceConfig : INotifyPropertyChanged
+public class RaceConfig : ObservableObject
 {
     public RaceConfig()
     {
         Region = Regions.Count > 0 ? Regions[0] : string.Empty;
         RaceBin = RaceBins.Count > 0 ? RaceBins[0] : string.Empty;
-        NodeType = NodeTypes.Count > 0 ? NodeTypes[0] : string.Empty;
+        NodeType = NodeTypes.Count > 0 ? NodeTypes[0] : RaceType.circuit;
         IntroNis = IntroNisList.Count > 0 ? IntroNisList[0] : string.Empty;
         FinishCamera = FinishCameraList.Count > 0 ? FinishCameraList[0] : string.Empty;
 
-        StartGrid = new StartGrid
+        // Инициализация стартовой сетки и финишной линии
+        StartGrid = new PointEntity(EntityType.startgrid)
         {
-            Path = "startgrid",
+            Name = "startgrid",
             PositionX = 0,
             PositionY = 0,
             PositionZ = 0,
@@ -25,9 +26,29 @@ public class RaceConfig : INotifyPropertyChanged
             Template = true
         };
 
-        FinishLine = new FinishLine
+        FinishLine = new PointEntity(EntityType.finishline)
         {
-            Path = "finishline",
+            Name = "finishline",
+            PositionX = 0,
+            PositionY = 0,
+            PositionZ = 0,
+            Rotation = 0,
+            Template = true
+        };
+
+        StartMarker = new PointEntity(EntityType.marker)
+        {
+            Name = "start_marker",
+            PositionX = 0,
+            PositionY = 0,
+            PositionZ = 0,
+            Rotation = 0,
+            Template = true
+        };
+
+        FinishMarker = new PointEntity(EntityType.marker)
+        {
+            Name = "finish_marker",
             PositionX = 0,
             PositionY = 0,
             PositionZ = 0,
@@ -36,6 +57,14 @@ public class RaceConfig : INotifyPropertyChanged
         };
     }
 
+    public int GetChildrenCount()
+    {
+        return Shortcuts.Count + 
+               Checkpoints.Count + 
+               Speedtraps.Count + 
+               CharacterDrugs.Count + 2;
+    }
+    // ─────────────── Списки опций ───────────────
     public ObservableCollection<string> Regions { get; } = new() { "college", "coastal", "city" };
     public ObservableCollection<string> RaceBins { get; } = new() {
         "race_bin_01","race_bin_02","race_bin_03","race_bin_04","race_bin_05",
@@ -43,7 +72,7 @@ public class RaceConfig : INotifyPropertyChanged
         "race_bin_11","race_bin_12","race_bin_13","race_bin_14","race_bin_15",
         "race_bin_challenge", "race_bin_16"
     };
-    public ObservableCollection<string> NodeTypes { get; } = new() {"circuit", "p2p",   "lapknockout", "tollboothrace", "speedtraprace", "cashgrab", "drag" };
+    public ObservableCollection<RaceType> NodeTypes { get; } = new() {RaceType.circuit, RaceType.p2p, RaceType.lapknockout, RaceType.tollboothrace, RaceType.speedtraprace, RaceType.cashgrab, RaceType.drag};
     public ObservableCollection<string> IntroNisList { get; } = new() {
         "IntroNis01","IntroNis02","IntroNis03","IntroNis04","IntroNis05",
         "IntroNis06","IntroNis07","IntroNis08","IntroNis09"
@@ -57,14 +86,15 @@ public class RaceConfig : INotifyPropertyChanged
         "PHoldFin_26","PHoldFin_27","PHoldFin_28","PHoldFin_29"
     };
 
+    // ─────────────── Свойства выбора ───────────────
         private string _region;
         public string Region { get => _region; set => Set(ref _region, value); }
 
         private string _raceBin;
         public string RaceBin { get => _raceBin; set => Set(ref _raceBin, value); }
 
-        private string _nodeType;
-        public string NodeType { get => _nodeType; set => Set(ref _nodeType, value); }
+        private RaceType _nodeType;
+        public RaceType NodeType { get => _nodeType; set => Set(ref _nodeType, value); }
 
         private string _introNis;
         public string IntroNis { get => _introNis; set => Set(ref _introNis, value); }
@@ -80,6 +110,7 @@ public class RaceConfig : INotifyPropertyChanged
 
         public string Path => $"{RaceBin}/{GameplayVault}";
 
+        // Флаги
         private bool _availableOnline;
         public bool AvailableOnline { get => _availableOnline; set => Set(ref _availableOnline, value); }
 
@@ -92,6 +123,7 @@ public class RaceConfig : INotifyPropertyChanged
         private bool _quickRaceNis;
         public bool QuickRaceNis { get => _quickRaceNis; set => Set(ref _quickRaceNis, value); }
 
+        // Параметры гонки
         private int _cashValue;
         public int CashValue { get => _cashValue; set => Set(ref _cashValue, value); }
 
@@ -105,8 +137,10 @@ public class RaceConfig : INotifyPropertyChanged
         public int RaceLength { get => _raceLength; set => Set(ref _raceLength, value); }
 
         
-        public StartGrid StartGrid { get; set; }
-        public FinishLine FinishLine { get; set; }
+        // Старт / Финиш
+        public PointEntity StartGrid { get; set; }
+        public PointEntity FinishLine { get; set; }
+        
 
         private string _eventId;
         public string EventId { get => _eventId; set => Set(ref _eventId, value); }
@@ -117,8 +151,20 @@ public class RaceConfig : INotifyPropertyChanged
 
         private int _timeLimit;
         public int TimeLimit { get => _timeLimit; set => Set(ref _timeLimit, value); }
+        
+        private int _reputation;
+        public int Reputation {get => _reputation; set => Set(ref _reputation, value);}
 
-        public ObservableCollection<string> SpeedTrapList { get; } = new ObservableCollection<string>();
+        private int _initialSpeed;
+        public int InitialSpeed
+        {
+            get => _initialSpeed;
+            set => Set(ref _initialSpeed, value);
+        }
+        public PointEntity StartMarker { get; set; }
+        public PointEntity FinishMarker { get; set; }
+        
+
 
         private string _randomSpawnTriggers;
         public string RandomSpawnTriggers { get => _randomSpawnTriggers; set => Set(ref _randomSpawnTriggers, value); }
@@ -141,10 +187,13 @@ public class RaceConfig : INotifyPropertyChanged
 
         // Коллекции
         public ObservableCollection<Barrier> Barriers { get; } = new ObservableCollection<Barrier>();
-        public ObservableCollection<CheckpointEntry> Checkpoints { get; } = new ObservableCollection<CheckpointEntry>();
+        public ObservableCollection<CheckpointEntity> Checkpoints { get; } = new ObservableCollection<CheckpointEntity>();
+        public ObservableCollection<SpeedtrapEntity> Speedtraps { get; } = new ObservableCollection<SpeedtrapEntity>();
+        public ObservableCollection<CharacterDrug> CharacterDrugs { get; } = new ObservableCollection<CharacterDrug>();
         public ObservableCollection<string> ChildrenPaths { get; } = new ObservableCollection<string>();
         public ObservableCollection<Opponent> OpponentPaths { get; } = new ObservableCollection<Opponent>();
-        public ObservableCollection<ShortcutEntry> Shortcuts { get; } = new ObservableCollection<ShortcutEntry>();
+        public ObservableCollection<ShortcutEntity> Shortcuts { get; } = new ObservableCollection<ShortcutEntity>();
+        public ObservableCollection<TrafficSpawnTrigger> TrafficSpawnTriggers { get; } = new ObservableCollection<TrafficSpawnTrigger>();
         
         
         private bool _isCircuitOrKnockout;
@@ -181,12 +230,6 @@ public class RaceConfig : INotifyPropertyChanged
             get => _isShortcutAvailable;
             set { _isShortcutAvailable = value; OnPropertyChanged(); }
         }
-        
-        
-        
-
-    
-    
         public ICommand AddBarrierCommand { get; set; }
         public ICommand RemoveBarrierCommand { get; set;}
         public ICommand AddCheckpointCommand { get; set;}
@@ -195,17 +238,10 @@ public class RaceConfig : INotifyPropertyChanged
         public ICommand RemoveOpponentCommand { get; set;}
         public ICommand AddShortcutCommand { get; set;}
         public ICommand RemoveShortcutCommand { get; set;}
-        
-        
-        public event PropertyChangedEventHandler? PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string? name = null) =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        private void Set<T>(ref T field, T value, [CallerMemberName] string? name = null)
-        {
-            if (!EqualityComparer<T>.Default.Equals(field, value))
-            {
-                field = value;
-                OnPropertyChanged(name);
-            }
-        }
+        public ICommand AddSpeedtrapCommand { get; set; }
+        public ICommand RemoveSpeedtrapCommand { get; set; }
+        public ICommand AddCharacterDrugCommand { get; set; }
+        public ICommand RemoveCharacterDrugCommand { get; set; }
+        public ICommand AddTimeBonusCheckpointCommand { get; set; }
+        public ICommand RemoveTimeBonusCheckpointCommand { get; set; }
 }
