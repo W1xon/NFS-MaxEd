@@ -1,43 +1,177 @@
 ﻿<Window
+    AllowsTransparency="True"
+    Background="Transparent"
     Height="720"
     ResizeMode="CanResize"
     ShowInTaskbar="False"
-    Title="MapWindow"
+    Title="Map Viewer"
     Width="1280"
     WindowStartupLocation="CenterOwner"
-    WindowStyle="SingleBorderWindow"
+    WindowStyle="None"
     mc:Ignorable="d"
     x:Class="NFSMaxEd.Views.MapWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid>
-        <Border
-            BorderBrush="Gray"
-            BorderThickness="1"
-            ClipToBounds="True">
-            <Canvas
-                Background="White"
-                ClipToBounds="True"
-                MouseLeftButtonDown="MapCanvas_MouseLeftButtonDown"
-                MouseLeftButtonUp="MapCanvas_MouseLeftButtonUp"
-                MouseMove="MapCanvas_MouseMove"
-                MouseWheel="MapCanvas_MouseWheel"
-                x:Name="MapCanvas">
-                <Image
-                    Canvas.Left="0"
-                    Canvas.Top="0"
-                    Source="/Assets/map.png"
-                    x:Name="MapImage">
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform x:Name="ScaleTransform" />
-                            <TranslateTransform x:Name="TranslateTransform" />
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                </Image>
-            </Canvas>
-        </Border>
-    </Grid>
+
+    <Border
+        Background="{StaticResource BackgroundDark}"
+        BorderBrush="{StaticResource BorderColor}"
+        BorderThickness="1"
+        CornerRadius="8">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  Заголовок с перетаскиванием  -->
+            <Border
+                Background="{StaticResource BackgroundMedium}"
+                BorderBrush="{StaticResource BorderColor}"
+                BorderThickness="0,0,0,1"
+                CornerRadius="8,8,0,0"
+                Grid.Row="0"
+                MouseLeftButtonDown="DragWindow">
+                <Grid>
+                    <!--  Название  -->
+                    <TextBlock
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Foreground="{StaticResource AccentSecondary}"
+                        HorizontalAlignment="Left"
+                        Margin="20,0,0,0"
+                        Text="🗺️ Map Viewer"
+                        VerticalAlignment="Center" />
+
+                    <!--  Кнопки управления окном  -->
+                    <StackPanel
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                        <Button
+                            Click="Minimize_Click"
+                            Content="🗕"
+                            Style="{StaticResource WindowButtonStyle}"
+                            ToolTip="Minimize" />
+                        <Button
+                            Click="Close_Click"
+                            Content="🗙"
+                            Style="{StaticResource CloseWindowButtonStyle}"
+                            ToolTip="Close" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!--  Основной контент  -->
+            <Grid Grid.Row="1">
+                <!--  Карта  -->
+                <Border
+                    BorderBrush="{StaticResource BorderColor}"
+                    BorderThickness="1"
+                    ClipToBounds="True"
+                    CornerRadius="6"
+                    Margin="10">
+                    <Canvas
+                        Background="{StaticResource BackgroundDark}"
+                        ClipToBounds="True"
+                        MouseLeftButtonDown="MapCanvas_MouseLeftButtonDown"
+                        MouseLeftButtonUp="MapCanvas_MouseLeftButtonUp"
+                        MouseMove="MapCanvas_MouseMove"
+                        MouseWheel="MapCanvas_MouseWheel"
+                        x:Name="MapCanvas">
+                        <Image
+                            Canvas.Left="0"
+                            Canvas.Top="0"
+                            Source="/Assets/map.png"
+                            x:Name="MapImage">
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform x:Name="ScaleTransform" />
+                                    <TranslateTransform x:Name="TranslateTransform" />
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Canvas>
+                </Border>
+
+                <!--  Панель управления (правый нижний угол)  -->
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    Margin="20"
+                    Orientation="Vertical"
+                    VerticalAlignment="Bottom"
+                    x:Name="ControlPanel">
+                    <Border Style="{StaticResource PanelStyle}">
+                        <StackPanel>
+                            <!--  Зум +  -->
+                            <Button
+                                Click="ZoomIn_Click"
+                                Content="+"
+                                FontSize="20"
+                                FontWeight="Bold"
+                                Style="{StaticResource ControlButtonStyle}"
+                                ToolTip="Zoom In" />
+
+                            <!--  Зум -  -->
+                            <Button
+                                Click="ZoomOut_Click"
+                                Content="−"
+                                FontSize="20"
+                                FontWeight="Bold"
+                                Style="{StaticResource ControlButtonStyle}"
+                                ToolTip="Zoom Out" />
+
+                            <!--  Сброс  -->
+                            <Button
+                                Click="ResetZoom_Click"
+                                Content="⟲"
+                                FontSize="18"
+                                Style="{StaticResource ControlButtonStyle}"
+                                ToolTip="Reset View" />
+                        </StackPanel>
+                    </Border>
+
+                    <!--  Индикатор зума  -->
+                    <Border
+                        Margin="0,10,0,0"
+                        Padding="12,8"
+                        Style="{StaticResource PanelStyle}">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Margin="0"
+                            Style="{StaticResource CaptionStyle}"
+                            Text="Zoom: 100%"
+                            x:Name="ZoomLabel" />
+                    </Border>
+                </StackPanel>
+
+                <!--  Подсказка по управлению  -->
+                <Border
+                    HorizontalAlignment="Left"
+                    Margin="20"
+                    Opacity="0.9"
+                    Style="{StaticResource PanelStyle}"
+                    VerticalAlignment="Top">
+                    <StackPanel>
+                        <TextBlock
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Foreground="{StaticResource AccentSecondary}"
+                            Margin="0,0,0,8"
+                            Text="Controls:" />
+                        <TextBlock
+                            Margin="0,0,0,3"
+                            Style="{StaticResource CaptionStyle}"
+                            Text="• Mouse Wheel: Zoom" />
+                        <TextBlock
+                            Margin="0"
+                            Style="{StaticResource CaptionStyle}"
+                            Text="• Left Click + Drag: Pan" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

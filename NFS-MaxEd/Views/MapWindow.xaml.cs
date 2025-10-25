@@ -1,98 +1,176 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace NFSMaxEd.Views
 {
     public partial class MapWindow : Window
     {
-        private double _zoomFactor = 1.0;
-        private const double ZoomSpeed = 1.1; 
+        private Point lastMousePosition;
+        private bool isDragging = false;
+        private double currentZoom = 1.0;
         private const double MinZoom = 0.1;
-        private const double MaxZoom = 10.0;
-        
-        private bool _isDragging = false;
-        private Point _lastPanPoint;
+        private const double MaxZoom = 5.0;
+        private const double ZoomStep = 0.1;
 
         public MapWindow()
         {
             InitializeComponent();
-            
-            this.Loaded += MapWindow_Loaded;
+            Loaded += OnLoaded; 
+            UpdateZoomLabel();
         }
-
-        private void MapWindow_Loaded(object sender, RoutedEventArgs e)
+        
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            CenterImage();
+            CenterAndZoomOut();
         }
-
-        private void CenterImage()
+        
+        private void CenterAndZoomOut()
         {
-            if (MapImage.Source != null)
+            currentZoom = 0.1;
+            ScaleTransform.ScaleX = currentZoom;
+            ScaleTransform.ScaleY = currentZoom;
+        
+            double canvasWidth = MapCanvas.ActualWidth;
+            double canvasHeight = MapCanvas.ActualHeight;
+            double imageWidth = MapImage.ActualWidth;
+            double imageHeight = MapImage.ActualHeight;
+        
+            if (canvasWidth > 0 && canvasHeight > 0 && imageWidth > 0 && imageHeight > 0)
             {
-                var canvasWidth = MapCanvas.ActualWidth;
-                var canvasHeight = MapCanvas.ActualHeight;
-                var imageWidth = MapImage.Source.Width;
-                var imageHeight = MapImage.Source.Height;
+                TranslateTransform.X = (canvasWidth - imageWidth * currentZoom) / 2;
+                TranslateTransform.Y = (canvasHeight - imageHeight * currentZoom) / 2;
+            }
+        
+            UpdateZoomLabel();
+        }
 
-                var centerX = (canvasWidth - imageWidth) / 2;
-                var centerY = (canvasHeight - imageHeight) / 2;
 
-                TranslateTransform.X = centerX;
-                TranslateTransform.Y = centerY;
+        private void DragWindow(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                DragMove();
             }
         }
 
-        private void MapCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void Minimize_Click(object sender, RoutedEventArgs e)
         {
-            var delta = e.Delta > 0 ? ZoomSpeed : 1.0 / ZoomSpeed;
-            var newZoomFactor = _zoomFactor * delta;
+            WindowState = WindowState.Minimized;
+        }
 
-            if (newZoomFactor < MinZoom || newZoomFactor > MaxZoom)
-                return;
-
-            var mousePosition = e.GetPosition(MapCanvas);
-
-            var currentX = TranslateTransform.X;
-            var currentY = TranslateTransform.Y;
-
-            var newX = mousePosition.X - (mousePosition.X - currentX) * delta;
-            var newY = mousePosition.Y - (mousePosition.Y - currentY) * delta;
-
-            ScaleTransform.ScaleX = newZoomFactor;
-            ScaleTransform.ScaleY = newZoomFactor;
-            TranslateTransform.X = newX;
-            TranslateTransform.Y = newY;
-
-            _zoomFactor = newZoomFactor;
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
 
         private void MapCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _isDragging = true;
-            _lastPanPoint = e.GetPosition(MapCanvas);
+            isDragging = true;
+            lastMousePosition = e.GetPosition(MapCanvas);
             MapCanvas.CaptureMouse();
-            MapCanvas.Cursor = Cursors.Hand;
+            MapCanvas.Cursor = Cursors.SizeAll;
         }
 
         private void MapCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            _isDragging = false;
+            isDragging = false;
             MapCanvas.ReleaseMouseCapture();
             MapCanvas.Cursor = Cursors.Arrow;
         }
 
         private void MapCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_isDragging)
+            if (isDragging)
             {
-                var currentPoint = e.GetPosition(MapCanvas);
-                var deltaX = currentPoint.X - _lastPanPoint.X;
-                var deltaY = currentPoint.Y - _lastPanPoint.Y;
+                Point currentPosition = e.GetPosition(MapCanvas);
+                double offsetX = currentPosition.X - lastMousePosition.X;
+                double offsetY = currentPosition.Y - lastMousePosition.Y;
 
-                TranslateTransform.X += deltaX;
-                TranslateTransform.Y += deltaY;
+                TranslateTransform.X += offsetX;
+                TranslateTransform.Y += offsetY;
 
-                _lastPanPoint = currentPoint;
+                lastMousePosition = currentPosition;
+            }
+        }
+
+        private void MapCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            Point mousePos = e.GetPosition(MapImage);
+            
+            double zoomFactor = e.Delta > 0 ? 1.1 : 0.9;
+            double newZoom = currentZoom * zoomFactor;
+
+            // Ограничение зума
+            if (newZoom < MinZoom) newZoom = MinZoom;
+            if (newZoom > MaxZoom) newZoom = MaxZoom;
+
+            if (Math.Abs(newZoom - currentZoom) > 0.001)
+            {
+                // Масштабирование относительно позиции мыши
+                double scaleChange = newZoom / currentZoom;
+                
+                TranslateTransform.X = mousePos.X - (mousePos.X - TranslateTransform.X) * scaleChange;
+                TranslateTransform.Y = mousePos.Y - (mousePos.Y - TranslateTransform.Y) * scaleChange;
+
+                currentZoom = newZoom;
+                ScaleTransform.ScaleX = currentZoom;
+                ScaleTransform.ScaleY = currentZoom;
+
+                UpdateZoomLabel();
+            }
+        }
+
+        private void ZoomIn_Click(object sender, RoutedEventArgs e)
+        {
+            ApplyZoom(currentZoom + ZoomStep);
+        }
+
+        private void ZoomOut_Click(object sender, RoutedEventArgs e)
+        {
+            ApplyZoom(currentZoom - ZoomStep);
+        }
+
+        private void ApplyZoom(double newZoom)
+        {
+            if (newZoom < MinZoom) newZoom = MinZoom;
+            if (newZoom > MaxZoom) newZoom = MaxZoom;
+
+            if (Math.Abs(newZoom - currentZoom) < 0.001)
+                return;
+
+            Point center = new Point(MapCanvas.ActualWidth / 2, MapCanvas.ActualHeight / 2);
+
+            Point imageCenter = MapImage.TransformToVisual(MapCanvas).Transform(center);
+
+            double scaleChange = newZoom / currentZoom;
+
+            TranslateTransform.X = imageCenter.X - (imageCenter.X - TranslateTransform.X) * scaleChange;
+            TranslateTransform.Y = imageCenter.Y - (imageCenter.Y - TranslateTransform.Y) * scaleChange;
+
+            currentZoom = newZoom;
+            ScaleTransform.ScaleX = currentZoom;
+            ScaleTransform.ScaleY = currentZoom;
+
+            UpdateZoomLabel();
+        }
+
+
+        private void ResetZoom_Click(object sender, RoutedEventArgs e)
+        {
+            currentZoom = 1.0;
+            ScaleTransform.ScaleX = currentZoom;
+            ScaleTransform.ScaleY = currentZoom;
+            TranslateTransform.X = 0;
+            TranslateTransform.Y = 0;
+            UpdateZoomLabel();
+        }
+
+        private void UpdateZoomLabel()
+        {
+            if (ZoomLabel != null)
+            {
+                ZoomLabel.Text = $"Zoom: {(int)(currentZoom * 100)}%";
             }
         }
     }

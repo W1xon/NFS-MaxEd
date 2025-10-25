@@ -1,149 +1,209 @@
 ﻿<Window
     AllowsTransparency="True"
-    Background="#1a1a1a"
+    Background="Transparent"
     Height="720"
     Title="NFS Race Creator"
-    Width="1280"
+    Width="1250"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     x:Class="NFSMaxEd.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Border
-            Background="Transparent"
-            Cursor="SizeAll"
-            MouseLeftButtonDown="DragWindow">
+    <!--  Основная граница окна  -->
+    <Border
+        Background="{StaticResource BackgroundDark}"
+        BorderBrush="{StaticResource BorderColor}"
+        BorderThickness="1"
+        CornerRadius="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-            <!--  Системные кнопки вверху справа  -->
-            <StackPanel
-                HorizontalAlignment="Right"
-                Margin="0,5,5,0"
-                Orientation="Horizontal"
-                VerticalAlignment="Top">
+            <!--  Заголовок окна  -->
+            <Border
+                Background="{StaticResource BackgroundMedium}"
+                BorderBrush="{StaticResource BorderColor}"
+                BorderThickness="0,0,0,1"
+                CornerRadius="10,10,0,0"
+                Grid.Row="0"
+                MouseLeftButtonDown="DragWindow">
+                <Grid>
+                    <!--  Логотип и название  -->
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        Margin="15,0,0,0"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Foreground="{StaticResource AccentSecondary}"
+                            Text="NFS MaxEd"
+                            VerticalAlignment="Center" />
 
-                <!--  Свёрнуть  -->
-                <Button
+                        <!--  Toggle кнопка  -->
+                        <ToggleButton
+                            Click="TogglePanel_Click"
+                            Margin="95,0,0,0"
+                            Style="{StaticResource TogglePanelButtonStyle}"
+                            ToolTip="Toggle Side Panel"
+                            VerticalAlignment="Center"
+                            x:Name="TogglePanelButton" />
+                    </StackPanel>
+
+                    <!--  Системные кнопки  -->
+                    <StackPanel
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                        <Button
+                            Click="Minimize_Click"
+                            Content="🗕"
+                            Style="{StaticResource WindowButtonStyle}"
+                            ToolTip="Minimize" />
+                        <Button
+                            Click="Maximize_Click"
+                            Content="🗖"
+                            Style="{StaticResource WindowButtonStyle}"
+                            ToolTip="Maximize" />
+                        <Button
+                            Click="Close_Click"
+                            Content="🗙"
+                            Style="{StaticResource CloseWindowButtonStyle}"
+                            ToolTip="Close" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!--  Основной контент  -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Боковая панель  -->
+                <Border
                     Background="{StaticResource BackgroundMedium}"
                     BorderBrush="{StaticResource BorderColor}"
-                    BorderThickness="1"
-                    Click="Minimize_Click"
-                    Content="🗕"
-                    Cursor="Hand"
-                    FontSize="12"
-                    Foreground="{StaticResource TextPrimary}"
-                    Height="25"
-                    Margin="0,0,2,0"
-                    ToolTip="Minimize"
-                    Width="35">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border
-                                            Background="{TemplateBinding Background}"
-                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="{TemplateBinding BorderThickness}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="{StaticResource BackgroundLight}" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Button.Style>
-                </Button>
+                    BorderThickness="0,0,1,0"
+                    Grid.Column="0"
+                    x:Name="LeftPanel">
+                    <StackPanel
+                        Margin="15"
+                        Width="200"
+                        x:Name="LeftPanelContent">
 
-                <!--  Развернуть  -->
-                <Button
-                    Background="{StaticResource BackgroundMedium}"
-                    BorderBrush="{StaticResource BorderColor}"
-                    BorderThickness="1"
-                    Click="Maximize_Click"
-                    Content="🗖"
-                    Cursor="Hand"
-                    FontSize="12"
-                    Foreground="{StaticResource TextPrimary}"
-                    Height="25"
-                    Margin="0,0,2,0"
-                    ToolTip="Maximize"
-                    Width="35">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border
-                                            Background="{TemplateBinding Background}"
-                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="{TemplateBinding BorderThickness}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="{StaticResource BackgroundLight}" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Button.Style>
-                </Button>
+                        <!--  Заголовок навигации  -->
+                        <TextBlock
+                            FontWeight="Bold"
+                            Foreground="{StaticResource TextDisabled}"
+                            HorizontalAlignment="Center"
+                            Margin="5,15,0,20"
+                            Style="{StaticResource CaptionStyle}"
+                            Text="NAVIGATION" />
 
-                <!--  Закрыть  -->
-                <Button
-                    Background="{StaticResource BackgroundMedium}"
-                    BorderBrush="{StaticResource BorderColor}"
-                    BorderThickness="1"
-                    Click="Close_Click"
-                    Content="🗙"
-                    Cursor="Hand"
-                    FontSize="12"
-                    Foreground="{StaticResource DeleteColor}"
-                    Height="25"
-                    ToolTip="Close"
-                    Width="35">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border
-                                            Background="{TemplateBinding Background}"
-                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="{TemplateBinding BorderThickness}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#FF4444" />
-                                                <Setter Property="Foreground" Value="White" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Button.Style>
-                </Button>
+                        <!--  Races  -->
+                        <StackPanel HorizontalAlignment="Center">
+                            <Border
+                                Background="{StaticResource BackgroundLight}"
+                                BorderBrush="{StaticResource BorderColor}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Margin="0,0,0,8"
+                                Padding="10">
+                                <Image
+                                    Height="40"
+                                    Source="pack://application:,,,/Assets/races.png"
+                                    Width="60" />
+                            </Border>
+                            <Button
+                                Click="OnRacesClick"
+                                Content="🏁 Races"
+                                Style="{StaticResource NavButtonStyle}" />
+                        </StackPanel>
 
-            </StackPanel>
-        </Border>
-        <!--  Frame для отображения страниц  -->
-        <Frame
-            Grid.Row="1"
-            NavigationUIVisibility="Hidden"
-            x:Name="MainFrame" />
-    </Grid>
+                        <!--  Milestones  -->
+                        <StackPanel HorizontalAlignment="Center" Margin="0,15,0,0">
+                            <Border
+                                Background="{StaticResource BackgroundLight}"
+                                BorderBrush="{StaticResource BorderColor}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Margin="0,0,0,8"
+                                Padding="10">
+                                <Image
+                                    Height="40"
+                                    Source="pack://application:,,,/Assets/milestones.png"
+                                    Width="60" />
+                            </Border>
+                            <Button
+                                Click="OnMilestonesClick"
+                                Content="🎯 Milestones"
+                                Style="{StaticResource NavButtonStyle}" />
+                        </StackPanel>
+
+                        <!--  Blacklist  -->
+                        <StackPanel HorizontalAlignment="Center" Margin="0,15,0,0">
+                            <Border
+                                Background="{StaticResource BackgroundLight}"
+                                BorderBrush="{StaticResource BorderColor}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Margin="0,0,0,8"
+                                Padding="10">
+                                <Image
+                                    Height="40"
+                                    Source="pack://application:,,,/Assets/blacklist.png"
+                                    Width="60" />
+                            </Border>
+                            <Button
+                                Click="OnBlacklistClick"
+                                Content="⚠️ Blacklist"
+                                Style="{StaticResource NavButtonStyle}" />
+                        </StackPanel>
+
+                        <!--  Разделитель  -->
+                        <Separator Margin="0,20,0,20" />
+                        <!--  About Author  -->
+                        <Button
+                            Click="OnAboutAuthorClick"
+                            Content="👨‍💻 About"
+                            Margin="10"
+                            Style="{StaticResource NavButtonStyle}" />
+
+                        <!--  Кнопка Save  -->
+                        <Button
+                            Click="OnGenerateClick"
+                            Height="40"
+                            Style="{StaticResource ButtonStyle}">
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <TextBlock
+                                    FontSize="20"
+                                    Margin="0,0,10,0"
+                                    Text="💾"
+                                    VerticalAlignment="Center" />
+                                <TextBlock
+                                    FontWeight="Bold"
+                                    Text="Save Project"
+                                    VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+
+                    </StackPanel>
+                </Border>
+
+                <!--  Область контента  -->
+                <Grid Background="{StaticResource BackgroundDark}" Grid.Column="1">
+                    <Frame
+                        Background="Transparent"
+                        NavigationUIVisibility="Hidden"
+                        x:Name="MainFrame" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

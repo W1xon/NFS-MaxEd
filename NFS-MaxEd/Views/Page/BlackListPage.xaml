@@ -1,8 +1,6 @@
 ﻿<Page
     Background="#1a1a1a"
-    Height="720"
     Title="BlackListPage"
-    Width="1280"
     mc:Ignorable="d"
     x:Class="NFSMaxEd.Views.BlackListPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -19,11 +17,9 @@
         </Grid.RowDefinitions>
         <!--  Top Panel with rounded corners  -->
         <Border
-            Background="{StaticResource BackgroundMedium}"
             CornerRadius="15"
-            Margin="0,0,0,20"
-            Padding="20"
-            SnapsToDevicePixels="True">
+            SnapsToDevicePixels="True"
+            Style="{StaticResource CardStyle}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -40,12 +36,6 @@
                     Orientation="Vertical"
                     VerticalAlignment="Center">
                     <TextBlock
-                        FontSize="28"
-                        FontWeight="Light"
-                        Foreground="White"
-                        Style="{StaticResource HeaderStyle}"
-                        Text="NFS-MaxEd" />
-                    <TextBlock
                         FontSize="24"
                         FontWeight="Bold"
                         Foreground="White"
@@ -58,39 +48,13 @@
                     Grid.Column="1"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal"
-                    VerticalAlignment="Center">
-                    <Button
-                        Background="{StaticResource BackgroundDark}"
-                        BorderBrush="{StaticResource BorderColor}"
-                        Click="OnGenerateClick"
-                        Content="💾 Save Configuration"
-                        Foreground="{StaticResource TextPrimary}"
-                        Margin="0,0,10,0"
-                        MinWidth="180"
-                        Padding="20,12"
-                        Style="{StaticResource ButtonStyle}" />
-
-                    <Button
-                        Background="{StaticResource BackgroundDark}"
-                        BorderBrush="{StaticResource BorderColor}"
-                        Click="GoToStartPage_Click"
-                        Content="🏠 Start Page"
-                        Foreground="{StaticResource TextPrimary}"
-                        MinWidth="140"
-                        Padding="20,12"
-                        Style="{StaticResource ButtonStyle}" />
-                </StackPanel>
+                    VerticalAlignment="Center" />
             </Grid>
         </Border>
 
 
         <!--  Required Parameters Section  -->
-        <Border
-            Background="{StaticResource BackgroundMedium}"
-            CornerRadius="8"
-            Grid.Row="2"
-            Margin="0,0,0,20"
-            Padding="20">
+        <Border Grid.Row="2" Style="{StaticResource CardStyle}">
             <StackPanel>
                 <TextBlock
                     FontSize="18"
@@ -114,7 +78,7 @@
                             Margin="0,0,0,5"
                             Style="{StaticResource LabelStyle}"
                             Text="Required Race Won" />
-                        <TextBox Height="35" Text="{Binding Blacklist.RequiredRaceWon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Text="{Binding Blacklist.RequiredRaceWon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
 
                     <!--  Required Challenges  -->
@@ -123,7 +87,7 @@
                             Margin="0,0,0,5"
                             Style="{StaticResource LabelStyle}"
                             Text="Required Challenges" />
-                        <TextBox Height="35" Text="{Binding Blacklist.RequiredChallenges, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Text="{Binding Blacklist.RequiredChallenges, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <!--  Required Bounty  -->
                     <StackPanel Grid.Column="4">
@@ -131,7 +95,7 @@
                             Margin="0,0,0,5"
                             Style="{StaticResource LabelStyle}"
                             Text="Required Bounty" />
-                        <TextBox Height="35" Text="{Binding Blacklist.RequiredBounty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Text="{Binding Blacklist.RequiredBounty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </Grid>
 
@@ -142,7 +106,6 @@
                         Style="{StaticResource LabelStyle}"
                         Text="Race Bin" />
                     <ComboBox
-                        Height="35"
                         HorizontalAlignment="Left"
                         ItemsSource="{Binding Blacklist.RaceBins}"
                         MaxWidth="300"
@@ -162,11 +125,7 @@
             </Grid.ColumnDefinitions>
 
             <!--  Boss Races  -->
-            <Border
-                Background="{StaticResource BackgroundMedium}"
-                CornerRadius="8"
-                Grid.Column="0"
-                Padding="20">
+            <Border Grid.Column="0" Style="{StaticResource CardStyle}">
                 <DockPanel>
                     <TextBlock
                         DockPanel.Dock="Top"
@@ -184,10 +143,7 @@
                         Margin="0,10,0,0"
                         Style="{StaticResource ButtonStyle}" />
 
-                    <ScrollViewer
-                        CanContentScroll="True"
-                        HorizontalScrollBarVisibility="Disabled"
-                        VerticalScrollBarVisibility="Hidden">
+                    <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled">
                         <ItemsControl ItemsSource="{Binding Blacklist.BossRaces}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
@@ -228,11 +184,7 @@
             </Border>
 
             <!--  Children  -->
-            <Border
-                Background="{StaticResource BackgroundMedium}"
-                CornerRadius="8"
-                Grid.Column="2"
-                Padding="20">
+            <Border Grid.Column="2" Style="{StaticResource CardStyle}">
                 <DockPanel>
                     <TextBlock
                         DockPanel.Dock="Top"
@@ -250,10 +202,7 @@
                         Margin="0,10,0,0"
                         Style="{StaticResource ButtonStyle}" />
 
-                    <ScrollViewer
-                        CanContentScroll="True"
-                        HorizontalScrollBarVisibility="Disabled"
-                        VerticalScrollBarVisibility="Hidden">
+                    <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled">
                         <ItemsControl ItemsSource="{Binding Blacklist.Children}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
@@ -294,11 +243,7 @@
             </Border>
 
             <!--  World Races  -->
-            <Border
-                Background="{StaticResource BackgroundMedium}"
-                CornerRadius="8"
-                Grid.Column="4"
-                Padding="20">
+            <Border Grid.Column="4" Style="{StaticResource CardStyle}">
                 <DockPanel>
                     <TextBlock
                         DockPanel.Dock="Top"
@@ -316,10 +261,7 @@
                         Margin="0,10,0,0"
                         Style="{StaticResource ButtonStyle}" />
 
-                    <ScrollViewer
-                        CanContentScroll="True"
-                        HorizontalScrollBarVisibility="Disabled"
-                        VerticalScrollBarVisibility="Hidden">
+                    <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled">
                         <ItemsControl ItemsSource="{Binding Blacklist.WorldRaces}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>

@@ -1,8 +1,6 @@
 ﻿<Page
     Background="#1a1a1a"
-    Height="720"
     Title="RacePage"
-    Width="1280"
     mc:Ignorable="d"
     x:Class="NFSMaxEd.Views.RacePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -23,7 +21,6 @@
             BorderThickness="1"
             CornerRadius="15"
             Effect="{DynamicResource DropShadowEffect}"
-            Margin="25,0"
             Padding="20"
             SnapsToDevicePixels="True">
 
@@ -38,12 +35,6 @@
                     Grid.Column="0"
                     Orientation="Vertical"
                     VerticalAlignment="Center">
-                    <TextBlock
-                        FontSize="28"
-                        FontWeight="Light"
-                        Foreground="White"
-                        Style="{StaticResource HeaderStyle}"
-                        Text="NFS-MaxEd" />
                     <TextBlock
                         FontSize="20"
                         FontWeight="SemiBold"
@@ -61,17 +52,6 @@
                     <Button
                         Background="{StaticResource BackgroundDark}"
                         BorderBrush="{StaticResource BorderColor}"
-                        Click="OnGenerateClick"
-                        Content="💾 Save Configuration"
-                        Foreground="{StaticResource TextPrimary}"
-                        Margin="0,0,10,0"
-                        MinWidth="180"
-                        Padding="20,12"
-                        Style="{StaticResource ButtonStyle}" />
-
-                    <Button
-                        Background="{StaticResource BackgroundDark}"
-                        BorderBrush="{StaticResource BorderColor}"
                         Click="OpenMap_Click"
                         Content="📍 Open Map"
                         Foreground="{StaticResource TextPrimary}"
@@ -80,25 +60,13 @@
                         Padding="20,12"
                         Style="{StaticResource ButtonStyle}" />
 
-                    <Button
-                        Background="{StaticResource BackgroundDark}"
-                        BorderBrush="{StaticResource BorderColor}"
-                        Click="GoToStartPage_Click"
-                        Content="🏠 Start Page"
-                        Foreground="{StaticResource TextPrimary}"
-                        MinWidth="140"
-                        Padding="20,12"
-                        Style="{StaticResource ButtonStyle}" />
                 </StackPanel>
             </Grid>
         </Border>
 
         <!--  Основной контент  -->
-        <ScrollViewer
-            Grid.Row="1"
-            HorizontalScrollBarVisibility="Hidden"
-            VerticalScrollBarVisibility="Hidden">
-            <Grid Margin="30,20">
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden">
+            <Grid Margin="0,20,0,20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
@@ -147,138 +115,136 @@
                     DataContext="{Binding Config}"
                     Grid.Row="1"
                     Style="{StaticResource CardStyle}">
-                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                        <Grid Margin="20">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                            <!--  ================= ОБЩИЕ НАСТРОЙКИ =================  -->
-                            <!--  Колонка 1  -->
-                            <StackPanel Grid.Column="0" Margin="0,0,20,0">
-                                <TextBlock
-                                    FontSize="16"
-                                    Margin="0,0,0,15"
-                                    Style="{StaticResource HeaderStyle}"
-                                    Text="Heat Settings" />
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="Force Heat Level" />
-                                <TextBox IsEnabled="{Binding EnableCops}" />
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="Max Heat Level" />
-                                <TextBox IsEnabled="{Binding EnableCops}" />
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="Event ID" />
-                                <TextBox Text="{Binding EventId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="Gameplay Vault" />
-                                <TextBox Text="{Binding GameplayVault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
+                        <!--  ================= ОБЩИЕ НАСТРОЙКИ =================  -->
+                        <!--  Колонка 1  -->
+                        <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                            <TextBlock
+                                FontSize="16"
+                                Margin="0,0,0,15"
+                                Style="{StaticResource HeaderStyle}"
+                                Text="Heat Settings" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="Force Heat Level" />
+                            <TextBox IsEnabled="{Binding EnableCops}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="Max Heat Level" />
+                            <TextBox IsEnabled="{Binding EnableCops}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="Event ID" />
+                            <TextBox Text="{Binding EventId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="Gameplay Vault" />
+                            <TextBox Text="{Binding GameplayVault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
 
-                            <!--  Колонка 2  -->
-                            <StackPanel Grid.Column="1" Margin="0,0,20,0">
-                                <TextBlock
-                                    FontSize="16"
-                                    Margin="0,0,0,15"
-                                    Style="{StaticResource HeaderStyle}"
-                                    Text="Location Settings" />
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="Race Bin" />
-                                <ComboBox ItemsSource="{Binding RaceBins}" SelectedItem="{Binding RaceBin, Mode=TwoWay}" />
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="Region" />
-                                <ComboBox ItemsSource="{Binding Regions}" SelectedItem="{Binding Region, Mode=TwoWay}" />
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="Intro NIS" />
-                                <ComboBox ItemsSource="{Binding IntroNisList}" SelectedItem="{Binding IntroNis, Mode=TwoWay}" />
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="Finish Camera" />
-                                <ComboBox ItemsSource="{Binding FinishCameraList}" SelectedItem="{Binding FinishCamera, Mode=TwoWay}" />
-                            </StackPanel>
+                        <!--  Колонка 2  -->
+                        <StackPanel Grid.Column="1" Margin="0,0,20,0">
+                            <TextBlock
+                                FontSize="16"
+                                Margin="0,0,0,15"
+                                Style="{StaticResource HeaderStyle}"
+                                Text="Location Settings" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="Race Bin" />
+                            <ComboBox ItemsSource="{Binding RaceBins}" SelectedItem="{Binding RaceBin, Mode=TwoWay}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="Region" />
+                            <ComboBox ItemsSource="{Binding Regions}" SelectedItem="{Binding Region, Mode=TwoWay}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="Intro NIS" />
+                            <ComboBox ItemsSource="{Binding IntroNisList}" SelectedItem="{Binding IntroNis, Mode=TwoWay}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="Finish Camera" />
+                            <ComboBox ItemsSource="{Binding FinishCameraList}" SelectedItem="{Binding FinishCamera, Mode=TwoWay}" />
+                        </StackPanel>
 
-                            <!--  Колонка 3  -->
-                            <StackPanel Grid.Column="2" Margin="0,0,20,0">
-                                <TextBlock
-                                    FontSize="16"
-                                    Margin="0,0,0,15"
-                                    Style="{StaticResource HeaderStyle}"
-                                    Text="Race Parameters" />
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="Cash Value" />
-                                <TextBox Text="{Binding CashValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="Traffic Level" />
-                                <TextBox Text="{Binding TrafficLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="Race Length" />
-                                <TextBox Text="{Binding RaceLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
+                        <!--  Колонка 3  -->
+                        <StackPanel Grid.Column="2" Margin="0,0,20,0">
+                            <TextBlock
+                                FontSize="16"
+                                Margin="0,0,0,15"
+                                Style="{StaticResource HeaderStyle}"
+                                Text="Race Parameters" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="Cash Value" />
+                            <TextBox Text="{Binding CashValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="Traffic Level" />
+                            <TextBox Text="{Binding TrafficLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="Race Length" />
+                            <TextBox Text="{Binding RaceLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
 
-                            <!--  ================= СПЕЦИФИЧЕСКИЕ НАСТРОЙКИ =================  -->
+                        <!--  ================= СПЕЦИФИЧЕСКИЕ НАСТРОЙКИ =================  -->
 
-                            <!--  Способ 1: Простая привязка к DataContext страницы (рекомендуемый)  -->
-                            <!--  Circuit и Knockout → NumLaps  -->
-                            <StackPanel
-                                Grid.Column="0"
-                                Grid.Row="1"
-                                Margin="0,20,20,0"
-                                Visibility="{Binding IsCircuitOrKnockout, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <TextBlock
-                                    FontSize="16"
-                                    Margin="0,0,0,15"
-                                    Style="{StaticResource HeaderStyle}"
-                                    Text="Circuit/Knockout Settings" />
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="Number of Laps" />
-                                <TextBox Text="{Binding NumLaps, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
+                        <!--  Способ 1: Простая привязка к DataContext страницы (рекомендуемый)  -->
+                        <!--  Circuit и Knockout → NumLaps  -->
+                        <StackPanel
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Margin="0,20,20,0"
+                            Visibility="{Binding IsCircuitOrKnockout, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <TextBlock
+                                FontSize="16"
+                                Margin="0,0,0,15"
+                                Style="{StaticResource HeaderStyle}"
+                                Text="Circuit/Knockout Settings" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="Number of Laps" />
+                            <TextBox Text="{Binding NumLaps, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
 
-                            <!--  Tollbooth → TimeLimit  -->
-                            <StackPanel
-                                Grid.Column="0"
-                                Grid.Row="1"
-                                Margin="0,20,20,0"
-                                Visibility="{Binding IsTollbooth, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <TextBlock
-                                    FontSize="16"
-                                    Margin="0,0,0,15"
-                                    Style="{StaticResource HeaderStyle}"
-                                    Text="Tollbooth Settings" />
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="Time Limit (sec)" />
-                                <TextBox Text="{Binding TimeLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
+                        <!--  Tollbooth → TimeLimit  -->
+                        <StackPanel
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Margin="0,20,20,0"
+                            Visibility="{Binding IsTollbooth, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <TextBlock
+                                FontSize="16"
+                                Margin="0,0,0,15"
+                                Style="{StaticResource HeaderStyle}"
+                                Text="Tollbooth Settings" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="Time Limit (sec)" />
+                            <TextBox Text="{Binding TimeLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
 
-                            <!--  Speedtrap → SpeedTrapList  -->
-                            <StackPanel
-                                Grid.Column="0"
-                                Grid.Row="1"
-                                Margin="0,20,20,0"
-                                Visibility="{Binding IsSpeedtrap, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <TextBlock
-                                    FontSize="16"
-                                    Margin="0,0,0,15"
-                                    Style="{StaticResource HeaderStyle}"
-                                    Text="Speedtrap Settings" />
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="Reputation" />
-                                <TextBox Text="{Binding Reputation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
+                        <!--  Speedtrap → SpeedTrapList  -->
+                        <StackPanel
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Margin="0,20,20,0"
+                            Visibility="{Binding IsSpeedtrap, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <TextBlock
+                                FontSize="16"
+                                Margin="0,0,0,15"
+                                Style="{StaticResource HeaderStyle}"
+                                Text="Speedtrap Settings" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="Reputation" />
+                            <TextBox Text="{Binding Reputation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
 
-                            <!--  Drag → RandomSpawnTriggers  -->
-                            <StackPanel
-                                Grid.Column="0"
-                                Grid.Row="1"
-                                Margin="0,20,20,0"
-                                Orientation="Vertical"
-                                Visibility="{Binding IsDrag, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <TextBlock
-                                    FontSize="16"
-                                    Margin="0,0,0,15"
-                                    Style="{StaticResource HeaderStyle}"
-                                    Text="Drag Settings" />
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="InitialSpeed" />
-                                <TextBox Text="{Binding InitialSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <!--  Drag → RandomSpawnTriggers  -->
+                        <StackPanel
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Margin="0,20,20,0"
+                            Orientation="Vertical"
+                            Visibility="{Binding IsDrag, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <TextBlock
+                                FontSize="16"
+                                Margin="0,0,0,15"
+                                Style="{StaticResource HeaderStyle}"
+                                Text="Drag Settings" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="InitialSpeed" />
+                            <TextBox Text="{Binding InitialSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                                <TextBlock Style="{StaticResource LabelStyle}" Text="Reputation" />
-                                <TextBox Text="{Binding Reputation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Style="{StaticResource LabelStyle}" Text="Reputation" />
+                            <TextBox Text="{Binding Reputation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                            </StackPanel>
+                        </StackPanel>
 
-                        </Grid>
-                    </ScrollViewer>
+                    </Grid>
                 </Border>
 
 

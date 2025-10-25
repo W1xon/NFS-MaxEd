@@ -1,28 +1,32 @@
-﻿using System.Windows.Controls;
-using System.IO;
-using System.Windows;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
-using Microsoft.Win32;
 using NFSMaxEd.Services;
 using NFSMaxEd.ViewModels;
 
 namespace NFSMaxEd.Views;
 
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
 public partial class MainWindow : Window
 {
     private MainViewModel MainViewModel { get; }
-    
+
     public MainWindow()
     {
-        InitializeComponent(); 
+        InitializeComponent(); // Инициализируем ViewModel
         MainViewModel = MainViewModel.Instance;
         DataContext = MainViewModel;
-        
+
+        // Подписываемся на событие изменения контента Frame
         MainFrame.Navigated += MainFrame_Navigated;
-        
-        MainFrame.Content = new StartPage();
+
+        // Устанавливаем начальную страницу
+        MainFrame.Content = new RacePage();
     }
 
+    // Обработчик события навигации Frame
     private void MainFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
     {
         if (e.Content is Page page)
@@ -33,23 +37,9 @@ public partial class MainWindow : Window
 
     private void UpdateWindowControls(Page page)
     {
-        UnsubscribeFromPageEvents();
-        
         page.DataContext = MainViewModel;
-        
-        if (page is RacePage racePage)
-        {
-            racePage.TitleBarMouseLeftButtonDown += DragWindow;
-        }
     }
 
-    private void UnsubscribeFromPageEvents()
-    {
-        if (MainFrame.Content is RacePage previousRacePage)
-        {
-            previousRacePage.TitleBarMouseLeftButtonDown -= DragWindow;
-        }
-    }
 
     private void Minimize_Click(object sender, RoutedEventArgs e)
     {
@@ -72,9 +62,39 @@ public partial class MainWindow : Window
             DragMove();
     }
 
-    protected override void OnClosed(EventArgs e)
+
+    private void OnRacesClick(object sender, RoutedEventArgs e)
     {
-        UnsubscribeFromPageEvents();
-        base.OnClosed(e);
+        MainFrame.Navigate(new RacePage());
+    }
+
+    private void OnMilestonesClick(object sender, RoutedEventArgs e)
+    {
+        MainFrame.Navigate(new MilestonesPage());
+    }
+
+    private void OnBlacklistClick(object sender, RoutedEventArgs e)
+    {
+        MainFrame.Navigate(new BlackListPage());
+    }
+
+    private void OnAboutAuthorClick(object sender, RoutedEventArgs e)
+    {
+        MainFrame.Navigate(new AboutAuthorPage());
+    }
+
+    
+    private void OnGenerateClick(object sender, RoutedEventArgs e)
+    {
+        FileService.SaveDemoScript();
+    }
+
+    private void TogglePanel_Click(object sender, RoutedEventArgs e)
+    {
+        bool isCollapsed = LeftPanel.Visibility == Visibility.Collapsed;
+
+        LeftPanel.Visibility = isCollapsed ? Visibility.Visible : Visibility.Collapsed;
+
+        TogglePanelButton.ToolTip = isCollapsed ? "Hide Panel" : "Show Panel";
     }
 }
