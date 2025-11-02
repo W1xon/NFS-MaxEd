@@ -2,7 +2,7 @@
   <h1>🚗 MaxEd — The Ultimate NFS Mod Editor</h1>
   <h3><i>(Not Really, But Close Enough)</i></h3>
   <p><b>Officially sanctioned by… well, me, Wixon.</b></p>
-  <img src="Assets/MaxEdLogo.jpg" width="600" alt="MaxEd Preview">
+  <img src="Assets/MaxEdLogo.png" width="600" alt="MaxEd Preview">
 </div>
 
 ---
