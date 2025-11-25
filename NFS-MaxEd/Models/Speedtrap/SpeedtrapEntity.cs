@@ -9,4 +9,4 @@ public class SpeedtrapEntity : BaseEntity
     public float PositionY { get => _positionY; set => Set(ref _positionY, value); }
     public float PositionZ { get => _positionZ; set => Set(ref _positionZ, value); }
     
-    }
+}

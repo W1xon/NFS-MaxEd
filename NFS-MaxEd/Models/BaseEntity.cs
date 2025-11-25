@@ -2,7 +2,7 @@
 
 public class BaseEntity : ObservableObject
 {
-    protected BaseEntity(string initialName = "")
+    public BaseEntity(string initialName = "")
     {
         _name = initialName;
     }

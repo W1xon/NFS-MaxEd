@@ -25,17 +25,22 @@ namespace NFSMaxEd.Views
             CenterAndZoomOut();
         }
         
+        
+        
+        
         private void CenterAndZoomOut()
         {
             currentZoom = 0.1;
             ScaleTransform.ScaleX = currentZoom;
             ScaleTransform.ScaleY = currentZoom;
         
+            
             double canvasWidth = MapCanvas.ActualWidth;
             double canvasHeight = MapCanvas.ActualHeight;
             double imageWidth = MapImage.ActualWidth;
             double imageHeight = MapImage.ActualHeight;
         
+            
             if (canvasWidth > 0 && canvasHeight > 0 && imageWidth > 0 && imageHeight > 0)
             {
                 TranslateTransform.X = (canvasWidth - imageWidth * currentZoom) / 2;
@@ -46,24 +51,28 @@ namespace NFSMaxEd.Views
         }
 
 
+        
         private void DragWindow(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                DragMove();
+                this.DragMove();
             }
         }
 
+        
         private void Minimize_Click(object sender, RoutedEventArgs e)
         {
-            WindowState = WindowState.Minimized;
+            this.WindowState = WindowState.Minimized;
         }
 
+        
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Close();
         }
 
+        
         private void MapCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             isDragging = true;
@@ -72,6 +81,7 @@ namespace NFSMaxEd.Views
             MapCanvas.Cursor = Cursors.SizeAll;
         }
 
+        
         private void MapCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             isDragging = false;
@@ -79,6 +89,7 @@ namespace NFSMaxEd.Views
             MapCanvas.Cursor = Cursors.Arrow;
         }
 
+        
         private void MapCanvas_MouseMove(object sender, MouseEventArgs e)
         {
             if (isDragging)
@@ -94,6 +105,7 @@ namespace NFSMaxEd.Views
             }
         }
 
+        
         private void MapCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             Point mousePos = e.GetPosition(MapImage);
@@ -101,13 +113,13 @@ namespace NFSMaxEd.Views
             double zoomFactor = e.Delta > 0 ? 1.1 : 0.9;
             double newZoom = currentZoom * zoomFactor;
 
-            // Ограничение зума
+            
             if (newZoom < MinZoom) newZoom = MinZoom;
             if (newZoom > MaxZoom) newZoom = MaxZoom;
 
             if (Math.Abs(newZoom - currentZoom) > 0.001)
             {
-                // Масштабирование относительно позиции мыши
+                
                 double scaleChange = newZoom / currentZoom;
                 
                 TranslateTransform.X = mousePos.X - (mousePos.X - TranslateTransform.X) * scaleChange;
@@ -121,15 +133,19 @@ namespace NFSMaxEd.Views
             }
         }
 
+        
+        
         private void ZoomIn_Click(object sender, RoutedEventArgs e)
         {
             ApplyZoom(currentZoom + ZoomStep);
         }
 
+
         private void ZoomOut_Click(object sender, RoutedEventArgs e)
         {
             ApplyZoom(currentZoom - ZoomStep);
         }
+
 
         private void ApplyZoom(double newZoom)
         {
@@ -139,12 +155,15 @@ namespace NFSMaxEd.Views
             if (Math.Abs(newZoom - currentZoom) < 0.001)
                 return;
 
+            
             Point center = new Point(MapCanvas.ActualWidth / 2, MapCanvas.ActualHeight / 2);
 
+            
             Point imageCenter = MapImage.TransformToVisual(MapCanvas).Transform(center);
 
             double scaleChange = newZoom / currentZoom;
 
+            
             TranslateTransform.X = imageCenter.X - (imageCenter.X - TranslateTransform.X) * scaleChange;
             TranslateTransform.Y = imageCenter.Y - (imageCenter.Y - TranslateTransform.Y) * scaleChange;
 
@@ -156,6 +175,7 @@ namespace NFSMaxEd.Views
         }
 
 
+        
         private void ResetZoom_Click(object sender, RoutedEventArgs e)
         {
             currentZoom = 1.0;
@@ -166,6 +186,7 @@ namespace NFSMaxEd.Views
             UpdateZoomLabel();
         }
 
+        
         private void UpdateZoomLabel()
         {
             if (ZoomLabel != null)

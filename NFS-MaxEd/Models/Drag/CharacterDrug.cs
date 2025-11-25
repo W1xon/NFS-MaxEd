@@ -4,7 +4,6 @@ public class CharacterDrug : BaseEntity
 {
     
     private string[] _carTypes = ["trafpizza", "trafficcoup", "trafsuva"];
-    private bool _template;
     private bool _fecompressionstoggle = true;
     private string _selectedCarType;
     
@@ -14,6 +13,5 @@ public class CharacterDrug : BaseEntity
     }
     public string[] CarTypes { get => _carTypes; set => Set(ref _carTypes, value); }
     public string SelectedCarType { get => _selectedCarType; set => Set(ref _selectedCarType, value); }
-    public bool Template { get => _template; set => Set(ref _template, value); }
     public bool Faceompressionstoggle { get => _fecompressionstoggle; set => Set(ref _fecompressionstoggle, value); }
 }

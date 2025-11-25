@@ -57,6 +57,7 @@
                     <!--  Системные кнопки  -->
                     <StackPanel
                         HorizontalAlignment="Right"
+                        Margin="0,0,10,0"
                         Orientation="Horizontal"
                         VerticalAlignment="Center">
                         <Button
@@ -92,108 +93,103 @@
                     BorderThickness="0,0,1,0"
                     Grid.Column="0"
                     x:Name="LeftPanel">
-                    <StackPanel
-                        Margin="15"
-                        Width="200"
-                        x:Name="LeftPanelContent">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
                         <!--  Заголовок навигации  -->
                         <TextBlock
                             FontWeight="Bold"
                             Foreground="{StaticResource TextDisabled}"
+                            Grid.Row="0"
                             HorizontalAlignment="Center"
-                            Margin="5,15,0,20"
+                            Margin="15,20,15,15"
                             Style="{StaticResource CaptionStyle}"
                             Text="NAVIGATION" />
 
-                        <!--  Races  -->
-                        <StackPanel HorizontalAlignment="Center">
-                            <Border
-                                Background="{StaticResource BackgroundLight}"
-                                BorderBrush="{StaticResource BorderColor}"
-                                BorderThickness="1"
-                                CornerRadius="8"
-                                Margin="0,0,0,8"
-                                Padding="10">
-                                <Image
-                                    Height="40"
-                                    Source="pack://application:,,,/Assets/races.png"
-                                    Width="60" />
-                            </Border>
-                            <Button
-                                Click="OnRacesClick"
-                                Content="🏁 Races"
-                                Style="{StaticResource NavButtonStyle}" />
-                        </StackPanel>
+                        <!--  Основная навигация  -->
+                        <ScrollViewer
+                            Grid.Row="1"
+                            HorizontalScrollBarVisibility="Disabled"
+                            VerticalScrollBarVisibility="Auto">
+                            <StackPanel Margin="15,0,15,15" Width="200">
+                                <!--  Races  -->
+                                <StackPanel HorizontalAlignment="Stretch" Margin="0,0,0,12">
 
-                        <!--  Milestones  -->
-                        <StackPanel HorizontalAlignment="Center" Margin="0,15,0,0">
-                            <Border
-                                Background="{StaticResource BackgroundLight}"
-                                BorderBrush="{StaticResource BorderColor}"
-                                BorderThickness="1"
-                                CornerRadius="8"
-                                Margin="0,0,0,8"
-                                Padding="10">
-                                <Image
-                                    Height="40"
-                                    Source="pack://application:,,,/Assets/milestones.png"
-                                    Width="60" />
-                            </Border>
-                            <Button
-                                Click="OnMilestonesClick"
-                                Content="🎯 Milestones"
-                                Style="{StaticResource NavButtonStyle}" />
-                        </StackPanel>
+                                    <Image
+                                        Height="40"
+                                        Source="pack://application:,,,/Assets/races.png"
+                                        Stretch="Uniform"
+                                        Width="60" />
+                                    <Button
+                                        Click="OnRacesClick"
+                                        Content="🏁 Races"
+                                        Style="{StaticResource NavButtonStyle}" />
+                                </StackPanel>
 
-                        <!--  Blacklist  -->
-                        <StackPanel HorizontalAlignment="Center" Margin="0,15,0,0">
-                            <Border
-                                Background="{StaticResource BackgroundLight}"
-                                BorderBrush="{StaticResource BorderColor}"
-                                BorderThickness="1"
-                                CornerRadius="8"
-                                Margin="0,0,0,8"
-                                Padding="10">
-                                <Image
-                                    Height="40"
-                                    Source="pack://application:,,,/Assets/blacklist.png"
-                                    Width="60" />
-                            </Border>
-                            <Button
-                                Click="OnBlacklistClick"
-                                Content="⚠️ Blacklist"
-                                Style="{StaticResource NavButtonStyle}" />
-                        </StackPanel>
+                                <!--  Milestones  -->
+                                <StackPanel HorizontalAlignment="Stretch" Margin="0,0,0,12">
 
-                        <!--  Разделитель  -->
-                        <Separator Margin="0,20,0,20" />
-                        <!--  About Author  -->
-                        <Button
-                            Click="OnAboutAuthorClick"
-                            Content="👨‍💻 About"
-                            Margin="10"
-                            Style="{StaticResource NavButtonStyle}" />
+                                    <Image
+                                        Height="40"
+                                        Source="pack://application:,,,/Assets/milestones.png"
+                                        Stretch="Uniform"
+                                        Width="60" />
+                                    <Button
+                                        Click="OnMilestonesClick"
+                                        Content="🎯 Milestones"
+                                        Style="{StaticResource NavButtonStyle}" />
+                                </StackPanel>
 
-                        <!--  Кнопка Save  -->
-                        <Button
-                            Click="OnGenerateClick"
-                            Height="40"
-                            Style="{StaticResource ButtonStyle}">
-                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                <TextBlock
-                                    FontSize="20"
-                                    Margin="0,0,10,0"
-                                    Text="💾"
-                                    VerticalAlignment="Center" />
-                                <TextBlock
-                                    FontWeight="Bold"
-                                    Text="Save Project"
-                                    VerticalAlignment="Center" />
+                                <!--  Blacklist  -->
+                                <StackPanel HorizontalAlignment="Stretch">
+                                    <Image
+                                        Height="40"
+                                        Source="pack://application:,,,/Assets/blacklist.png"
+                                        Stretch="Uniform"
+                                        Width="60" />
+                                    <Button
+                                        Click="OnBlacklistClick"
+                                        Content="⚠️ Blacklist"
+                                        Style="{StaticResource NavButtonStyle}" />
+                                </StackPanel>
                             </StackPanel>
-                        </Button>
+                        </ScrollViewer>
 
-                    </StackPanel>
+                        <!--  Нижняя секция с кнопками действий  -->
+                        <StackPanel Grid.Row="2" Margin="15,0,15,20">
+                            <!--  Разделитель  -->
+                            <Separator Margin="0,0,0,15" />
+
+                            <!--  About Author  -->
+                            <Button
+                                Click="OnAboutAuthorClick"
+                                Content="👨‍💻 About"
+                                Margin="0,0,0,12"
+                                Style="{StaticResource NavButtonStyle}" />
+
+                            <!--  Кнопка Save  -->
+                            <Button
+                                Click="OnGenerateClick"
+                                Height="45"
+                                Style="{StaticResource ButtonStyle}">
+                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <TextBlock
+                                        FontSize="20"
+                                        Margin="0,0,10,0"
+                                        Text="💾"
+                                        VerticalAlignment="Center" />
+                                    <TextBlock
+                                        FontWeight="Bold"
+                                        Text="Save Project"
+                                        VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
                 </Border>
 
                 <!--  Область контента  -->

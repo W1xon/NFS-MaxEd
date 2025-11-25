@@ -1,13 +1,16 @@
-﻿<Application x:Class="NFSMaxEd.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:NFSMaxEd"
-             StartupUri="Views/MainWindow.xaml">
+﻿<Application
+    StartupUri="Views/MainWindow.xaml"
+    x:Class="NFSMaxEd.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:converters="clr-namespace:NFSMaxEd.Converters"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Views/Styles.xaml"/>
+                <ResourceDictionary Source="/Views/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converters:MultiBooleanToVisibilityConverter x:Key="MultiBooleanToVisibilityConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

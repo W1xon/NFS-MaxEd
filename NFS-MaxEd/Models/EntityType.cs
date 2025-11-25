@@ -10,5 +10,10 @@ public enum EntityType
     marker,
     character,
     speedtrap,
-    timebonuscheckpoint
+    timebonuscheckpoint,
+    resetplayertrigger,
+    moneybag_small,
+    moneybag_middle,
+    moneybag_big,
+    carmarker,
 }

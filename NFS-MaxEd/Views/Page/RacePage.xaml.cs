@@ -1,15 +1,13 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
+using NFSMaxEd.Models;
 using NFSMaxEd.Services;
 using NFSMaxEd.ViewModels;
 
 namespace NFSMaxEd.Views;
 
-public partial class RacePage : Page
+public partial class RacePage : Page, IGeneratable
 {
-    public event MouseButtonEventHandler TitleBarMouseLeftButtonDown;
-
     public RacePage()
     {
         InitializeComponent();
@@ -18,21 +16,45 @@ public partial class RacePage : Page
     private void OpenMap_Click(object sender, RoutedEventArgs e)
     {
         var mapWindow = new MapWindow();
-        mapWindow.ShowDialog();
+        mapWindow.Show();
     }
 
-    private void OnGenerateClick(object sender, RoutedEventArgs e)
-    {;
-        FileService.SaveDemoScript();
-    }
-
-    private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    public CodeInfo GenerateCode() => new CodeInfo()
     {
-        TitleBarMouseLeftButtonDown?.Invoke(this, e);
-    }
-    private void GoToStartPage_Click(object sender, RoutedEventArgs e)
+        Line = RaceParserFactory.CreateRaceParser(MainViewModel.Instance.Config).GenerateCode(),
+        Name = MainViewModel.Instance.Config.NodeType.ToString()
+    } ;
+    private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        NavigationService?.Navigate(new StartPage());
+        MainViewModel.Instance.ResetConfigs();
+        MainViewModel.Instance.UpdateVisibility();
     }
 
+
+    private void ShowCashgrabInfo_OnClick(object sender, RoutedEventArgs e)
+    {
+        var window = Window.GetWindow(this); 
+
+        var infoWindow = new CashgrabInfo
+        {
+            Owner = window,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner
+        };
+
+        infoWindow.ShowDialog();
+    }
+
+
+    private void ShowDragInfo_OnClick(object sender, RoutedEventArgs e)
+    {
+        var window = Window.GetWindow(this); 
+
+        var infoWindow = new DrugWindow()
+        {
+            Owner = window,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner
+        };
+
+        infoWindow.ShowDialog();
+    }
 }

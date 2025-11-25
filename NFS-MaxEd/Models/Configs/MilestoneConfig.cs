@@ -88,5 +88,12 @@ public class MilestoneConfig : ObservableObject
         set => Set(ref _goalHard, value);
     }
 
+    public void Reset()
+    {
+        GoalAddPrevBest = 0;
+        GoalEasy = 0;
+        GoalHard = 0;
+        Bounty = 0;
+    }
 
 }

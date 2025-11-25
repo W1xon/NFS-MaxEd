@@ -1,0 +1,72 @@
+﻿<Window
+    AllowsTransparency="True"
+    Background="Transparent"
+    FontSize="14"
+    Height="300"
+    ResizeMode="NoResize"
+    Title="Cashgrab Info"
+    Width="600"
+    WindowStartupLocation="CenterOwner"
+    WindowStyle="None"
+    mc:Ignorable="d"
+    x:Class="NFSMaxEd.Views.CashgrabInfo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Border
+        CornerRadius="10"
+        HorizontalAlignment="Center"
+        Padding="25"
+        Style="{StaticResource CardStyle}"
+        VerticalAlignment="Center">
+
+        <!--  Яркое свечение  -->
+        <Border.Effect>
+            <DropShadowEffect
+                BlurRadius="25"
+                Color="#FF00BFFF"
+                Opacity="0.9"
+                ShadowDepth="0" />
+        </Border.Effect>
+
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="450">
+
+            <TextBlock
+                FontSize="16"
+                Foreground="{StaticResource TextPrimary}"
+                Style="{StaticResource LabelStyle}"
+                TextAlignment="Center"
+                TextWrapping="Wrap">
+                <Run Text="Generated Cashgrab tracks will not work in-game unless the " />
+                <Run
+                    FontWeight="Bold"
+                    Foreground="{StaticResource AccentSecondary}"
+                    Text="'Cashgrab Mode Return (MW)'" />
+                <Run Text=" mod is installed. Do you want to install it now?" />
+            </TextBlock>
+
+
+
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button
+                    Click="DownloadMod_Click"
+                    Content="Download Mod"
+                    Height="35"
+                    Style="{StaticResource ControlButtonStyle}"
+                    Width="120" />
+
+                <Button
+                    Click="Cancel_Click"
+                    Content="Cancel"
+                    Height="35"
+                    Style="{StaticResource ControlButtonStyle}"
+                    Width="100" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

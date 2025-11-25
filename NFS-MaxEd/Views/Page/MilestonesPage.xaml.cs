@@ -1,21 +1,19 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using NFSMaxEd.Services;
+using NFSMaxEd.ViewModels;
 
 namespace NFSMaxEd.Views;
 
-public partial class MilestonesPage : Page
+public partial class MilestonesPage : Page, IGeneratable
 {
     public MilestonesPage()
     {
         InitializeComponent();
     }
-    private void OnGenerateClick(object sender, RoutedEventArgs e)
+
+    public CodeInfo GenerateCode() => new CodeInfo()
     {
-        FileService.SaveDemoScript();
-    }
-    private void GoToStartPage_Click(object sender, RoutedEventArgs e)
-    {
-        NavigationService?.Navigate(new StartPage());
-    }
+        Line = new MilestoneParser(MainViewModel.Instance.MilestoneConfig).GenerateCode(),
+        Name = "MilestonesPage"
+    } ;
 }

@@ -1,6 +1,9 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
+using Microsoft.Win32;
+using NFSMaxEd.Models;
 using NFSMaxEd.Services;
 using NFSMaxEd.ViewModels;
 
@@ -11,22 +14,27 @@ namespace NFSMaxEd.Views;
 /// </summary>
 public partial class MainWindow : Window
 {
+
     private MainViewModel MainViewModel { get; }
 
     public MainWindow()
     {
-        InitializeComponent(); // Инициализируем ViewModel
+        InitializeComponent();
+        
+        if (FirstRunService.IsFirstRun())
+        {
+            ShowWelcomeWindow();
+        }
+
+        
         MainViewModel = MainViewModel.Instance;
         DataContext = MainViewModel;
 
-        // Подписываемся на событие изменения контента Frame
         MainFrame.Navigated += MainFrame_Navigated;
 
-        // Устанавливаем начальную страницу
         MainFrame.Content = new RacePage();
     }
 
-    // Обработчик события навигации Frame
     private void MainFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
     {
         if (e.Content is Page page)
@@ -86,7 +94,15 @@ public partial class MainWindow : Window
     
     private void OnGenerateClick(object sender, RoutedEventArgs e)
     {
-        FileService.SaveDemoScript();
+        if (MainFrame.Content is not IGeneratable page)
+        {
+            MessageBox.Show("Эта страница не поддерживает генерацию скрипта.",
+                "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            return;
+        }
+
+        CodeInfo codeInfo = page.GenerateCode();
+        FileService.SaveNFSMS(codeInfo.Line, codeInfo.Name);
     }
 
     private void TogglePanel_Click(object sender, RoutedEventArgs e)
@@ -96,5 +112,12 @@ public partial class MainWindow : Window
         LeftPanel.Visibility = isCollapsed ? Visibility.Visible : Visibility.Collapsed;
 
         TogglePanelButton.ToolTip = isCollapsed ? "Hide Panel" : "Show Panel";
+    }
+    
+    private void ShowWelcomeWindow()
+    {
+        var welcomeWindow = new WelcomeWindow();
+        
+        welcomeWindow.ShowDialog();
     }
 }

@@ -41,7 +41,7 @@
     <ItemGroup>
       <None Remove="Assets\Map.png" />
       <Content Include="Assets\Map.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
       <None Remove="Assets\MAIN_ICON_TOP_15.png" />
       <Content Include="Assets\blacklist.png">
@@ -60,6 +60,12 @@
     <ItemGroup>
       <None Remove="Assets\app.ico" />
       <Resource Include="Assets\app.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Services\RaceScriptBuilderCombine.cs">
+        <DependentUpon>RaceScriptBuilder.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

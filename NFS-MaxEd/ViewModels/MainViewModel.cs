@@ -1,17 +1,35 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using NFSMaxEd.Extensions;
 using NFSMaxEd.Models;
 using Barrier = NFSMaxEd.Models.Barrier;
 
 namespace NFSMaxEd.ViewModels;
 
-public class MainViewModel : INotifyPropertyChanged
+public class MainViewModel : ObservableObject
 {
-    private readonly RaceConfig _config = new();
-    public RaceConfig Config => _config;
-    public BlacklistConfig Blacklist { get; } = new();
-    public MilestoneConfig MilestoneConfig { get; } = new();
+   private RaceConfig _config = new();
+   public RaceConfig Config
+   {
+       get => _config;
+       set => Set(ref _config, value);
+   }
+   
+   private BlacklistConfig _blacklist = new();
+   public BlacklistConfig Blacklist
+   {
+       get => _blacklist;
+       set => Set(ref _blacklist, value);
+   }
+   
+   private MilestoneConfig _milestoneConfig = new();
+   public MilestoneConfig MilestoneConfig
+   {
+       get => _milestoneConfig;
+       set => Set(ref _milestoneConfig, value);
+   }
+
 
     private static MainViewModel _instance;
 
@@ -24,6 +42,14 @@ public class MainViewModel : INotifyPropertyChanged
             return _instance;
         }
     }
+    public void ResetConfigs()
+    {
+        Config.Reset();
+        Blacklist.Reset();
+        MilestoneConfig.Reset();
+    }
+
+
 
     private MainViewModel()
     {
@@ -38,12 +64,46 @@ public class MainViewModel : INotifyPropertyChanged
     private void InitializeConfigCommands()
     {
         InitializeBarrierCommands();
-        InitializeOpponentCommands();
         InitializeCheckpointCommands();
         InitializeTimeBonusCheckpoint();
         InitializeShortcutCommands();
         InitializeSpeedtrapCommands();
         InitializeCharacterDrugCommands();
+        InitializeResetPlayerTriggerCommands();
+        InitializeMoneybagCommands();
+    }
+
+    private void InitializeMoneybagCommands()
+    {
+        Config.AddMoneybagSmallCommand = CreateAddCommand(Config.Moneybags, ()=> new Moneybag(EntityType.moneybag_small), "moneybag_small");
+        Config.AddMoneybagMiddleCommand = CreateAddCommand(Config.Moneybags, ()=> new Moneybag(EntityType.moneybag_middle), "moneybag_middle");
+        Config.AddMoneybagBigCommand = CreateAddCommand(Config.Moneybags, ()=> new Moneybag(EntityType.moneybag_big), "moneybag_big");
+        
+        Config.RemoveMoneybag = new RelayCommand(p =>
+        {
+            if (p is not Moneybag item) return;
+            
+            Config.Moneybags.Remove(item);
+            if(item.Name.Contains("small"))
+            {
+                Config.Checkpoints.UpdateNames("moneybag_small");
+            }
+            else if(item.Name.Contains("middle"))
+            {
+                Config.Checkpoints.UpdateNames("moneybag_middle");
+            }
+            else if(item.Name.Contains("big"))
+            {
+                Config.Checkpoints.UpdateNames("moneybag_big");
+            }
+        });
+    }
+
+    private void InitializeResetPlayerTriggerCommands()
+    {
+        Config.AddResetPlayerTriggerCommand = CreateAddCommand(Config.ResetPlayerTrigers, () => new PointEntity(EntityType.resetplayertrigger), "wrongway");
+        Config.RemoveResetPlayerTriggerCommand = CreateRemoveCommand(Config.ResetPlayerTrigers, "wrongway");
+        
     }
 
     private void InitializeBarrierCommands()
@@ -55,24 +115,6 @@ public class MainViewModel : INotifyPropertyChanged
         });
     }
 
-    private void InitializeOpponentCommands()
-    {
-        Config.AddOpponentCommand = new RelayCommand(_ =>
-        {
-            var newOpponent = new Opponent();
-            Config.OpponentPaths.Add(newOpponent);
-            UpdateNames(Config.OpponentPaths, Config.RaceBin == "race_bin_15" ? "opponent" : "character");
-        });
-
-        Config.RemoveOpponentCommand = new RelayCommand(p =>
-        {
-            if (p is Opponent o)
-            {
-                Config.OpponentPaths.Remove(o);
-                UpdateNames(Config.OpponentPaths, Config.RaceBin == "race_bin_15" ? "opponent" : "character");
-            }
-        });
-    }
 
     private void InitializeCheckpointCommands()
     {
@@ -80,17 +122,15 @@ public class MainViewModel : INotifyPropertyChanged
             () => new CheckpointEntity(EntityType.checkpoint), EntityType.checkpoint);
         Config.RemoveCheckpointCommand = new RelayCommand(p =>
         {
-            if (p is CheckpointEntity item)
+            if (p is not CheckpointEntity item) return;
+            Config.Checkpoints.Remove(item);
+            if(!item.Name.Contains("/"))
             {
-                Config.Checkpoints.Remove(item);
-                if(!item.Name.Contains("/"))
-                {
-                     UpdateNames(Config.Checkpoints, item.EntityType.ToString());
-                }
-                else
-                {
-                    UpdateNames(Config.Checkpoints, $"/{item.EntityType.ToString()}");
-                }
+                Config.Checkpoints.UpdateNames(item.EntityType.ToString());
+            }
+            else
+            {
+                Config.Checkpoints.UpdateNames($"/{item.EntityType.ToString()}");
             }
         });}
 
@@ -123,8 +163,8 @@ public class MainViewModel : INotifyPropertyChanged
             Config.CharacterDrugs.Add(newCharacterDrug);
             Config.TrafficSpawnTriggers.Add(newTrigger);
             
-            UpdateNames(Config.CharacterDrugs, "character");
-            UpdateNames(Config.TrafficSpawnTriggers, "trafficspawntrigger");
+            Config.CharacterDrugs.UpdateNames("character");
+            Config.TrafficSpawnTriggers.UpdateNames("trafficspawntrigger");
         });
 
         // Удаляем CharacterDrug и связанный TrafficSpawnTrigger по индексу
@@ -154,15 +194,11 @@ public class MainViewModel : INotifyPropertyChanged
                 {
                     Config.TrafficSpawnTriggers.RemoveAt(index);
                 }
-                
-                UpdateNames(Config.CharacterDrugs, "character");
-                UpdateNames(Config.TrafficSpawnTriggers, "trafficspawntrigger");
+                Config.CharacterDrugs.UpdateNames("character");
+                Config.TrafficSpawnTriggers.UpdateNames("trafficspawntrigger");
             }
         });
     }
-
-    
-
     #endregion
 
     private void InitializeBlacklistCommands()
@@ -175,6 +211,9 @@ public class MainViewModel : INotifyPropertyChanged
         
         Blacklist.AddWorldRaceCommand = CreateAddCommand(Blacklist.WorldRaces);
         Blacklist.RemoveWorldRaceCommand = CreateRemoveCommand(Blacklist.WorldRaces);
+
+        Blacklist.AddMilestoneCommand = CreateAddCommand(Blacklist.Milestones);
+        Blacklist.RemoveMilestoneCommand = CreateRemoveCommand(Blacklist.Milestones);
     }
 
     
@@ -184,7 +223,8 @@ public class MainViewModel : INotifyPropertyChanged
         {
             var item = factory();
             collection.Add(item);
-            if (baseName != default) UpdateNames(collection, baseName.ToString());
+            if (baseName != default)
+                collection.UpdateNames(baseName.ToString());
         });
     }
 
@@ -195,7 +235,8 @@ public class MainViewModel : INotifyPropertyChanged
             if (p is T item)
             {
                 collection.Remove(item);
-                if (baseName != default) UpdateNames(collection, baseName.ToString());
+                if (baseName != default) 
+                    collection.UpdateNames(baseName.ToString());
             }
         });
     }
@@ -206,7 +247,7 @@ public class MainViewModel : INotifyPropertyChanged
             var item = factory();
             collection.Add(item);
             if (!string.IsNullOrWhiteSpace(baseName))
-                UpdateNames(collection, baseName);
+                collection.UpdateNames(baseName);
         });
     }
 
@@ -218,21 +259,22 @@ public class MainViewModel : INotifyPropertyChanged
             {
                 collection.Remove(item);
                 if (!string.IsNullOrWhiteSpace(baseName))
-                    UpdateNames(collection, baseName);
+                    collection.UpdateNames(baseName);
             }
         });
     }
 
     private RelayCommand CreateAddCommand(IList<StringWrapper> collection)
     {
-        return new RelayCommand(_ => collection.Add(string.Empty));
+        return new RelayCommand(_ => collection.Add(new StringWrapper("")));
     }
-
+    
     private RelayCommand CreateRemoveCommand(IList<StringWrapper> collection) 
     {
         return new RelayCommand(p =>
         {
-            if (p is string s) collection.Remove(s);
+            if (p is StringWrapper item) 
+                collection.Remove(item);
         });
     }
     private void Config_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -242,58 +284,14 @@ public class MainViewModel : INotifyPropertyChanged
             UpdateVisibility();
         }
     }
-
-    private void UpdateVisibility()
+    public  void UpdateVisibility()
     {
         Config.IsCircuitOrKnockout = Config.NodeType is RaceType.circuit or RaceType.lapknockout;
         Config.IsTollbooth = Config.NodeType == RaceType.tollboothrace;
         Config.IsSpeedtrap = Config.NodeType == RaceType.speedtraprace;
         Config.IsDrag = Config.NodeType == RaceType.drag;
-        Config.IsShortcutAvailable = Config.NodeType is RaceType.circuit or RaceType.p2p or RaceType.lapknockout or RaceType.tollboothrace or RaceType.speedtraprace;
-    }
-    private void UpdateNames<T>(IList<T> list, string baseName) where T : BaseEntity
-    {
-        var existingNumbers = list
-            .Where(l => !string.IsNullOrWhiteSpace(l.Name) && l.Name.StartsWith(baseName))
-            .Select(l => 
-            {
-                var digits = new string(l.Name.Skip(baseName.Length).ToArray());
-                return int.TryParse(digits, out int n) ? n : 0;
-            })
-            .ToHashSet();
-
-        int counter = 1;
-
-        foreach (var item in list)
-        {
-            if (string.IsNullOrWhiteSpace(item.Name))
-            {
-                while (existingNumbers.Contains(counter))
-                    counter++;
-
-                item.Name = $"{baseName}{counter}";
-                existingNumbers.Add(counter);
-            }
-        }
-
-        var sorted = list.OrderBy(item => GetIndexFromName(item.Name)).ToList();
-
-        for (int i = 0; i < sorted.Count; i++)
-        {
-            list[i] = sorted[i];
-        }
-
-
-    }
-    private int GetIndexFromName(string name)
-    {
-        var digits = new string(name.Reverse().TakeWhile(char.IsDigit).Reverse().ToArray());
-        return int.TryParse(digits, out int val) ? val : -1;
-    }
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        Config.IsFinishAvailable = Config.NodeType != RaceType.cashgrab;
+        Config.IsCashgrab = Config.NodeType == RaceType.cashgrab;
+        Config.IsShortcutAvailable = Config.NodeType is RaceType.circuit or RaceType.p2p or RaceType.lapknockout or RaceType.tollboothrace or RaceType.speedtraprace or RaceType.cashgrab;
     }
 }

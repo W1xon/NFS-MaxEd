@@ -1,24 +1,16 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using NFSMaxEd.Models;
+﻿using NFSMaxEd.Models;
 using NFSMaxEd.Services;
 using NFSMaxEd.ViewModels;
 
 namespace NFSMaxEd.Views;
 
-public partial class BlackListPage : Page
+public partial class BlackListPage : Page, IGeneratable
 {
-    public BlackListPage()
-    {
-        InitializeComponent();
-    } 
-    private void OnGenerateClick(object sender, RoutedEventArgs e)
-    {
-        FileService.SaveDemoScript();
-    }
+    public BlackListPage() => InitializeComponent();
 
-    private void GoToStartPage_Click(object sender, RoutedEventArgs e)
+    public CodeInfo GenerateCode() => new()
     {
-        NavigationService?.Navigate(new StartPage());
-    }
+        Line = new BlacklistParser(MainViewModel.Instance.Blacklist, new BlacklistStore()).GenerateCode(),
+        Name = nameof(BlackListPage)
+    };
 }

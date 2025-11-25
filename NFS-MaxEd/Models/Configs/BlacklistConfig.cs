@@ -19,9 +19,10 @@ public class BlacklistConfig : ObservableObject
         "race_bin_11","race_bin_12","race_bin_13","race_bin_14","race_bin_15",
     };
 
-    public ObservableCollection<StringWrapper> BossRaces { get; } = new();
-    public ObservableCollection<StringWrapper> Children { get; } = new();
-    public ObservableCollection<StringWrapper> WorldRaces { get; } = new();
+    public ObservableCollection<StringWrapper> BossRaces { get; } = [];
+    public ObservableCollection<StringWrapper> Children { get; } = [];
+    public ObservableCollection<StringWrapper> WorldRaces { get; } = [];
+    public ObservableCollection<StringWrapper> Milestones { get; } = [];
 
     private readonly BlacklistStore _blacklistStore = new();
 
@@ -43,7 +44,6 @@ public class BlacklistConfig : ObservableObject
     {
         var data = _blacklistStore.GetData(raceBin);
 
-        // Очищаем и заполняем коллекции
         BossRaces.Clear();
         foreach (var item in data.BossRaces)
             BossRaces.Add(item);
@@ -55,11 +55,14 @@ public class BlacklistConfig : ObservableObject
         WorldRaces.Clear();
         foreach (var item in data.WorldRaces)
             WorldRaces.Add(item);
+        Milestones.Clear();
+        foreach (var item in data.Milestones)
+            Milestones.Add(item);
 
-        // Уведомляем UI об изменении коллекций
         OnPropertyChanged(nameof(BossRaces));
         OnPropertyChanged(nameof(Children));
         OnPropertyChanged(nameof(WorldRaces));
+        OnPropertyChanged(nameof(Milestones));
     }
 
 
@@ -99,6 +102,15 @@ public class BlacklistConfig : ObservableObject
         }
     }
 
+    public void Reset()
+    {
+        RequiredBounty = 0;
+        RequiredChallenges = 0;
+        RequiredRaceWon = 0;
+
+        RaceBin = RaceBins[0];
+    }
+
     public ICommand AddBossRaceCommand { get; set; }
     public ICommand RemoveBossRaceCommand { get; set; }
 
@@ -107,4 +119,6 @@ public class BlacklistConfig : ObservableObject
 
     public ICommand AddWorldRaceCommand { get; set; }
     public ICommand RemoveWorldRaceCommand { get; set; }
+    public ICommand AddMilestoneCommand { get; set; }
+    public ICommand RemoveMilestoneCommand { get; set; }
 }

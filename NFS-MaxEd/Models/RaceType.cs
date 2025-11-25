@@ -8,5 +8,5 @@
      tollboothrace,
      speedtraprace,
      cashgrab,
-     drag
+     drag,
  }
