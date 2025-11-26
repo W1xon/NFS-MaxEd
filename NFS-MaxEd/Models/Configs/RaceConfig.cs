@@ -18,14 +18,10 @@ public class RaceConfig : ObservableObject
         StartGrid = new PointEntity(EntityType.startgrid)
         {
             Name = "startgrid",
-            PositionX = 0,
-            PositionY = 0,
-            PositionZ = 0,
-            Rotation = 0,
             Template = true
         };
 
-        FinishLine = new PointEntity(EntityType.finishline)
+        FinishLine = new FinishLine(EntityType.finishline)
         {
             Name = "finishline",
             Template = true
@@ -67,7 +63,6 @@ public class RaceConfig : ObservableObject
         "race_bin_01", "race_bin_02", "race_bin_03", "race_bin_04", "race_bin_05",
         "race_bin_06", "race_bin_07", "race_bin_08", "race_bin_09", "race_bin_10",
         "race_bin_11", "race_bin_12", "race_bin_13", "race_bin_14", "race_bin_15",
-        "race_bin_challenge"
     ];
     public ObservableCollection<RaceType> NodeTypes { get; } =
     [
@@ -226,8 +221,8 @@ public class RaceConfig : ObservableObject
         // Старт / Финиш
         private PointEntity _startGrid;
         public PointEntity StartGrid { get => _startGrid; set => Set(ref _startGrid, value); }
-        private PointEntity _finishLine;
-        public PointEntity FinishLine { get => _finishLine; set => Set(ref _finishLine, value); }
+        private FinishLine _finishLine;
+        public FinishLine FinishLine { get => _finishLine; set => Set(ref _finishLine, value); }
         
 
         private string _eventId;
@@ -428,7 +423,7 @@ public class RaceConfig : ObservableObject
         
             // Пересоздание стартовых объектов
             StartGrid = new PointEntity(EntityType.startgrid) { Name = "startgrid", Template = true };
-            FinishLine = new PointEntity(EntityType.finishline) { Name = "finishline", Template = true };
+            FinishLine = new FinishLine(EntityType.finishline) { Name = "finishline", Template = true };
             StartMarker = new PointEntity(EntityType.marker) { Name = "start_marker", Template = true };
             FinishMarker = new PointEntity(EntityType.marker) { Name = "finish_marker", Template = true };
         

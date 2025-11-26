@@ -514,7 +514,7 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding Rotation, Mode=TwoWay}" />
+                                                                                Text="{Binding RotationHEX, Mode=TwoWay}" />
                                                                         </StackPanel>
                                                                     </Grid>
 
@@ -692,7 +692,7 @@
                                                                                 Text="{Binding PositionZ, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Rotation  -->
+                                                                        <!--  RotationHEX  -->
                                                                         <StackPanel
                                                                             Grid.Column="3"
                                                                             Margin="2,0"
@@ -707,7 +707,7 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding Rotation, Mode=TwoWay}" />
+                                                                                Text="{Binding RotationHEX, Mode=TwoWay}" />
                                                                         </StackPanel>
                                                                     </Grid>
 
@@ -1121,7 +1121,7 @@
                                                                                 Text="{Binding PositionZ, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Rotation  -->
+                                                                        <!--  RotationHEX  -->
                                                                         <StackPanel Grid.Column="3" VerticalAlignment="Top">
                                                                             <TextBlock
                                                                                 FontSize="9"
@@ -1133,7 +1133,7 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding Rotation, Mode=TwoWay}" />
+                                                                                Text="{Binding RotationHEX, Mode=TwoWay}" />
                                                                         </StackPanel>
                                                                     </Grid>
 
@@ -1301,7 +1301,7 @@
                                                                                 Text="{Binding PositionZ, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Rotation  -->
+                                                                        <!--  RotationHEX  -->
                                                                         <StackPanel Grid.Column="3" VerticalAlignment="Top">
                                                                             <TextBlock
                                                                                 FontSize="9"
@@ -1313,7 +1313,7 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding Rotation, Mode=TwoWay}" />
+                                                                                Text="{Binding RotationHEX, Mode=TwoWay}" />
                                                                         </StackPanel>
                                                                     </Grid>
                                                                 </UniformGrid>
@@ -1609,20 +1609,20 @@
                                                 </StackPanel>
                                             </Grid>
 
-                                            <!--  Rotation  -->
+                                            <!--  RotationHEX  -->
                                             <UniformGrid Margin="0,4,0,0" Rows="1">
                                                 <StackPanel Orientation="Vertical">
                                                     <TextBlock
                                                         FontSize="10"
                                                         Foreground="{StaticResource TextSecondary}"
                                                         Margin="0,0,0,2"
-                                                        Text="Rotation:" />
+                                                        Text="RotationHEX:" />
                                                     <TextBox
                                                         Background="Transparent"
                                                         BorderBrush="{StaticResource BorderColor}"
                                                         FontSize="10"
                                                         Foreground="{StaticResource TextPrimary}"
-                                                        Text="{Binding StartGrid.Rotation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                        Text="{Binding StartGrid.RotationHEX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
                                             </UniformGrid>
 
@@ -1645,8 +1645,7 @@
                                         Margin="0"
                                         Padding="6">
 
-                                        <UniformGrid Rows="3">
-
+                                        <UniformGrid Rows="4">
                                             <!--  Path  -->
                                             <TextBox
                                                 Background="Transparent"
@@ -1731,7 +1730,79 @@
                                                 </StackPanel>
                                             </Grid>
 
-                                            <!--  Rotation  -->
+                                            <!--  Dimensions  -->
+                                            <Grid Margin="0,4,0,0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <!--  Dimensions Label  -->
+                                                <TextBlock
+                                                    FontSize="10"
+                                                    Foreground="{StaticResource TextSecondary}"
+                                                    Grid.Column="0"
+                                                    Margin="0,0,5,0"
+                                                    Text="Dimensions:"
+                                                    VerticalAlignment="Center" />
+
+                                                <!--  X  -->
+                                                <StackPanel
+                                                    Grid.Column="1"
+                                                    Margin="2,0"
+                                                    VerticalAlignment="Top">
+                                                    <TextBlock
+                                                        FontSize="9"
+                                                        Foreground="{StaticResource TextPrimary}"
+                                                        Margin="0,0,0,2"
+                                                        Text="X" />
+                                                    <TextBox
+                                                        Background="Transparent"
+                                                        BorderBrush="{StaticResource BorderColor}"
+                                                        FontSize="10"
+                                                        Foreground="{StaticResource TextPrimary}"
+                                                        Text="{Binding FinishLine.DimensionsX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                </StackPanel>
+
+                                                <!--  Y  -->
+                                                <StackPanel
+                                                    Grid.Column="2"
+                                                    Margin="2,0"
+                                                    VerticalAlignment="Top">
+                                                    <TextBlock
+                                                        FontSize="9"
+                                                        Foreground="{StaticResource TextPrimary}"
+                                                        Margin="0,0,0,2"
+                                                        Text="Y" />
+                                                    <TextBox
+                                                        Background="Transparent"
+                                                        BorderBrush="{StaticResource BorderColor}"
+                                                        FontSize="10"
+                                                        Foreground="{StaticResource TextPrimary}"
+                                                        Text="{Binding FinishLine.DimensionsY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                </StackPanel>
+
+                                                <!--  Z  -->
+                                                <StackPanel
+                                                    Grid.Column="3"
+                                                    Margin="2,0"
+                                                    VerticalAlignment="Top">
+                                                    <TextBlock
+                                                        FontSize="9"
+                                                        Foreground="{StaticResource TextPrimary}"
+                                                        Margin="0,0,0,2"
+                                                        Text="Z" />
+                                                    <TextBox
+                                                        Background="Transparent"
+                                                        BorderBrush="{StaticResource BorderColor}"
+                                                        FontSize="10"
+                                                        Foreground="{StaticResource TextPrimary}"
+                                                        Text="{Binding FinishLine.DimensionsZ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                </StackPanel>
+                                            </Grid>
+                                            <!--  RotationHEX  -->
                                             <UniformGrid Margin="0,4,0,0" Rows="1">
                                                 <StackPanel Orientation="Vertical">
                                                     <TextBlock
@@ -1744,7 +1815,7 @@
                                                         BorderBrush="{StaticResource BorderColor}"
                                                         FontSize="10"
                                                         Foreground="{StaticResource TextPrimary}"
-                                                        Text="{Binding FinishLine.Rotation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                        Text="{Binding FinishLine.RotationHEX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
                                             </UniformGrid>
 
@@ -1875,7 +1946,7 @@
                                                                                     Text="{Binding PositionZ, Mode=TwoWay}" />
                                                                             </StackPanel>
 
-                                                                            <!--  Rotation  -->
+                                                                            <!--  RotationHEX  -->
                                                                             <StackPanel Grid.Column="3" VerticalAlignment="Top">
                                                                                 <TextBlock
                                                                                     FontSize="9"
@@ -1887,7 +1958,7 @@
                                                                                     BorderBrush="{StaticResource BorderColor}"
                                                                                     FontSize="10"
                                                                                     Foreground="{StaticResource TextPrimary}"
-                                                                                    Text="{Binding Rotation, Mode=TwoWay}" />
+                                                                                    Text="{Binding RotationHEX, Mode=TwoWay}" />
                                                                             </StackPanel>
                                                                         </Grid>
                                                                     </UniformGrid>
@@ -1937,7 +2008,7 @@
                                                 <RowDefinition Height="Auto" />
                                                 <!--  Position  -->
                                                 <RowDefinition Height="Auto" />
-                                                <!--  Rotation  -->
+                                                <!--  RotationHEX  -->
                                             </Grid.RowDefinitions>
 
                                             <!--  Path  -->
@@ -2028,7 +2099,7 @@
                                                 </StackPanel>
                                             </Grid>
 
-                                            <!--  Rotation  -->
+                                            <!--  RotationHEX  -->
                                             <UniformGrid
                                                 Grid.Row="2"
                                                 Margin="0,3,0,0"
@@ -2044,7 +2115,7 @@
                                                         BorderBrush="{StaticResource BorderColor}"
                                                         FontSize="10"
                                                         Foreground="{StaticResource TextPrimary}"
-                                                        Text="{Binding StartMarker.Rotation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                        Text="{Binding StartMarker.RotationHEX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
                                             </UniformGrid>
 
@@ -2074,7 +2145,7 @@
                                                 <RowDefinition Height="Auto" />
                                                 <!--  Position  -->
                                                 <RowDefinition Height="Auto" />
-                                                <!--  Rotation  -->
+                                                <!--  RotationHEX  -->
                                             </Grid.RowDefinitions>
 
                                             <!--  Path  -->
@@ -2165,7 +2236,7 @@
                                                 </StackPanel>
                                             </Grid>
 
-                                            <!--  Rotation  -->
+                                            <!--  RotationHEX  -->
                                             <UniformGrid
                                                 Grid.Row="2"
                                                 Margin="0,3,0,0"
@@ -2182,7 +2253,7 @@
                                                         BorderBrush="{StaticResource BorderColor}"
                                                         FontSize="10"
                                                         Foreground="{StaticResource TextPrimary}"
-                                                        Text="{Binding FinishMarker.Rotation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                        Text="{Binding FinishMarker.RotationHEX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
                                             </UniformGrid>
 

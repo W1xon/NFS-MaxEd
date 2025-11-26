@@ -139,8 +139,27 @@ public abstract class BaseParser
             if (config.FinishLine != null && config.NodeType != RaceType.cashgrab)
             {
                 builder.SetRaceFinish();
-                builder.AddChildNode(EntityType.finishline, EntityType.finishline.ToString(), 
-                    GetTransformDict(config.FinishLine.PositionX, config.FinishLine.PositionY, config.FinishLine.PositionZ, config.FinishLine.Rotation));
+                
+                builder.AddChildNode(EntityType.finishline, EntityType.finishline.ToString(), new Dictionary<string, object>
+                {
+                    {"Dimensions", new Dictionary<string, object>
+                        {
+                            {"X", config.FinishLine.DimensionsX},
+                            {"Y", config.FinishLine.DimensionsY},
+                            {"Z", config.FinishLine.DimensionsZ}
+                        }
+                    },
+                    {"Position", new Dictionary<string, object>
+                        {
+                            {"X", config.FinishLine.PositionX},
+                            {"Y", config.FinishLine.PositionY},
+                            {"Z", config.FinishLine.PositionZ}
+                        }
+                    },
+                    
+                    {"Rotation", config.FinishLine.Rotation},
+                    {"Template", ""}
+                });
             }
             
             foreach (var checkpoint in config.Checkpoints.Where(c => !c.Name.Contains("/")))

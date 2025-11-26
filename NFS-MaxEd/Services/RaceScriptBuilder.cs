@@ -348,7 +348,6 @@ namespace NFSMaxEd.Services;
                 }
             }
         
-            // Обновление значений полей
             foreach (var (key, value) in properties)
             {
                 if (key == "Position" && value is Dictionary<string, object> pos)
@@ -356,6 +355,14 @@ namespace NFSMaxEd.Services;
                     foreach (var (axis, coordinate) in pos)
                     {
                         UpdateNestedFieldChild(childName, "Position", axis, coordinate);
+                    }
+                }
+                
+                else if (key == "Dimensions" && value is Dictionary<string, object> dim)
+                {
+                    foreach (var (axis, coordinate) in dim)
+                    {
+                        UpdateNestedFieldChild(childName, "Dimensions", axis, coordinate);
                     }
                 }
                 else if (key == "Children" && value is not null)
