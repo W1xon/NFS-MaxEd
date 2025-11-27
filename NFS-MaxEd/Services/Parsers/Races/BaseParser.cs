@@ -165,7 +165,7 @@ public abstract class BaseParser
             foreach (var checkpoint in config.Checkpoints.Where(c => !c.Name.Contains("/")))
             {
                 builder.AddChildNode(EntityType.checkpoint, checkpoint.Name,
-                    GetTransformDict(checkpoint.PositionX, checkpoint.PositionY, checkpoint.PositionZ, checkpoint.Rotation));
+                    GetTransformDict(checkpoint.Point.PositionX, checkpoint.Point.PositionY, checkpoint.Point.PositionZ, checkpoint.Point.Rotation));
             }
             foreach (var shortcut in config.Shortcuts)
             {
@@ -173,12 +173,12 @@ public abstract class BaseParser
                 {
                     {"Position", new Dictionary<string, object>
                         {
-                            {"X", shortcut.PositionX},
-                            {"Y", shortcut.PositionY},
-                            {"Z", shortcut.PositionZ}
+                            {"X", shortcut.Point.PositionX},
+                            {"Y", shortcut.Point.PositionY},
+                            {"Z", shortcut.Point.PositionZ}
                         }
                     },
-                    {"Rotation", shortcut.Rotation},
+                    {"Rotation", shortcut.Point.Rotation},
                     {"ShortcutMaxChance", shortcut.MaxChance},
                     {"ShortcutMinChance", shortcut.MinChance},
                     {"Template", ""}

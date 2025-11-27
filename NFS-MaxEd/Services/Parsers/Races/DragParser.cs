@@ -41,8 +41,8 @@ public class DragParser : BaseParser
     {
         builder.AddChildNode(EntityType.trafficspawntrigger, trigger.Name, new Dictionary<string, object>
         {
-            {"Position", new Dictionary<string, object>{{"X", trigger.PositionX},{"Y", trigger.PositionY},{"Z", trigger.PositionZ}}},
-            {"Rotation", trigger.Rotation},
+            {"Position", new Dictionary<string, object>{{"X", trigger.Point.PositionX},{"Y", trigger.Point.PositionY},{"Z", trigger.Point.PositionZ}}},
+            {"Rotation", trigger.Point.Rotation},
             {"TrafficCharacter", trigger.TrafficCharacter},
             {"Children", trigger.TrafficCharacter},
             {"InitialSpeed", config.InitialSpeed},

@@ -17,12 +17,12 @@ public class TollboothRaceParser : BaseParser
             {
                 {"Position", new Dictionary<string, object>
                     {
-                        {"X", timeBonusCheckpoint.PositionX},
-                        {"Y", timeBonusCheckpoint.PositionY},
-                        {"Z", timeBonusCheckpoint.PositionZ}
+                        {"X", timeBonusCheckpoint.Point.PositionX},
+                        {"Y", timeBonusCheckpoint.Point.PositionY},
+                        {"Z", timeBonusCheckpoint.Point.PositionZ}
                     }
                 },
-                {"Rotation", timeBonusCheckpoint.Rotation},
+                {"Rotation", timeBonusCheckpoint.Point.Rotation},
                 {"TimeBonus", timeBonusCheckpoint.TimeBonus},
                 {"Template", ""}
             });

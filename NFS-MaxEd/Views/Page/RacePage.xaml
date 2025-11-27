@@ -14,7 +14,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <!--  Заголовок  -->
+
         <Border
             Background="{StaticResource BackgroundMedium}"
             BorderBrush="{StaticResource BorderColor}"
@@ -30,7 +30,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <!--  Левая колонка - Заголовок  -->
+
                 <StackPanel
                     Grid.Column="0"
                     Orientation="Vertical"
@@ -43,7 +43,7 @@
                         Text="Races Configuration" />
                 </StackPanel>
 
-                <!--  Правая колонка - Кнопки  -->
+
                 <StackPanel
                     Grid.Column="1"
                     HorizontalAlignment="Right"
@@ -64,7 +64,7 @@
             </Grid>
         </Border>
 
-        <!--  Основной контент  -->
+
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden">
             <Grid Margin="0,20,0,20">
                 <Grid.RowDefinitions>
@@ -73,7 +73,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!--  Верхняя секция - Основные настройки  -->
+
                 <Border
                     DataContext="{Binding Config}"
                     Grid.Row="0"
@@ -84,7 +84,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <!--  Тип гонки  -->
+
                         <StackPanel Grid.Column="0" Margin="0,0,30,0">
                             <TextBlock Style="{StaticResource LabelStyle}" Text="Race Type" />
                             <ComboBox
@@ -95,7 +95,7 @@
                                 x:Name="NodeType" />
                         </StackPanel>
 
-                        <!--  Чекбоксы  -->
+
                         <StackPanel Grid.Column="1">
                             <TextBlock
                                 Margin="0,0,0,10"
@@ -124,7 +124,7 @@
                     </Grid>
                 </Border>
 
-                <!--  Средняя секция - Параметры гонки  -->
+
                 <Border
                     DataContext="{Binding Config}"
                     Grid.Row="1"
@@ -140,8 +140,8 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <!--  ================= ОБЩИЕ НАСТРОЙКИ =================  -->
-                        <!--  Колонка 1  -->
+
+
                         <StackPanel Grid.Column="0" Margin="0,0,20,0">
                             <TextBlock
                                 FontSize="16"
@@ -160,7 +160,7 @@
                             <TextBox IsEnabled="{Binding IsChanceOfRain}" Text="{Binding ChanceOfRain, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
 
-                        <!--  Колонка 2  -->
+
                         <StackPanel Grid.Column="1" Margin="0,0,20,0">
                             <TextBlock
                                 FontSize="16"
@@ -177,7 +177,7 @@
                             <ComboBox ItemsSource="{Binding FinishCameraList}" SelectedItem="{Binding FinishCamera, Mode=TwoWay}" />
                         </StackPanel>
 
-                        <!--  Колонка 3  -->
+
                         <StackPanel Grid.Column="2" Margin="0,0,20,0">
                             <TextBlock
                                 FontSize="16"
@@ -194,19 +194,19 @@
                             <TextBox Text="{Binding Opponent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
 
-                        <!--  ================= СПЕЦИФИЧЕСКИЕ НАСТРОЙКИ =================  -->
 
 
-                        <!--  Способ 1: Простая привязка к DataContext страницы (рекомендуемый)  -->
-                        <!--  Circuit и Knockout → NumLaps  -->
-                        <!--  Родительский StackPanel для всех специфических настроек  -->
+
+
+
+
                         <StackPanel
                             Grid.Column="0"
                             Grid.Row="1"
                             Margin="0,20,20,0"
                             Orientation="Vertical">
 
-                            <!--  Circuit/Knockout  -->
+
                             <StackPanel Visibility="{Binding IsCircuitOrKnockout, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <TextBlock
                                     FontSize="16"
@@ -217,9 +217,9 @@
                                 <TextBox Text="{Binding NumLaps, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
 
-                            <!--  Tollbooth и/или Cashgrab  -->
+
                             <StackPanel>
-                                <!--  Tollbooth поля  -->
+
                                 <StackPanel>
                                     <StackPanel.Visibility>
                                         <MultiBinding Converter="{StaticResource MultiBooleanToVisibilityConverter}">
@@ -232,14 +232,14 @@
                                 </StackPanel>
 
 
-                                <!--  Cashgrab поля  -->
+
                                 <StackPanel Visibility="{Binding IsCashgrab, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <TextBlock Style="{StaticResource LabelStyle}" Text="Skill Level" />
                                     <TextBox Text="{Binding SkillLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </StackPanel>
                             </StackPanel>
 
-                            <!--  Speedtrap  -->
+
                             <StackPanel Visibility="{Binding IsSpeedtrap, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <TextBlock
                                     FontSize="16"
@@ -250,7 +250,7 @@
                                 <TextBox Text="{Binding Reputation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
 
-                            <!--  Drag  -->
+
                             <StackPanel Visibility="{Binding IsDrag, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <TextBlock
                                     FontSize="16"
@@ -268,7 +268,7 @@
 
 
 
-                        <!--  Колонка 2  -->
+
                         <StackPanel
                             Grid.Column="1"
                             Grid.Row="1"
@@ -281,7 +281,7 @@
                             <TextBlock Style="{StaticResource LabelStyle}" Text="Post Race Activity" />
                             <TextBox IsEnabled="{Binding BossRaces}" Text="{Binding PostRaceActivity}" />
                         </StackPanel>
-                        <!--  Колонка 3  -->
+
                         <StackPanel
                             Grid.Column="2"
                             Grid.Row="1"
@@ -293,7 +293,7 @@
                 </Border>
 
 
-                <!--  Нижняя секция - Объекты трассы  -->
+
                 <Border
                     DataContext="{Binding Config}"
                     Grid.Row="2"
@@ -317,7 +317,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <!--  Barriers  -->
+
                             <StackPanel Grid.Column="0">
                                 <TextBlock
                                     Margin="0,0,0,8"
@@ -380,7 +380,7 @@
                             </StackPanel>
 
 
-                            <!--  Используем UniformGrid для автоматического равномерного распределения видимых панелей  -->
+
                             <UniformGrid Grid.Column="1" Rows="1">
 
                                 <StackPanel Visibility="{Binding IsFinishAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -413,7 +413,7 @@
                                                                 <UniformGrid Rows="3">
 
 
-                                                                    <!--  Path + Delete  -->
+
                                                                     <Grid>
                                                                         <Grid.ColumnDefinitions>
                                                                             <ColumnDefinition Width="*" />
@@ -437,7 +437,7 @@
                                                                             Style="{StaticResource DeleteButtonStyle}" />
                                                                     </Grid>
 
-                                                                    <!--  Position  -->
+
                                                                     <Grid Margin="0,4,0,0">
                                                                         <Grid.ColumnDefinitions>
                                                                             <ColumnDefinition Width="*" />
@@ -446,7 +446,7 @@
                                                                             <ColumnDefinition Width="*" />
                                                                         </Grid.ColumnDefinitions>
 
-                                                                        <!--  X  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="0"
                                                                             Margin="2,0"
@@ -461,10 +461,10 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding PositionX, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.PositionX, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Y  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="1"
                                                                             Margin="2,0"
@@ -479,10 +479,10 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding PositionY, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.PositionY, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Z  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="2"
                                                                             Margin="2,0"
@@ -497,9 +497,9 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding PositionZ, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.PositionZ, Mode=TwoWay}" />
                                                                         </StackPanel>
-                                                                        <!--  R  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="3"
                                                                             Margin="2,0"
@@ -514,11 +514,11 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding RotationHEX, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.RotationHEX, Mode=TwoWay}" />
                                                                         </StackPanel>
                                                                     </Grid>
 
-                                                                    <!--  TimeBonus  -->
+
                                                                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
 
                                                                         <TextBlock
@@ -565,7 +565,7 @@
                                     </Border>
                                 </StackPanel>
 
-                                <!--  Shortcuts - показывается когда IsShortcutAvailable = true  -->
+
                                 <StackPanel>
                                     <StackPanel.Style>
                                         <Style TargetType="StackPanel">
@@ -605,7 +605,7 @@
                                                                 Padding="6">
                                                                 <UniformGrid Rows="3">
 
-                                                                    <!--  Path + Delete  -->
+
                                                                     <Grid>
                                                                         <Grid.ColumnDefinitions>
                                                                             <ColumnDefinition Width="*" />
@@ -629,7 +629,7 @@
                                                                             Style="{StaticResource DeleteButtonStyle}" />
                                                                     </Grid>
 
-                                                                    <!--  Position  -->
+
                                                                     <Grid Margin="0,4,0,0">
                                                                         <Grid.ColumnDefinitions>
                                                                             <ColumnDefinition Width="*" />
@@ -638,7 +638,7 @@
                                                                             <ColumnDefinition Width="*" />
                                                                         </Grid.ColumnDefinitions>
 
-                                                                        <!--  X  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="0"
                                                                             Margin="2,0"
@@ -653,10 +653,10 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding PositionX, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.PositionX, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Y  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="1"
                                                                             Margin="2,0"
@@ -671,10 +671,10 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding PositionY, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.PositionY, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Z  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="2"
                                                                             Margin="2,0"
@@ -689,10 +689,10 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding PositionZ, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.PositionZ, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  RotationHEX  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="3"
                                                                             Margin="2,0"
@@ -707,12 +707,12 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding RotationHEX, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.RotationHEX, Mode=TwoWay}" />
                                                                         </StackPanel>
                                                                     </Grid>
 
                                                                     <UniformGrid Margin="0,4,0,0" Rows="1">
-                                                                        <!--  Min  -->
+
                                                                         <StackPanel Orientation="Vertical">
                                                                             <TextBlock
                                                                                 FontSize="10"
@@ -727,7 +727,7 @@
                                                                                 Text="{Binding MinChance, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Max  -->
+
                                                                         <StackPanel Margin="10,0,0,0" Orientation="Vertical">
                                                                             <TextBlock
                                                                                 FontSize="10"
@@ -764,7 +764,7 @@
                                     </Border>
                                 </StackPanel>
 
-                                <!--  Speedtraps - показывается когда IsSpeedtrap = true  -->
+
                                 <StackPanel Visibility="{Binding IsSpeedtrap, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <TextBlock
                                         Margin="0,0,0,8"
@@ -794,7 +794,7 @@
                                                                 Padding="6">
                                                                 <UniformGrid Rows="2">
 
-                                                                    <!--  Path + Delete  -->
+
                                                                     <Grid>
                                                                         <Grid.ColumnDefinitions>
                                                                             <ColumnDefinition Width="*" />
@@ -818,7 +818,7 @@
                                                                             Style="{StaticResource DeleteButtonStyle}" />
                                                                     </Grid>
 
-                                                                    <!--  Position  -->
+
                                                                     <Grid Margin="0,4,0,0">
                                                                         <Grid.ColumnDefinitions>
                                                                             <ColumnDefinition Width="*" />
@@ -826,7 +826,7 @@
                                                                             <ColumnDefinition Width="*" />
                                                                         </Grid.ColumnDefinitions>
 
-                                                                        <!--  X  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="0"
                                                                             Margin="2,0"
@@ -841,10 +841,10 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding PositionX, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.PositionX, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Y  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="1"
                                                                             Margin="2,0"
@@ -859,10 +859,10 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding PositionY, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.PositionY, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Z  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="2"
                                                                             Margin="2,0"
@@ -877,7 +877,7 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding PositionZ, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.PositionZ, Mode=TwoWay}" />
                                                                         </StackPanel>
                                                                     </Grid>
                                                                 </UniformGrid>
@@ -900,7 +900,7 @@
                                     </Border>
                                 </StackPanel>
 
-                                <!--  Characters - показывается когда IsDrag = true  -->
+
                                 <StackPanel Visibility="{Binding IsDrag, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <TextBlock
                                         Margin="0,0,0,8"
@@ -930,7 +930,7 @@
                                                                 Padding="6">
                                                                 <UniformGrid Rows="2">
 
-                                                                    <!--  Path + Delete  -->
+
                                                                     <Grid>
                                                                         <Grid.ColumnDefinitions>
                                                                             <ColumnDefinition Width="*" />
@@ -954,7 +954,7 @@
                                                                             Style="{StaticResource DeleteButtonStyle}" />
                                                                     </Grid>
 
-                                                                    <!--  Car Type  -->
+
                                                                     <StackPanel Margin="0,4,0,0">
                                                                         <TextBlock
                                                                             FontSize="10"
@@ -1004,7 +1004,7 @@
                                     </Border>
                                 </StackPanel>
 
-                                <!--  TrafficSpawnTriggers - показывается когда IsDrag = true  -->
+
                                 <StackPanel Visibility="{Binding IsDrag, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <TextBlock
                                         Margin="0,0,0,8"
@@ -1034,7 +1034,7 @@
                                                                 Padding="6">
                                                                 <UniformGrid Rows="3">
 
-                                                                    <!--  Path + Delete  -->
+
                                                                     <Grid>
                                                                         <Grid.ColumnDefinitions>
                                                                             <ColumnDefinition Width="*" />
@@ -1058,7 +1058,7 @@
                                                                             Style="{StaticResource DeleteButtonStyle}" />
                                                                     </Grid>
 
-                                                                    <!--  Position  -->
+
                                                                     <Grid Margin="0,4,0,0">
                                                                         <Grid.ColumnDefinitions>
                                                                             <ColumnDefinition Width="*" />
@@ -1067,7 +1067,7 @@
                                                                             <ColumnDefinition Width="*" />
                                                                         </Grid.ColumnDefinitions>
 
-                                                                        <!--  X  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="0"
                                                                             Margin="2,0"
@@ -1082,10 +1082,10 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding PositionX, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.PositionX, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Y  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="1"
                                                                             Margin="2,0"
@@ -1100,10 +1100,10 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding PositionY, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.PositionY, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Z  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="2"
                                                                             Margin="2,0"
@@ -1118,10 +1118,10 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding PositionZ, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.PositionZ, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  RotationHEX  -->
+
                                                                         <StackPanel Grid.Column="3" VerticalAlignment="Top">
                                                                             <TextBlock
                                                                                 FontSize="9"
@@ -1133,12 +1133,12 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding RotationHEX, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.RotationHEX, Mode=TwoWay}" />
                                                                         </StackPanel>
                                                                     </Grid>
 
 
-                                                                    <!--  Radius  -->
+
                                                                     <Grid Margin="0,3,0,0">
                                                                         <Grid.RowDefinitions>
                                                                             <RowDefinition Height="Auto" />
@@ -1184,7 +1184,7 @@
                                     </Border>
                                 </StackPanel>
 
-                                <!--  OpponentSpawn - показывается когда IsDrag = true  -->
+
                                 <StackPanel Visibility="{Binding IsCashgrab, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <TextBlock
                                         Margin="0,0,0,8"
@@ -1214,7 +1214,7 @@
                                                                 Padding="6">
                                                                 <UniformGrid Rows="2">
 
-                                                                    <!--  Path + Delete  -->
+
                                                                     <Grid>
                                                                         <Grid.ColumnDefinitions>
                                                                             <ColumnDefinition Width="*" />
@@ -1238,7 +1238,7 @@
                                                                             Style="{StaticResource DeleteButtonStyle}" />
                                                                     </Grid>
 
-                                                                    <!--  Position  -->
+
                                                                     <Grid Margin="0,4,0,0">
                                                                         <Grid.ColumnDefinitions>
                                                                             <ColumnDefinition Width="*" />
@@ -1247,7 +1247,7 @@
                                                                             <ColumnDefinition Width="*" />
                                                                         </Grid.ColumnDefinitions>
 
-                                                                        <!--  X  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="0"
                                                                             Margin="2,0"
@@ -1265,7 +1265,7 @@
                                                                                 Text="{Binding PositionX, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Y  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="1"
                                                                             Margin="2,0"
@@ -1283,7 +1283,7 @@
                                                                                 Text="{Binding PositionY, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Z  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="2"
                                                                             Margin="2,0"
@@ -1301,7 +1301,7 @@
                                                                                 Text="{Binding PositionZ, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  RotationHEX  -->
+
                                                                         <StackPanel Grid.Column="3" VerticalAlignment="Top">
                                                                             <TextBlock
                                                                                 FontSize="9"
@@ -1336,7 +1336,7 @@
                                     </Border>
                                 </StackPanel>
 
-                                <!--  MoneyBag - показывается когда IsCashgrab = true  -->
+
                                 <StackPanel Visibility="{Binding IsCashgrab, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <TextBlock
                                         Margin="0,0,0,8"
@@ -1366,7 +1366,7 @@
                                                                 Padding="6">
                                                                 <UniformGrid Rows="2">
 
-                                                                    <!--  Delete  -->
+
                                                                     <Grid>
                                                                         <StackPanel Grid.Column="0" Margin="0,4,0,0">
                                                                             <TextBlock
@@ -1391,11 +1391,6 @@
                                                                                     MaxHeight="40"
                                                                                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                                                                                <!-- <Button
-                                                                                    Content="? "
-                                                                                    Grid.Column="1"
-                                                                                    Margin="5"
-                                                                                    Style="{StaticResource InfoButtonStyle}" />-->
                                                                                 <Button
                                                                                     Command="{Binding DataContext.RemoveMoneybag, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                                                     CommandParameter="{Binding}"
@@ -1406,7 +1401,7 @@
                                                                             </Grid>
                                                                         </StackPanel>
                                                                     </Grid>
-                                                                    <!--  Position  -->
+
                                                                     <Grid Margin="0,4,0,0">
                                                                         <Grid.ColumnDefinitions>
                                                                             <ColumnDefinition Width="*" />
@@ -1414,7 +1409,7 @@
                                                                             <ColumnDefinition Width="*" />
                                                                         </Grid.ColumnDefinitions>
 
-                                                                        <!--  X  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="0"
                                                                             Margin="2,0"
@@ -1429,10 +1424,10 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding PositionX, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.PositionX, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Y  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="1"
                                                                             Margin="2,0"
@@ -1447,10 +1442,10 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding PositionY, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.PositionY, Mode=TwoWay}" />
                                                                         </StackPanel>
 
-                                                                        <!--  Z  -->
+
                                                                         <StackPanel
                                                                             Grid.Column="2"
                                                                             Margin="2,0"
@@ -1465,7 +1460,7 @@
                                                                                 BorderBrush="{StaticResource BorderColor}"
                                                                                 FontSize="10"
                                                                                 Foreground="{StaticResource TextPrimary}"
-                                                                                Text="{Binding PositionZ, Mode=TwoWay}" />
+                                                                                Text="{Binding Point.PositionZ, Mode=TwoWay}" />
                                                                         </StackPanel>
                                                                     </Grid>
                                                                 </UniformGrid>
@@ -1518,7 +1513,7 @@
                             </Grid.RowDefinitions>
                             <UniformGrid Rows="1">
 
-                                <!--  Start Grid Panel  -->
+
                                 <StackPanel>
                                     <TextBlock
                                         Margin="0,0,0,8"
@@ -1535,7 +1530,7 @@
 
                                         <UniformGrid Rows="3">
 
-                                            <!--  Path  -->
+
                                             <TextBox
                                                 Background="Transparent"
                                                 BorderBrush="{StaticResource BorderColor}"
@@ -1546,7 +1541,7 @@
                                                 MaxHeight="40"
                                                 Text="{Binding StartGrid.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                                            <!--  Position  -->
+
                                             <Grid Margin="0,4,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*" />
@@ -1554,7 +1549,7 @@
                                                     <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
 
-                                                <!--  X  -->
+
                                                 <StackPanel
                                                     Grid.Column="0"
                                                     Margin="2,0"
@@ -1572,7 +1567,7 @@
                                                         Text="{Binding StartGrid.PositionX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
 
-                                                <!--  Y  -->
+
                                                 <StackPanel
                                                     Grid.Column="1"
                                                     Margin="2,0"
@@ -1590,7 +1585,7 @@
                                                         Text="{Binding StartGrid.PositionY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
 
-                                                <!--  Z  -->
+
                                                 <StackPanel
                                                     Grid.Column="2"
                                                     Margin="2,0"
@@ -1609,7 +1604,7 @@
                                                 </StackPanel>
                                             </Grid>
 
-                                            <!--  RotationHEX  -->
+
                                             <UniformGrid Margin="0,4,0,0" Rows="1">
                                                 <StackPanel Orientation="Vertical">
                                                     <TextBlock
@@ -1630,7 +1625,7 @@
                                     </Border>
                                 </StackPanel>
 
-                                <!--  Finish Line Panel  -->
+
                                 <StackPanel Visibility="{Binding IsFinishAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <TextBlock
                                         Margin="0,0,0,8"
@@ -1646,7 +1641,7 @@
                                         Padding="6">
 
                                         <UniformGrid Rows="4">
-                                            <!--  Path  -->
+
                                             <TextBox
                                                 Background="Transparent"
                                                 BorderBrush="{StaticResource BorderColor}"
@@ -1657,7 +1652,7 @@
                                                 MaxHeight="40"
                                                 Text="{Binding FinishLine.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                                            <!--  Position  -->
+
                                             <Grid Margin="0,4,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto" />
@@ -1666,7 +1661,7 @@
                                                     <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
 
-                                                <!--  Position Label  -->
+
                                                 <TextBlock
                                                     FontSize="10"
                                                     Foreground="{StaticResource TextSecondary}"
@@ -1675,7 +1670,7 @@
                                                     Text="Position:"
                                                     VerticalAlignment="Center" />
 
-                                                <!--  X  -->
+
                                                 <StackPanel
                                                     Grid.Column="1"
                                                     Margin="2,0"
@@ -1693,7 +1688,7 @@
                                                         Text="{Binding FinishLine.PositionX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
 
-                                                <!--  Y  -->
+
                                                 <StackPanel
                                                     Grid.Column="2"
                                                     Margin="2,0"
@@ -1711,7 +1706,7 @@
                                                         Text="{Binding FinishLine.PositionY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
 
-                                                <!--  Z  -->
+
                                                 <StackPanel
                                                     Grid.Column="3"
                                                     Margin="2,0"
@@ -1730,7 +1725,7 @@
                                                 </StackPanel>
                                             </Grid>
 
-                                            <!--  Dimensions  -->
+
                                             <Grid Margin="0,4,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto" />
@@ -1739,7 +1734,7 @@
                                                     <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
 
-                                                <!--  Dimensions Label  -->
+
                                                 <TextBlock
                                                     FontSize="10"
                                                     Foreground="{StaticResource TextSecondary}"
@@ -1748,7 +1743,7 @@
                                                     Text="Dimensions:"
                                                     VerticalAlignment="Center" />
 
-                                                <!--  X  -->
+
                                                 <StackPanel
                                                     Grid.Column="1"
                                                     Margin="2,0"
@@ -1766,7 +1761,7 @@
                                                         Text="{Binding FinishLine.DimensionsX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
 
-                                                <!--  Y  -->
+
                                                 <StackPanel
                                                     Grid.Column="2"
                                                     Margin="2,0"
@@ -1784,7 +1779,7 @@
                                                         Text="{Binding FinishLine.DimensionsY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
 
-                                                <!--  Z  -->
+
                                                 <StackPanel
                                                     Grid.Column="3"
                                                     Margin="2,0"
@@ -1802,7 +1797,7 @@
                                                         Text="{Binding FinishLine.DimensionsZ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
                                             </Grid>
-                                            <!--  RotationHEX  -->
+
                                             <UniformGrid Margin="0,4,0,0" Rows="1">
                                                 <StackPanel Orientation="Vertical">
                                                     <TextBlock
@@ -1824,7 +1819,7 @@
                                 </StackPanel>
 
 
-                                <!--  Reset Player Trigger Panel  -->
+
                                 <StackPanel Margin="5,0">
                                     <TextBlock
                                         Margin="0,0,0,8"
@@ -1859,7 +1854,7 @@
                                                                     Padding="6">
                                                                     <UniformGrid Rows="2">
 
-                                                                        <!--  Path + Delete  -->
+
                                                                         <Grid>
                                                                             <Grid.ColumnDefinitions>
                                                                                 <ColumnDefinition Width="*" />
@@ -1883,7 +1878,7 @@
                                                                                 Style="{StaticResource DeleteButtonStyle}" />
                                                                         </Grid>
 
-                                                                        <!--  Position  -->
+
                                                                         <Grid Margin="0,4,0,0">
                                                                             <Grid.ColumnDefinitions>
                                                                                 <ColumnDefinition Width="*" />
@@ -1892,7 +1887,7 @@
                                                                                 <ColumnDefinition Width="*" />
                                                                             </Grid.ColumnDefinitions>
 
-                                                                            <!--  X  -->
+
                                                                             <StackPanel
                                                                                 Grid.Column="0"
                                                                                 Margin="2,0"
@@ -1910,7 +1905,7 @@
                                                                                     Text="{Binding PositionX, Mode=TwoWay}" />
                                                                             </StackPanel>
 
-                                                                            <!--  Y  -->
+
                                                                             <StackPanel
                                                                                 Grid.Column="1"
                                                                                 Margin="2,0"
@@ -1928,7 +1923,7 @@
                                                                                     Text="{Binding PositionY, Mode=TwoWay}" />
                                                                             </StackPanel>
 
-                                                                            <!--  Z  -->
+
                                                                             <StackPanel
                                                                                 Grid.Column="2"
                                                                                 Margin="2,0"
@@ -1946,7 +1941,7 @@
                                                                                     Text="{Binding PositionZ, Mode=TwoWay}" />
                                                                             </StackPanel>
 
-                                                                            <!--  RotationHEX  -->
+
                                                                             <StackPanel Grid.Column="3" VerticalAlignment="Top">
                                                                                 <TextBlock
                                                                                     FontSize="9"
@@ -1985,7 +1980,7 @@
                             </UniformGrid>
                             <UniformGrid Grid.Row="2" Rows="1">
 
-                                <!--  Start Marker Panel  -->
+
                                 <StackPanel Visibility="{Binding IsDrag, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                                     <TextBlock
@@ -2004,14 +1999,14 @@
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
-                                                <!--  Path  -->
+
                                                 <RowDefinition Height="Auto" />
-                                                <!--  Position  -->
+
                                                 <RowDefinition Height="Auto" />
-                                                <!--  RotationHEX  -->
+
                                             </Grid.RowDefinitions>
 
-                                            <!--  Path  -->
+
                                             <TextBox
                                                 Background="Transparent"
                                                 BorderBrush="{StaticResource BorderColor}"
@@ -2022,20 +2017,20 @@
                                                 IsEnabled="False"
                                                 Text="{Binding StartMarker.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                                            <!--  Position  -->
+
                                             <Grid Grid.Row="1" Margin="0,3,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto" />
-                                                    <!--  Label  -->
+
                                                     <ColumnDefinition Width="*" />
-                                                    <!--  X  -->
+
                                                     <ColumnDefinition Width="*" />
-                                                    <!--  Y  -->
+
                                                     <ColumnDefinition Width="*" />
-                                                    <!--  Z  -->
+
                                                 </Grid.ColumnDefinitions>
 
-                                                <!--  Position Label  -->
+
                                                 <TextBlock
                                                     FontSize="10"
                                                     Foreground="{StaticResource TextSecondary}"
@@ -2044,7 +2039,7 @@
                                                     Text="Position:"
                                                     VerticalAlignment="Center" />
 
-                                                <!--  X  -->
+
                                                 <StackPanel
                                                     Grid.Column="1"
                                                     Margin="2,0"
@@ -2062,7 +2057,7 @@
                                                         Text="{Binding StartMarker.PositionX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
 
-                                                <!--  Y  -->
+
                                                 <StackPanel
                                                     Grid.Column="2"
                                                     Margin="2,0"
@@ -2080,7 +2075,7 @@
                                                         Text="{Binding StartMarker.PositionY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
 
-                                                <!--  Z  -->
+
                                                 <StackPanel
                                                     Grid.Column="3"
                                                     Margin="2,0"
@@ -2099,7 +2094,7 @@
                                                 </StackPanel>
                                             </Grid>
 
-                                            <!--  RotationHEX  -->
+
                                             <UniformGrid
                                                 Grid.Row="2"
                                                 Margin="0,3,0,0"
@@ -2122,7 +2117,7 @@
                                         </Grid>
                                     </Border>
                                 </StackPanel>
-                                <!--  Finish Marker Panel  -->
+
                                 <StackPanel Visibility="{Binding IsDrag, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                                     <TextBlock
@@ -2141,14 +2136,14 @@
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
-                                                <!--  Path  -->
+
                                                 <RowDefinition Height="Auto" />
-                                                <!--  Position  -->
+
                                                 <RowDefinition Height="Auto" />
-                                                <!--  RotationHEX  -->
+
                                             </Grid.RowDefinitions>
 
-                                            <!--  Path  -->
+
                                             <TextBox
                                                 Background="Transparent"
                                                 BorderBrush="{StaticResource BorderColor}"
@@ -2159,20 +2154,20 @@
                                                 IsEnabled="False"
                                                 Text="{Binding FinishMarker.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                                            <!--  Position  -->
+
                                             <Grid Grid.Row="1" Margin="0,3,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto" />
-                                                    <!--  Label  -->
+
                                                     <ColumnDefinition Width="*" />
-                                                    <!--  X  -->
+
                                                     <ColumnDefinition Width="*" />
-                                                    <!--  Y  -->
+
                                                     <ColumnDefinition Width="*" />
-                                                    <!--  Z  -->
+
                                                 </Grid.ColumnDefinitions>
 
-                                                <!--  Position Label  -->
+
                                                 <TextBlock
                                                     FontSize="10"
                                                     Foreground="{StaticResource TextSecondary}"
@@ -2181,7 +2176,7 @@
                                                     Text="Position:"
                                                     VerticalAlignment="Center" />
 
-                                                <!--  X  -->
+
                                                 <StackPanel
                                                     Grid.Column="1"
                                                     Margin="2,0"
@@ -2199,7 +2194,7 @@
                                                         Text="{Binding FinishMarker.PositionX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
 
-                                                <!--  Y  -->
+
                                                 <StackPanel
                                                     Grid.Column="2"
                                                     Margin="2,0"
@@ -2217,7 +2212,7 @@
                                                         Text="{Binding FinishMarker.PositionY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
 
-                                                <!--  Z  -->
+
                                                 <StackPanel
                                                     Grid.Column="3"
                                                     Margin="2,0"
@@ -2236,7 +2231,7 @@
                                                 </StackPanel>
                                             </Grid>
 
-                                            <!--  RotationHEX  -->
+
                                             <UniformGrid
                                                 Grid.Row="2"
                                                 Margin="0,3,0,0"

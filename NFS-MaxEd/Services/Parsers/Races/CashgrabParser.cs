@@ -24,9 +24,9 @@ public class CashgrabParser : BaseParser
             {
                 {"Position", new Dictionary<string, object>
                     {
-                        {"X", moneybag.PositionX},
-                        {"Y", moneybag.PositionY},
-                        {"Z", moneybag.PositionZ}
+                        {"X", moneybag.Point.PositionX},
+                        {"Y", moneybag.Point.PositionY},
+                        {"Z", moneybag.Point.PositionZ}
                     }
                 },
                 {"Template", ""}

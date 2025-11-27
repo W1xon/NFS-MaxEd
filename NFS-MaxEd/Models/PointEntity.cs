@@ -14,7 +14,11 @@ public class PointEntity : BaseEntity
         EntityType = entityType;
         RotationHEX = "0x0";
     }
-
+    public PointEntity( string initialName = "") 
+        : base(initialName)
+    {
+        RotationHEX = "0x0";
+    }
     public float PositionX { get => _positionX; 
         set => Set(ref _positionX, value); }
     public float PositionY { get => _positionY; set => Set(ref _positionY, value); }
